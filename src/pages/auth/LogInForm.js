@@ -1,21 +1,22 @@
-import React, { useState } from 'react';
+import React, { useState } from "react";
 import { Link, useHistory } from 'react-router-dom';
 import styles from '../../styles/LogInSignUpForm.module.css';
 import btnStyles from '../../styles/Button.module.css';
 import appStyles from '../../App.module.css';
 import { Form, Button, Col, Row, Container, Alert } from 'react-bootstrap';
 import axios from 'axios';
+import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
 
-const LogInForm = () => {
+function LogInForm() {
+    const setCurrentUser = useSetCurrentUser();
     const [loginData, setLoginData] = useState({
         username: '',
         password: '',
     });
     const { username, password } = loginData;
-
     const [errors, setErrors] = useState({});
     const history = useHistory();
-
+    
     const handleChange = (event) => {
         setLoginData({
             ...loginData,
@@ -26,7 +27,8 @@ const LogInForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axios.post('/dj-rest-auth/login/', loginData);
+            const { data } = await axios.post('/dj-rest-auth/login/', loginData);
+            setCurrentUser(data.user);
             history.push('/');
         } catch (err) {
             setErrors(err.response?.data);
@@ -35,7 +37,7 @@ const LogInForm = () => {
 
     return (
         <Container className="mt-5">
-            <Row className="justify-content-center">
+            <Row className={`${styles.Row} justify-content-center`}>
                 <Col xs={12} md={6} lg={4}>
                     <div className={`${appStyles.Content} p-4`}>
                         <h1 className={styles.Header}><strong>Log in</strong></h1>
@@ -52,9 +54,9 @@ const LogInForm = () => {
                                     aria-label="Username"
                                 />
                             </Form.Group>
-                            {errors.username && (
-                                <Alert variant="warning">{errors.username}</Alert>
-                            )}
+                            {errors.username?.map((message, idx) => (
+                                <Alert key={idx} variant="warning">{message}</Alert>
+                            ))}
 
                             <Form.Group controlId="password">
                                 <Form.Label className="d-none">Password</Form.Label>
@@ -68,20 +70,22 @@ const LogInForm = () => {
                                     aria-label="Password"
                                 />
                             </Form.Group>
-                            {errors.password && (
-                                <Alert variant="warning">{errors.password}</Alert>
-                            )}
+                            {errors.password?.map((message, idx) => (
+                                <Alert key={idx} variant="warning">
+                                    {message}
+                                </Alert>
+                            ))}
 
                             <div className="d-flex justify-content-center">
                                 <Button
                                     className={`${btnStyles.Button}`}
                                     type="submit">LOG IN</Button>
                             </div>
-                            {errors.non_field_errors && (
-                                <Alert variant="warning" className="mt-3">
-                                    {errors.non_field_errors}
+                            {errors.non_field_errors?.map((message, idx) => (
+                                <Alert key={idx} variant="warning" className="mt-3">
+                                    {message}
                                 </Alert>
-                            )}
+                            ))}
                         </Form>
                     </div>
                     <div className={`mt-3 ${appStyles.Content}`}>
@@ -89,7 +93,7 @@ const LogInForm = () => {
                     </div>
                 </Col>
             </Row>
-        </Container>
+        </Container >
     );
 };
 
