@@ -6,17 +6,24 @@
 }
 
 .Main {
-  padding-top: 81px;
+  padding-top: 82px;
+}
+
+.Content {
+  background-color: #fff;
+  text-align: center;
+  padding: 10px;
+  border-radius: 2px;
+  border: 2px solid #ffdab9;
 }
 
 * {
   box-sizing: border-box;
 }
 
-a {
+/* a {
   font-weight: bold;
   color: #3c3c3c;
-  text-transform: uppercase;
   text-decoration: none;
 }
 
@@ -28,9 +35,13 @@ a:hover {
   color: #000;
   font-weight: bolder;
   text-decoration: underline;
+} */
+
+input[type="file"] {
+  display: none;
 }
 
-i {
+/* i {
   color: #3c3c3c;
   font-size: 0.8rem;
   padding: 5px;
@@ -39,4 +50,28 @@ i {
 
 i:hover {
   cursor: pointer;
+  color: #8B0000;
+} */
+
+
+figure {
+  text-align: center;
+  display: inline-block;
+}
+
+/* scrollbar */
+*::-webkit-scrollbar {
+  width: 5px;
+}
+
+*::-webkit-scrollbar-track {
+  background: #fff;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: #000;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: #8B0000;
 }

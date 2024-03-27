@@ -1,0 +1,47 @@
+.Row {
+  height: calc(100vh - 82px);
+}
+
+.Input {
+  background: #fff;
+  border: 2px solid #FFDAB9;
+  border-radius: 0px;
+  color: #3c3c3c;
+  text-align: center;
+  padding: 10px;
+  max-width: 300px;
+  width: 100%;
+  margin: auto;
+}
+
+.Input:focus {
+  box-shadow: none;
+  border: 2px solid #8B0000;
+  border-radius: 50%;
+}
+
+.Header {
+  font-family: "Quicksand", sans-serif;
+  font-weight: bold;
+  font-size: 2rem;
+  text-align: center;
+  color: #3c3c3c;
+}
+
+.TextLink {
+  text-decoration: underline;
+  text-align: center;
+  display: inline;
+  margin: auto;
+  color: #8B0000;
+}
+
+.TextLink:hover {
+  color: #8B0000;
+  font-weight: bolder;
+  text-decoration: none;
+}
+
+.Container {
+  padding: 30px 10px;
+}

@@ -1,12 +1,34 @@
 .NavBar {
-    background-color: #fff;
-    border-bottom: 1px solid #000000;
+  background-color: #fff;
+  border-bottom: 1px solid #000;
 }
 
 .NavLink {
-    padding: 5px;
-  }
-  
-.Active i {
-   color: #8B0000;
- }
+  text-transform: uppercase;
+  font-weight: bold;
+  color: #3c3c3c;
+  text-decoration: none;
+  padding: 5px;
+}
+
+.NavLink:hover i,
+.NavLink:hover {
+  color: #8B0000;
+  font-weight: bolder;
+  text-decoration: none;
+}
+
+.NavLink i {
+  font-size: 0.8rem;
+  padding: 5px;
+  vertical-align: top;
+}
+
+.NavLink i:hover {
+  cursor: pointer;
+}
+
+.Active  {
+  color: #8B0000;
+  text-transform: capitalize;
+}

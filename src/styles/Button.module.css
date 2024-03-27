@@ -1,0 +1,28 @@
+.Button {
+  font-family: "Quicksand", sans-serif;
+  font-size: 1rem;
+  align-self: center;
+  border-radius: 100px;
+  border: 2px solid #3c3c3c;
+  padding: 4px 14px;
+  margin-left: 2px;
+  margin-right: 2px;
+  min-width: 80px;
+  color: #fff;
+  background-color: #3c3c3c;
+  box-shadow: none;
+}
+
+.Button:hover,
+.Button:hover:active,
+.Button:active,
+.Button:focus {
+  background-color: #8B0000;
+  font-weight: bold;
+  color: #fff;
+  border: 2px solid #8B0000;
+  cursor: pointer;
+  box-shadow: none;
+}
+
+
