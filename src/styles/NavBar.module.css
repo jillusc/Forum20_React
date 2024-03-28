@@ -1,9 +1,12 @@
 .NavBar {
   background-color: #fff;
   border-bottom: 1px solid #000;
+  padding: 0;
 }
 
 .NavLink {
+  display: flex;
+  align-items: center;
   text-transform: uppercase;
   font-weight: bold;
   color: #3c3c3c;
@@ -21,14 +24,15 @@
 .NavLink i {
   font-size: 0.8rem;
   padding: 5px;
-  vertical-align: top;
 }
 
 .NavLink i:hover {
   cursor: pointer;
 }
 
-.Active  {
+.Active,
+.Active i {
   color: #8B0000;
+  font-size: 1.25rem;
   text-transform: capitalize;
 }
