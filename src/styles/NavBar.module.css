@@ -36,3 +36,21 @@
   font-size: 1.25rem;
   text-transform: capitalize;
 }
+
+.profileWithAvatar {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+@media (max-width: 768px) {
+  .profileWithAvatar {
+    flex-direction: column;
+    margin-bottom: 8px;
+  }
+
+  .profileWithAvatar .NavLink {
+    margin-bottom: 8px;
+  }
+}

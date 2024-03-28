@@ -6,11 +6,12 @@ import { NavLink } from 'react-router-dom';
 import axios from 'axios';
 import { useCurrentUser, useSetCurrentUser } from '../contexts/CurrentUserContext';
 import Avatar from "./Avatar";
+import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
 
 const NavBar = () => {
   const currentUser = useCurrentUser();
   const setCurrentUser = useSetCurrentUser();
-
+  const { expanded, setExpanded, ref } = useClickOutsideToggle();
   const handleSignOut = async () => {
     try {
       await axios.post('dj-rest-auth/logout/');
@@ -40,10 +41,12 @@ const NavBar = () => {
       <NavLink className={styles.NavLink} to="/" onClick={handleSignOut}>
         <i className="fa-solid fa-right-from-bracket"></i>Log out
       </NavLink>
+      <div className={styles.profileWithAvatar}>
       <NavLink className={styles.NavLink} to={`/profiles/${currentUser?.profile_id}`}>
-      <i class="fa-solid fa-user"></i>Profile
-        <Avatar src={currentUser?.profile_image} height={50} />
+        <i class="fa-solid fa-user"></i>Profile
       </NavLink>
+      <Avatar src={currentUser?.profile_image} height={50} />
+    </div>
     </>
   );
 
@@ -61,7 +64,7 @@ const NavBar = () => {
   );
 
   return (
-    <Navbar className={styles.NavBar} expand="md" fixed="top">
+    <Navbar expanded={expanded} className={styles.NavBar} expand="md" fixed="top">
       <Container>
         <NavLink to="/">
           <Navbar.Brand>
@@ -69,9 +72,9 @@ const NavBar = () => {
           </Navbar.Brand>
         </NavLink>
         {currentUser && addPostIcon}
-        <Navbar.Toggle aria-controls="basic-navbar-nav" />
+        <Navbar.Toggle ref={ref} onClick={() => setExpanded(!expanded)} aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="ml-auto d-flex align-items-center">
+          <Nav className="ml-auto d-flex align-items-center">
             <NavLink exact className={styles.NavLink}
               activeClassName={styles.Active} to="/" >
               <i className="fa-solid fa-house"></i>Home
