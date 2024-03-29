@@ -1,5 +1,5 @@
 import React, { useRef, useState } from "react";
-import { Form, Button, Col, Row, Container, Image } from 'react-bootstrap';
+import { Form, Button, Col, Row, Container, Image, Alert } from 'react-bootstrap';
 import styles from "../../styles/PostCreateEditForm.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
@@ -7,7 +7,6 @@ import Asset from "../../components/Asset";
 import Upload from "../../assets/upload-icon.png";
 import { useHistory } from "react-router";
 import { axiosReq } from "../../API/axiosDefaults";
-
 
 function PostCreateForm() {
     const [errors, setErrors] = useState({});
@@ -27,7 +26,6 @@ function PostCreateForm() {
             [event.target.name]: event.target.value,
         });
     };
-
     const handleChangeImage = (event) => {
         if (event.target.files.length) {
             URL.revokeObjectURL(image);
