@@ -21,38 +21,9 @@
   box-sizing: border-box;
 }
 
-/* a {
-  font-weight: bold;
-  color: #3c3c3c;
-  text-decoration: none;
-}
-
-a:hover i {
-  color: #8B0000;
-}
-
-a:hover {
-  color: #000;
-  font-weight: bolder;
-  text-decoration: underline;
-} */
-
 input[type="file"] {
   display: none;
 }
-
-/* i {
-  color: #3c3c3c;
-  font-size: 0.8rem;
-  padding: 5px;
-  vertical-align: top;
-}
-
-i:hover {
-  cursor: pointer;
-  color: #8B0000;
-} */
-
 
 figure {
   text-align: center;
