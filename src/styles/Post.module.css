@@ -1,0 +1,47 @@
+.Post {
+  background-color: #ffffff;
+  border: 2px solid #FFDAB9;
+  border-radius: 0px;
+  margin-bottom: 16px;
+  text-align: center;
+}
+
+.Post figure,
+h5 {
+  margin: 0 0;
+}
+
+.Post a {
+  font-family: "Quicksand", sans-serif;
+  color: #3c3c3c;
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.Post a:hover {
+  color: #8B0000;
+  font-weight: bolder;
+  text-decoration: none;
+}
+
+.IconsBar {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+.Heart,
+.Comment {
+  cursor: pointer;
+  color: #3c3c3c;
+}
+
+.Heart:hover,
+.Comment:hover {
+  color: #8B0000;
+}
+
+.Comment {
+  margin-left: 20px;
+}

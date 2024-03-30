@@ -37,6 +37,13 @@ function PostCreateForm() {
     };
 
     const handleSubmit = async (event) => {
+        if (!imageInput.current.files[0]) {
+            setErrors({
+                ...errors,
+                image: ["Please upload an image."]
+            });
+            return;
+        }
         event.preventDefault();
         const formData = new FormData();
 
