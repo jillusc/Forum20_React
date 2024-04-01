@@ -5,3 +5,7 @@
 label {
   font-weight: bold;
 }
+
+.uploadIcon {
+  cursor: pointer;
+}

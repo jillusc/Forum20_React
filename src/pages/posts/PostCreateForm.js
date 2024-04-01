@@ -16,7 +16,6 @@ function PostCreateForm() {
         image: "",
     });
     const { title, content, image } = postData;
-
     const imageInput = useRef(null);
     const history = useHistory();
 
@@ -109,7 +108,7 @@ function PostCreateForm() {
                                 </div>
                             </>
                         ) : (
-                            <Form.Label className="d-flex justify-content-center" htmlFor="image-upload">
+                            <Form.Label className={`d-flex justify-content-center ${styles.uploadIcon}`} htmlFor="image-upload">
                                 <Asset src={Upload} message="Upload an image" />
                             </Form.Label>
                         )}
