@@ -21,6 +21,7 @@
   font-weight: bold;
   color: #fff;
   border: 2px solid #8B0000;
+  outline: none;
   cursor: pointer;
   box-shadow: none;
 }
