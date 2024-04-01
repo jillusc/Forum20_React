@@ -1,4 +1,5 @@
 .Post {
+  position: relative;
   background-color: #ffffff;
   border: 2px solid #FFDAB9;
   border-radius: 0px;
@@ -44,4 +45,11 @@ h5 {
 
 .Comment {
   margin-left: 20px;
+}
+
+.dropdownContainer {
+  position: absolute;
+  top: 5px;
+  right: 8px;
+  z-index: 99;
 }

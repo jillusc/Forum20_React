@@ -2,14 +2,32 @@ import React from "react";
 import styles from "../../styles/Post.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { Card, Media, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import Avatar from "../../components/Avatar";
 import { axiosRes } from "../../API/axiosDefaults";
+import { MoreDropdown } from "../../components/MoreDropdown";
 
-const Post = ({ id, profile_id, profile_image, owner, updated_at, title,
-    content, image, likes_count, comments_count, postPage, like_id, setPosts, }) => {
+const Post = (props) => {
+    const { id, owner, profile_id, profile_image, comments_count, likes_count,
+        like_id, title, content, image, updated_at, postPage, setPosts,
+    } = props;
     const currentUser = useCurrentUser();
     const is_owner = currentUser?.username === owner;
+    const history = useHistory();
+
+    const handleEdit = () => {
+        history.push(`/posts/${id}/edit`);
+    };
+
+    const handleDelete = async () => {
+        try {
+            await axiosRes.delete(`/posts/${id}/`);
+            history.goBack();
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
     const handleLike = async () => {
         try {
             const { data } = await axiosRes.post("/likes/", { post: id });
@@ -17,7 +35,10 @@ const Post = ({ id, profile_id, profile_image, owner, updated_at, title,
                 ...prevPosts,
                 results: prevPosts.results.map((post) => {
                     return post.id === id
-                        ? { ...post, likes_count: post.likes_count + 1, like_id: data.id }
+                        ? {
+                            ...post, likes_count: post.likes_count + 1,
+                            like_id: data.id
+                        }
                         : post;
                 }),
             }));
@@ -32,7 +53,10 @@ const Post = ({ id, profile_id, profile_image, owner, updated_at, title,
                 ...prevPosts,
                 results: prevPosts.results.map((post) => {
                     return post.id === id
-                        ? { ...post, likes_count: post.likes_count - 1, like_id: null }
+                        ? {
+                            ...post, likes_count: post.likes_count - 1,
+                            like_id: null
+                        }
                         : post;
                 }),
             }));
@@ -51,7 +75,12 @@ const Post = ({ id, profile_id, profile_image, owner, updated_at, title,
                     </Link>
                     <div className="d-flex align-items-center">
                         <span><p>{updated_at}</p></span>
-                        {is_owner && postPage && "..."}
+                        {is_owner && postPage && (
+                            <div className={styles.dropdownContainer}>
+                                <MoreDropdown handleEdit={handleEdit}
+                                    handleDelete={handleDelete} />
+                            </div>
+                        )}
                     </div>
                 </Media>
             </Card.Body>
@@ -63,7 +92,8 @@ const Post = ({ id, profile_id, profile_image, owner, updated_at, title,
                 {content && <Card.Text>{content}</Card.Text>}
                 <div className={styles.IconsBar}>
                     {is_owner ? (
-                        <OverlayTrigger placement="top" overlay={<Tooltip>You can't like your own post!</Tooltip>}>
+                        <OverlayTrigger placement="top" overlay={<Tooltip>
+                            Users can't like their own posts</Tooltip>}>
                             <i className={`fa-solid fa-heart ${styles.Heart}`} />
                         </OverlayTrigger>
                     ) : like_id ? (
@@ -75,18 +105,19 @@ const Post = ({ id, profile_id, profile_image, owner, updated_at, title,
                             <i className={`fa-solid fa-heart ${styles.Heart}`} />
                         </span>
                     ) : (
-                        <OverlayTrigger placement="top" overlay={<Tooltip>You must be logged-in to like posts.</Tooltip>}>
+                        <OverlayTrigger placement="top" overlay={<Tooltip>
+                            You must be logged-in to like posts</Tooltip>}>
                             <i className={`fa-solid fa-heart ${styles.Heart}`} />
                         </OverlayTrigger>
                     )}
-                        {likes_count}
-                        <Link to={`/posts/${id}`}>
-                            <i className={`fa-solid fa-comment-dots ${styles.Comment}`} />
-                        </Link>
-                        {comments_count}
+                    {likes_count}
+                    <Link to={`/posts/${id}`}>
+                        <i className={`fa-solid fa-comment-dots
+                    ${styles.Comment}`} />
+                    </Link>
+                    {comments_count}
                 </div>
             </Card.Body>
-
         </Card>
     );
 };
