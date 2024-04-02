@@ -1,0 +1,30 @@
+.MediaBody {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.OwnerAndDate {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.Owner {
+    font-weight: bold;
+    color: #3c3c3c;
+    text-align: left;
+}
+
+.Date {
+    font-weight: light;
+    font-size: .8rem;
+    color: #aaa;
+    text-align: right;
+}
+
+.Comment {
+    font-weight: normal;
+    color: #3c3c3c;
+    text-align: left;
+}
