@@ -48,15 +48,17 @@ function PostPage() {
             />
           ) : comments.results.length ? (
             "Comments"
-            ) : null}
-            {comments.results.length ? (
-              comments.results.map((comment) => (
-                <Comment key={comment.id} {...comment} />
-              ))
-            ) : (
-              <span>No comments yet</span>
-            )}
-            </Container>
+          ) : null}
+          {comments.results.length ? (
+            comments.results.map((comment) => (
+              <Comment key={comment.id} {...comment} setPost={setPost}
+                setComments={setComments}
+              />
+            ))
+          ) : (
+            <span>No comments yet</span>
+          )}
+        </Container>
       </Col>
       <Col lg={4} className="d-none d-lg-block p-0 p-lg-2">
         <p>Popular profiles for desktop</p>
