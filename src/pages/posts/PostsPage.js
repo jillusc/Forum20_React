@@ -9,6 +9,7 @@ import Asset from "../../components/Asset";
 import NoResults from "../../assets/no-results-icon.png";
 import InfiniteScroll from "react-infinite-scroll-component";
 import { fetchMoreData } from "../../utils/utils";
+import PopularProfiles from "../profiles/PopularProfiles";
 
 function PostsPage({ message, filter = "" }) {
     const [posts, setPosts] = useState({ results: [] });
@@ -38,7 +39,7 @@ function PostsPage({ message, filter = "" }) {
     return (
         <Row className="h-100">
             <Col className="py-2 p-0 p-lg-2" lg={8}>
-                <p>Popular profiles for mobile</p>
+                <PopularProfiles mobile />
                 <i className={`fa-solid fa-magnifying-glass ${styles.SearchIcon}`} />
                 <Form className={styles.SearchBar} onSubmit={(event) => event.preventDefault()}>
                     <Form.Control value={query} onChange={(event) => setQuery(event.target.value)} type="text" className="mr-sm-2" placeholder="Search posts" />
@@ -67,8 +68,8 @@ function PostsPage({ message, filter = "" }) {
                     </Container>
                 )}
             </Col>
-            <Col md={4} className="d-none d-lg-block p-0 p-lg-2">
-                <p>Popular profiles for desktop</p>
+            <Col md={4} className="d-lg-block p-0 p-lg-2">
+                <PopularProfiles />
             </Col>
         </Row>
     );
