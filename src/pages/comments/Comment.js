@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { Media } from "react-bootstrap";
 import Avatar from "../../components/Avatar";
@@ -6,11 +6,13 @@ import { MoreDropdown } from "../../components/MoreDropdown";
 import styles from "../../styles/Comment.module.css";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../API/axiosDefaults";
+import CommentEditForm from "./CommentEditForm";
 
 const Comment = (props) => {
     const { profile_id, profile_image, owner, updated_at, content, id, setPost,
         setComments,
     } = props;
+    const [showEditForm, setShowEditForm] = useState(false);
     const currentUser = useCurrentUser();
     const is_owner = currentUser?.username === owner;
 
@@ -18,7 +20,7 @@ const Comment = (props) => {
         try {
             console.log('Attempting to delete comment with ID:', id);
             await axiosRes.delete(`/comments/${id}/`);
-            console.log('Comment deleted successfully');            setPost((prevPost) => ({
+            console.log('Comment deleted successfully'); setPost((prevPost) => ({
                 results: [
                     {
                         ...prevPost.results[0],
@@ -35,7 +37,7 @@ const Comment = (props) => {
     };
 
     return (
-        <div>
+        <>
             <hr />
             <Media>
                 <Link to={`/profiles/${profile_id}`}>
@@ -46,14 +48,24 @@ const Comment = (props) => {
                         <span className={styles.Owner}>{owner}</span>
                         <span className={styles.Date}>{updated_at}</span>
                     </div>
-                    <p className={styles.Comment}>{content}</p>
+                    {showEditForm ? (
+                        <CommentEditForm
+                            id={id}
+                            profile_id={profile_id}
+                            content={content}
+                            profileImage={profile_image}
+                            setComments={setComments}
+                            setShowEditForm={setShowEditForm}
+                        />
+                    ) : (
+                        <p className={styles.Comment}>{content}</p>
+                    )}
                 </Media.Body>
-                {is_owner && (
-                    <MoreDropdown handleEdit={() => { }} handleDelete={handleDelete} />
+                {is_owner && !showEditForm && (
+                    <MoreDropdown handleEdit={() => setShowEditForm(true)} handleDelete={handleDelete} />
                 )}
             </Media>
-        </div>
+        </>
     );
-};
-
+}
 export default Comment;
