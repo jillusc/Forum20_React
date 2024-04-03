@@ -19,8 +19,9 @@ function PostsPage({ message, filter = "" }) {
 
     useEffect(() => {
         const fetchPosts = async () => {
+            const apiUrl = `/posts/?${filter}search=${query}`;
             try {
-                const { data } = await axiosReq.get(`/posts/?${filter}search=${query}`);
+                const { data } = await axiosReq.get(apiUrl);
                 setPosts(data);
                 setHasLoaded(true);
             } catch (err) {
