@@ -1,0 +1,25 @@
+.Container {
+    min-height: 343px;
+}
+
+.Form {
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+.Form textarea {
+    border: 1px solid #ced4da;
+    border-radius: .25rem;
+}
+
+input[type="file"] {
+    display: none;
+}
+
+label {
+    font-weight: bold;
+}
+
+.uploadIcon {
+    cursor: pointer;
+}

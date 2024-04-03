@@ -34,4 +34,3 @@ const PopularProfiles = ({ mobile }) => {
 };
 
 export default PopularProfiles;
-

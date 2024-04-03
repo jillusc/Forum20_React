@@ -26,3 +26,17 @@
   cursor: pointer;
   box-shadow: none;
 }
+
+/* to override default blue and box-shadow! */
+.Button:not(:disabled):not(.disabled):active,
+.Button:not(:disabled):not(.disabled).active,
+.show > .Button.dropdown-toggle {
+  color: #fff;
+  background-color: #8B0000;
+  border-color: #8B0000;
+  box-shadow: none;
+}
+
+.Button:not(:disabled):not(.disabled):active:focus {
+  box-shadow: none;
+}

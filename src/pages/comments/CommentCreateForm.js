@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import Form from 'react-bootstrap/Form';
 import InputGroup from "react-bootstrap/InputGroup";
-import styles from "../../styles/PostCreateEditForm.module.css";
+import formStyles from "../../styles/FormStyles.module.css"
 import btnStyles from "../../styles/Button.module.css";
 import Avatar from "../../components/Avatar";
 import { axiosRes } from "../../API/axiosDefaults";
@@ -48,7 +48,7 @@ function CommentCreateForm(props) {
               <Avatar src={profileImage} />
             </Link>
             <Form.Control
-              className={styles.Form}
+              className={formStyles.Form}
               placeholder="Share your thoughts"
               as="textarea"
               value={content}

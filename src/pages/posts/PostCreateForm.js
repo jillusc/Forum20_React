@@ -1,11 +1,11 @@
 import React, { useRef, useState } from "react";
+import { useHistory } from "react-router";
 import { Form, Button, Col, Row, Container, Image, Alert } from 'react-bootstrap';
-import styles from "../../styles/PostCreateEditForm.module.css";
-import btnStyles from "../../styles/Button.module.css";
 import appStyles from "../../App.module.css";
+import formStyles from "../../styles/FormStyles.module.css"
+import btnStyles from "../../styles/Button.module.css";
 import Asset from "../../components/Asset";
 import Upload from "../../assets/upload-icon.png";
-import { useHistory } from "react-router";
 import { axiosReq } from "../../API/axiosDefaults";
 
 function PostCreateForm() {
@@ -94,7 +94,7 @@ function PostCreateForm() {
         <Form onSubmit={handleSubmit}>
             <Row>
                 <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
-                    <Container className={`${appStyles.Content} ${styles.Container} d-flex flex-column justify-content-center`}>
+                    <Container className={`${appStyles.Content} d-flex flex-column justify-content-center`}>
                         <Form.Group className="text-center"> {image ? (
                             <>
                                 <figure>
@@ -108,7 +108,7 @@ function PostCreateForm() {
                                 </div>
                             </>
                         ) : (
-                            <Form.Label className={`d-flex justify-content-center ${styles.uploadIcon}`} htmlFor="image-upload">
+                            <Form.Label className={`d-flex justify-content-center ${formStyles.uploadIcon}`} htmlFor="image-upload">
                                 <Asset src={Upload} message="Upload an image" />
                             </Form.Label>
                         )}
