@@ -1,0 +1,23 @@
+.NotFound {
+  margin-top: 15vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.HomeLink {
+  text-decoration: underline;
+  text-align: center;
+  display: inline;
+  margin: 20px auto;
+  color: #8B0000;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.HomeLink:hover {
+  color: #8B0000;
+  font-weight: bolder;
+  text-decoration: none;
+}
