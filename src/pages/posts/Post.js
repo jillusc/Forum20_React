@@ -82,7 +82,7 @@ const Post = (props) => {
                     <div className="d-flex align-items-center">
                         <span><p>{updated_at}</p></span>
                         {is_owner && postPage && (
-                            <div className={styles.dropdownContainer}>
+                            <div className={styles.DropdownContainer}>
                                 <MoreDropdown handleEdit={handleEdit}
                                     handleDelete={handleDelete} />
                             </div>
@@ -91,7 +91,7 @@ const Post = (props) => {
                 </Media>
             </Card.Body>
             <Link to={`/posts/${id}`}>
-                <Card.Img src={image} alt={title} />
+                <Card.Img src={image} alt={title} className={styles.PostImage} />
             </Link>
             <Card.Body>
                 {title && <Card.Title className="text-center">{title}</Card.Title>}
@@ -118,8 +118,7 @@ const Post = (props) => {
                     )}
                     {likes_count}
                     <Link to={`/posts/${id}`}>
-                        <i className={`fa-solid fa-comment-dots
-                    ${styles.Comment}`} />
+                        <i className={`fa-solid fa-comment-dots ${styles.Comment}`} />
                     </Link>
                     {comments_count}
                 </div>

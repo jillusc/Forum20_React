@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, Link } from "react-router-dom";
 
 import InfiniteScroll from "react-infinite-scroll-component";
 
@@ -49,11 +49,20 @@ function PostsPage({ message, filter = "" }) {
     return (
         <Row className="h-100">
             <Col className="py-2 p-0 p-lg-2" lg={8}>
+                {!currentUser && (
+                    <div className="text-center mb-3">
+                        <h1>forum20</h1>
+                        <h4>Image sharing platform for 20th century art lovers.</h4>
+                        <h6><Link to="/signup" className={styles.TextLink}>Join the community!</Link></h6>
+                    </div>
+                )}
                 <PopularProfiles mobile />
                 <i className={`fa-solid fa-magnifying-glass ${styles.SearchIcon}`} />
                 <Form className={styles.SearchBar} onSubmit={(event) => event.preventDefault()}>
-                    <Form.Control value={query} onChange={(event) => setQuery(event.target.value)} type="text" className="mr-sm-2" placeholder="Search posts" />
+                    <Form.Control value={query} onChange={(event) => setQuery(event.target.value)}
+                        type="text" className="mr-sm-2" placeholder="Search posts" />
                 </Form>
+                <p className="text-left ml-3 mt-4 mb-3">Latest posts from our members</p>
                 {hasLoaded ? (
                     <>
                         {posts.results.length ? (
