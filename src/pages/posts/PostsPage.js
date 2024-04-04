@@ -1,14 +1,20 @@
 import React, { useState, useEffect } from "react";
-import { Form, Col, Row, Container } from 'react-bootstrap';
+import useLocation from "react-router";
+
+import Form from 'react-bootstrap/Form';
+import Col from 'react-bootstrap/Col';
+import Row from 'react-bootstrap/Row';
+import Container from 'react-bootstrap/Container';
+
 import appStyles from "../../App.module.css";
 import styles from "../../styles/PostsPage.module.css";
-import { useLocation } from "react-router";
-import { axiosReq } from "../../API/axiosDefaults";
+
+import axiosReq from "../../API/axiosDefaults";
 import Post from "./Post";
 import Asset from "../../components/Asset";
 import NoResults from "../../assets/no-results-icon.png";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { fetchMoreData } from "../../utils/utils";
+import fetchMoreData from "../../utils/utils";
 import PopularProfiles from "../profiles/PopularProfiles";
 
 function PostsPage({ message, filter = "" }) {
@@ -25,7 +31,7 @@ function PostsPage({ message, filter = "" }) {
                 setPosts(data);
                 setHasLoaded(true);
             } catch (err) {
-                console.log(err);
+                /* console.log(err); */
             }
         };
         setHasLoaded(false);

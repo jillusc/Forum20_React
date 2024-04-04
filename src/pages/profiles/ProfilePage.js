@@ -1,19 +1,30 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-import { Button, Image, Col, Row, Container } from "react-bootstrap";
+
+import InfiniteScroll from "react-infinite-scroll-component";
+
+import Button from "react-bootstrap/Button";
+import Image from "react-bootstrap/Image";
+import Col from "react-bootstrap/Col";
+import Row from "react-bootstrap/Row";
+import Container from "react-bootstrap/Container";
+
+import styles from "../../styles/ProfilePage.module.css";
+import appStyles from "../../App.module.css";
+import btnStyles from "../../styles/Button.module.css";
+
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { useProfileData, useSetProfileData } from "../../contexts/ProfileDataContext";
+
 import { axiosReq } from "../../API/axiosDefaults";
 import { fetchMoreData } from "../../utils/utils";
+
 import Asset from "../../components/Asset";
 import PopularProfiles from "./PopularProfiles";
 import Post from "../posts/Post";
 import { ProfileEditDropdown } from "../../components/MoreDropdown";
-import styles from "../../styles/ProfilePage.module.css";
-import appStyles from "../../App.module.css";
-import btnStyles from "../../styles/Button.module.css";
+
 import NoResults from "../../assets/no-results-icon.png";
-import InfiniteScroll from "react-infinite-scroll-component";
 
 function ProfilePage() {
     const [hasLoaded, setHasLoaded] = useState(false);
@@ -27,24 +38,24 @@ function ProfilePage() {
 
     useEffect(() => {
         const fetchData = async () => {
-          try {
-            const [{ data: pageProfile }, { data: profilePosts }] =
-              await Promise.all([
-                axiosReq.get(`/profiles/${id}/`),
-                axiosReq.get(`/posts/?owner__profile=${id}`),
-              ]);
-            setProfileData((prevState) => ({
-              ...prevState,
-              pageProfile: { results: [pageProfile] },
-            }));
-            setProfilePosts(profilePosts);
-            setHasLoaded(true);
-          } catch (err) {
-            console.log(err);
-          }
+            try {
+                const [{ data: pageProfile }, { data: profilePosts }] =
+                    await Promise.all([
+                        axiosReq.get(`/profiles/${id}/`),
+                        axiosReq.get(`/posts/?owner__profile=${id}`),
+                    ]);
+                setProfileData((prevState) => ({
+                    ...prevState,
+                    pageProfile: { results: [pageProfile] },
+                }));
+                setProfilePosts(profilePosts);
+                setHasLoaded(true);
+            } catch (err) {
+                /* console.log(err); */
+            }
         };
         fetchData();
-      }, [id, setProfileData]);
+    }, [id, setProfileData]);
 
     const mainProfile = (
         <>

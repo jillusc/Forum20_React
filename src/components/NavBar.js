@@ -1,13 +1,18 @@
-import React from 'react';
-import { Navbar, Container, Nav } from 'react-bootstrap';
-import logo from '../assets/logo.png';
-import styles from '../styles/NavBar.module.css';
-import { NavLink } from 'react-router-dom';
-import axios from 'axios';
-import { useCurrentUser, useSetCurrentUser } from '../contexts/CurrentUserContext';
-import Avatar from "./Avatar";
+import React from "react";
+import { NavLink } from "react-router-dom";
+import axios from "axios";
+
+import Navbar from "react-bootstrap";
+import Container from "react-bootstrap";
+import Nav from "react-bootstrap";
+
+import { useCurrentUser, useSetCurrentUser } from "../contexts/CurrentUserContext";
 import useClickOutsideToggle from "../hooks/useClickOutsideToggle";
 import { removeTokenTimestamp } from "../utils/utils";
+
+import logo from "../assets/logo.png";
+import styles from "../styles/NavBar.module.css";
+import Avatar from "./Avatar";
 
 const NavBar = () => {
   const currentUser = useCurrentUser();
@@ -19,7 +24,7 @@ const NavBar = () => {
       setCurrentUser(null);
       removeTokenTimestamp();
     } catch (err) {
-      console.log(err);
+      /* console.log(err); */
     }
   };
 
@@ -44,11 +49,11 @@ const NavBar = () => {
         <i className="fa-solid fa-right-from-bracket"></i>Log out
       </NavLink>
       <div className={styles.profileWithAvatar}>
-      <NavLink className={styles.NavLink} to={`/profiles/${currentUser?.profile_id}`}>
-        <i className="fa-solid fa-user"></i>Profile
-      </NavLink>
-      <Avatar src={currentUser?.profile_image} height={50} />
-    </div>
+        <NavLink className={styles.NavLink} to={`/profiles/${currentUser?.profile_id}`}>
+          <i className="fa-solid fa-user"></i>Profile
+        </NavLink>
+        <Avatar src={currentUser?.profile_image} height={50} />
+      </div>
     </>
   );
 

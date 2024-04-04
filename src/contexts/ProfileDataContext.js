@@ -21,7 +21,7 @@ export const ProfileDataProvider = ({ children }) => {
             const { data } = await axiosRes.post("/followers/", {
                 followed: clickedProfile.id,
             });
-    
+
             setProfileData((prevState) => ({
                 ...prevState,
                 pageProfile: {
@@ -37,7 +37,7 @@ export const ProfileDataProvider = ({ children }) => {
                 },
             }));
         } catch (err) {
-            console.log(err);
+            /* console.log(err); */
         }
     };
 
@@ -59,7 +59,7 @@ export const ProfileDataProvider = ({ children }) => {
                 },
             }));
         } catch (err) {
-            console.log(err);
+            /* console.log(err); */
         }
     };
 
@@ -72,7 +72,7 @@ export const ProfileDataProvider = ({ children }) => {
                     popularProfiles: data,
                 }));
             } catch (err) {
-                console.log(err);
+                /* console.log(err); */
             }
         };
         handleMount();
@@ -80,9 +80,9 @@ export const ProfileDataProvider = ({ children }) => {
 
     return (
         <ProfileDataContext.Provider value={profileData}>
-          <SetProfileDataContext.Provider value={{ setProfileData, handleFollow, handleUnfollow }}>
-            {children}
-          </SetProfileDataContext.Provider>
+            <SetProfileDataContext.Provider value={{ setProfileData, handleFollow, handleUnfollow }}>
+                {children}
+            </SetProfileDataContext.Provider>
         </ProfileDataContext.Provider>
     );
 };

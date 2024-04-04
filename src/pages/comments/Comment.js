@@ -1,12 +1,16 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Media } from "react-bootstrap";
+
+import Media from "react-bootstrap/Media";
+
 import Avatar from "../../components/Avatar";
-import { MoreDropdown } from "../../components/MoreDropdown";
-import styles from "../../styles/Comment.module.css";
+import MoreDropdown from "../../components/MoreDropdown";
+import CommentEditForm from "./CommentEditForm";
+
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../API/axiosDefaults";
-import CommentEditForm from "./CommentEditForm";
+
+import styles from "../../styles/Comment.module.css";
 
 const Comment = (props) => {
     const { profile_id, profile_image, owner, updated_at, content, id, setPost,
@@ -18,9 +22,10 @@ const Comment = (props) => {
 
     const handleDelete = async () => {
         try {
-            console.log('Attempting to delete comment with ID:', id);
+            // console.log('Attempting to delete comment with ID:', id);
             await axiosRes.delete(`/comments/${id}/`);
-            console.log('Comment deleted successfully'); setPost((prevPost) => ({
+            // console.log('Comment deleted successfully'); 
+            setPost((prevPost) => ({
                 results: [
                     {
                         ...prevPost.results[0],
@@ -28,6 +33,7 @@ const Comment = (props) => {
                     },
                 ],
             }));
+
 
             setComments((prevComments) => ({
                 ...prevComments,

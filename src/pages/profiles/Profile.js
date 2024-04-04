@@ -1,18 +1,24 @@
 import React from "react";
+import { Link } from "react-router-dom";
+
+import Button from "react-bootstrap/Button";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+
 import styles from "../../styles/Profile.module.css";
 import btnStyles from "../../styles/Button.module.css";
+
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Link } from "react-router-dom";
-import Avatar from "../../components/Avatar";
-import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap';
 import { useSetProfileData } from "../../contexts/ProfileDataContext";
+
+import Avatar from "../../components/Avatar";
 
 const Profile = (props) => {
     const { profile, mobile, imageSize = 55 } = props;
     const { id, following_id, image, owner } = profile;
     const currentUser = useCurrentUser();
     const is_owner = currentUser?.username === owner;
-    const {handleFollow, handleUnfollow} = useSetProfileData();
+    const { handleFollow, handleUnfollow } = useSetProfileData();
 
     return (
         <div
@@ -42,6 +48,7 @@ const Profile = (props) => {
                 }
             </div>
         </div>
-)}
+    )
+}
 
 export default Profile;

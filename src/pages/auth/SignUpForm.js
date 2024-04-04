@@ -1,11 +1,19 @@
-import React, { useState } from 'react';
-import { Link, useHistory } from 'react-router-dom';
-import styles from '../../styles/LogInSignUpForm.module.css';
-import btnStyles from '../../styles/Button.module.css';
-import appStyles from '../../App.module.css';
-import { Form, Button, Col, Row, Container, Alert } from 'react-bootstrap';
-import axios from 'axios';
+import React, { useState } from "react";
+import { Link, useHistory } from "react-router-dom";
+import axios from "axios";
+
+import Alert from "react-bootstrap/Alert";
+import Button from "react-bootstrap/Button";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
+
 import { useRedirect } from "../../hooks/useRedirect";
+
+import styles from "../../styles/LogInSignUpForm.module.css";
+import btnStyles from "../../styles/Button.module.css";
+import appStyles from "../../App.module.css";
 
 const SignUpForm = () => {
     useRedirect("loggedIn");
@@ -37,10 +45,10 @@ const SignUpForm = () => {
     };
 
     return (
-<Container className="mt-5">
-  <Row className="justify-content-center">
-    <Col xs={12} md={6} lg={4}>
-      <div className={`${appStyles.Content} p-4`}>
+        <Container className="mt-5">
+            <Row className="justify-content-center">
+                <Col xs={12} md={6} lg={4}>
+                    <div className={`${appStyles.Content} p-4`}>
                         <h1 className={styles.Header}><strong>Sign up</strong></h1>
                         <Form onSubmit={handleSubmit}>
                             <Form.Group controlId="username">
@@ -101,8 +109,8 @@ const SignUpForm = () => {
                             ))}                        </Form>
                     </div>
                     <div className={`mt-3 ${appStyles.Content}`}>
-  <strong>Already registered? </strong><Link className={styles.TextLink} to="/login">Log in </Link>
-</div>
+                        <strong>Already registered? </strong><Link className={styles.TextLink} to="/login">Log in </Link>
+                    </div>
 
                 </Col>
             </Row>

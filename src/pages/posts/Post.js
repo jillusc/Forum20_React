@@ -1,11 +1,17 @@
 import React from "react";
-import styles from "../../styles/Post.module.css";
-import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import { Card, Media, OverlayTrigger, Tooltip } from "react-bootstrap";
 import { Link, useHistory } from "react-router-dom";
+
+import Card from "react-bootstrap/Card";
+import Media from "react-bootstrap/Media";
+import OverlayTrigger from "react-bootstrap/OverlayTrigger";
+import Tooltip from "react-bootstrap/Tooltip";
+
 import Avatar from "../../components/Avatar";
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../API/axiosDefaults";
-import { MoreDropdown } from "../../components/MoreDropdown";
+import MoreDropdown from "../../components/MoreDropdown";
+
+import styles from "../../styles/Post.module.css";
 
 const Post = (props) => {
     const { id, owner, profile_id, profile_image, comments_count, likes_count,
@@ -24,7 +30,7 @@ const Post = (props) => {
             await axiosRes.delete(`/posts/${id}/`);
             history.goBack();
         } catch (err) {
-            console.log(err);
+            /* console.log(err); */
         }
     };
 
@@ -43,7 +49,7 @@ const Post = (props) => {
                 }),
             }));
         } catch (err) {
-            console.log(err);
+            /* console.log(err); */
         }
     };
     const handleUnlike = async () => {
@@ -61,7 +67,7 @@ const Post = (props) => {
                 }),
             }));
         } catch (err) {
-            console.log(err);
+            /* console.log(err); */
         }
     };
 
