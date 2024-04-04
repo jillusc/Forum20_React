@@ -7,7 +7,7 @@
 .OwnerAndDate {
     display: flex;
     justify-content: space-between;
-    width: 100%;
+    width: 95%;
 }
 
 .Owner {
@@ -29,3 +29,12 @@
     color: #3c3c3c;
     text-align: left;
 }
+
+.caretIconContainer {
+    position: relative;
+  }
+  
+  .caretIcon {
+    position: absolute;
+    margin-left: 15px;
+  }

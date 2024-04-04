@@ -34,7 +34,6 @@ const Comment = (props) => {
                 ],
             }));
 
-
             setComments((prevComments) => ({
                 ...prevComments,
                 results: prevComments.results.filter((comment) => comment.id !== id),
@@ -68,7 +67,9 @@ const Comment = (props) => {
                     )}
                 </Media.Body>
                 {is_owner && !showEditForm && (
-                    <MoreDropdown handleEdit={() => setShowEditForm(true)} handleDelete={handleDelete} />
+                    <div className={styles.caretIconContainer}>
+                        <MoreDropdown handleEdit={() => setShowEditForm(true)} handleDelete={handleDelete} />
+                    </div>
                 )}
             </Media>
         </>

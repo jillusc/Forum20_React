@@ -1,5 +1,6 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router";
+import { Link } from "react-router-dom";
 
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
@@ -12,6 +13,7 @@ import Row from "react-bootstrap/Row";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 import formStyles from "../../styles/FormStyles.module.css";
+import styles from "../../styles/LogInSignUpForm.module.css"
 
 import { axiosReq } from "../../API/axiosDefaults";
 
@@ -120,13 +122,10 @@ function PostEditForm() {
                     <Container className={`${appStyles.Content} ${formStyles.Container} d-flex flex-column justify-content-center`}>
                         <Form.Group className="text-center">
                             <figure>
-                                <Image className={appStyles.Image} src={image} rounded />
+                                <Image className={`${appStyles.Image} img-fluid`} src={image} rounded />
                             </figure>
                             <div>
-                                <Form.Label
-                                    className={`${btnStyles.Button}`} htmlFor="image-upload">
-                                    Change the image
-                                </Form.Label>
+                                <Link className={styles.TextLink} htmlFor="image-upload">Change the image</Link>
                             </div>
                             <Form.File id="image-upload" accept="image/*" onChange={handleChangeImage} ref={imageInput} />
                         </Form.Group>
