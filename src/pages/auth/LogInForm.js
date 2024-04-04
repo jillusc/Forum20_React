@@ -6,9 +6,11 @@ import appStyles from '../../App.module.css';
 import { Form, Button, Col, Row, Container, Alert } from 'react-bootstrap';
 import axios from 'axios';
 import { useSetCurrentUser } from "../../contexts/CurrentUserContext";
+import { useRedirect } from "../../hooks/useRedirect";
 
 function LogInForm() {
     const setCurrentUser = useSetCurrentUser();
+    useRedirect("loggedIn");
     const [loginData, setLoginData] = useState({
         username: '',
         password: '',
@@ -16,7 +18,7 @@ function LogInForm() {
     const { username, password } = loginData;
     const [errors, setErrors] = useState({});
     const history = useHistory();
-    
+
     const handleChange = (event) => {
         setLoginData({
             ...loginData,
@@ -29,7 +31,7 @@ function LogInForm() {
         try {
             const { data } = await axios.post('/dj-rest-auth/login/', loginData);
             setCurrentUser(data.user);
-            history.push('/');
+            history.goBack();
         } catch (err) {
             setErrors(err.response?.data);
         }
@@ -79,7 +81,7 @@ function LogInForm() {
                             <div className="d-flex justify-content-center">
                                 <Button
                                     className={`${btnStyles.Button}`}
-                                    type="submit">LOG IN</Button>
+                                    type="submit">Log in</Button>
                             </div>
                             {errors.non_field_errors?.map((message, idx) => (
                                 <Alert key={idx} variant="warning" className="mt-3">

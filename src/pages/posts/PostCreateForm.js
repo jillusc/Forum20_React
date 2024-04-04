@@ -7,8 +7,10 @@ import btnStyles from "../../styles/Button.module.css";
 import Asset from "../../components/Asset";
 import Upload from "../../assets/upload-icon.png";
 import { axiosReq } from "../../API/axiosDefaults";
+import { useRedirect } from "../../hooks/useRedirect";
 
 function PostCreateForm() {
+    useRedirect("loggedOut");
     const [errors, setErrors] = useState({});
     const [postData, setPostData] = useState({
         title: "",
