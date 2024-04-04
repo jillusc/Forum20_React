@@ -15,7 +15,6 @@ import btnStyles from "../../styles/Button.module.css";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { useProfileData, useSetProfileData } from "../../contexts/ProfileDataContext";
-
 import { axiosReq } from "../../API/axiosDefaults";
 import { fetchMoreData } from "../../utils/utils";
 
@@ -23,7 +22,6 @@ import Asset from "../../components/Asset";
 import PopularProfiles from "./PopularProfiles";
 import Post from "../posts/Post";
 import { ProfileEditDropdown } from "../../components/MoreDropdown";
-
 import NoResults from "../../assets/no-results-icon.png";
 
 function ProfilePage() {

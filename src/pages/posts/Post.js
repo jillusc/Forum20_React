@@ -6,12 +6,12 @@ import Media from "react-bootstrap/Media";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 
+import styles from "../../styles/Post.module.css";
+
 import Avatar from "../../components/Avatar";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../API/axiosDefaults";
-import MoreDropdown from "../../components/MoreDropdown";
-
-import styles from "../../styles/Post.module.css";
+import { MoreDropdown } from "../../components/MoreDropdown";
 
 const Post = (props) => {
     const { id, owner, profile_id, profile_image, comments_count, likes_count,

@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 import Media from "react-bootstrap/Media";
 
 import Avatar from "../../components/Avatar";
-import MoreDropdown from "../../components/MoreDropdown";
+import { MoreDropdown } from "../../components/MoreDropdown";
 import CommentEditForm from "./CommentEditForm";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";

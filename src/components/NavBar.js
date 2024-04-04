@@ -2,9 +2,9 @@ import React from "react";
 import { NavLink } from "react-router-dom";
 import axios from "axios";
 
-import Navbar from "react-bootstrap";
-import Container from "react-bootstrap";
-import Nav from "react-bootstrap";
+import Navbar from "react-bootstrap/Navbar";
+import Container from "react-bootstrap/Container";
+import Nav from "react-bootstrap/Nav";
 
 import { useCurrentUser, useSetCurrentUser } from "../contexts/CurrentUserContext";
 import useClickOutsideToggle from "../hooks/useClickOutsideToggle";

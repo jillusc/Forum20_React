@@ -1,20 +1,28 @@
-import styles from "./App.module.css";
-import NavBar from "./components/NavBar";
-import Container from "react-bootstrap/Container";
 import { Route, Switch } from "react-router-dom";
+
+import styles from "./App.module.css";
+
+import Container from "react-bootstrap/Container";
+
 import "./API/axiosDefaults";
+
+import NavBar from "./components/NavBar";
+import NotFound from "./components/NotFound";
+
+import { useCurrentUser } from "./contexts/CurrentUserContext";
+
 import SignUpForm from "./pages/auth/SignUpForm";
 import LogInForm from "./pages/auth/LogInForm";
+
 import PostCreateForm from "./pages/posts/PostCreateForm";
 import PostPage from "./pages/posts/PostPage";
 import PostsPage from "./pages/posts/PostsPage";
-import ProfilePage from "./pages/profiles/ProfilePage";
-import { useCurrentUser } from "./contexts/CurrentUserContext";
 import PostEditForm from "./pages/posts/PostEditForm";
+
+import ProfilePage from "./pages/profiles/ProfilePage";
 import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
-import NotFound from "./components/NotFound";
 
 function App() {
   const currentUser = useCurrentUser();

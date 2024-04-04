@@ -1,7 +1,10 @@
 import React, { useState } from "react";
+
 import Form from "react-bootstrap/Form";
+
 import formStyles from "../../styles/FormStyles.module.css"
 import btnStyles from "../../styles/Button.module.css";
+
 import { axiosRes } from "../../API/axiosDefaults";
 
 function CommentEditForm(props) {
@@ -23,10 +26,10 @@ function CommentEditForm(props) {
         results: prevComments.results.map((comment) => {
           return comment.id === id
             ? {
-                ...comment,
-                content: formContent.trim(),
-                updated_at: "now",
-              }
+              ...comment,
+              content: formContent.trim(),
+              updated_at: "now",
+            }
             : comment;
         }),
       }));
@@ -48,7 +51,7 @@ function CommentEditForm(props) {
         />
       </Form.Group>
       <div className="text-right">
-      <button
+        <button
           className={btnStyles.Button}
           disabled={!content.trim()}
           type="submit"

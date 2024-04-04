@@ -1,5 +1,7 @@
 import React, { useState, useEffect } from "react";
-import useLocation from "react-router-dom";
+import { useLocation } from "react-router-dom";
+
+import InfiniteScroll from "react-infinite-scroll-component";
 
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
@@ -10,12 +12,11 @@ import appStyles from "../../App.module.css";
 import styles from "../../styles/PostsPage.module.css";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import axiosReq from "../../API/axiosDefaults";
+import { axiosReq } from "../../API/axiosDefaults";
 import Post from "./Post";
 import Asset from "../../components/Asset";
 import NoResults from "../../assets/no-results-icon.png";
-import InfiniteScroll from "react-infinite-scroll-component";
-import fetchMoreData from "../../utils/utils";
+import { fetchMoreData } from "../../utils/utils";
 import PopularProfiles from "../profiles/PopularProfiles";
 
 function PostsPage({ message, filter = "" }) {

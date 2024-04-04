@@ -6,6 +6,8 @@ import Col from "react-bootstrap/Col";
 import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
 
+import appStyles from "../../App.module.css";
+
 import { axiosReq } from "../../API/axiosDefaults";
 import { fetchMoreData } from "../../utils/utils";
 
@@ -13,7 +15,6 @@ import Post from "./Post";
 import Comment from "../comments/Comment";
 import CommentCreateForm from "../comments/CommentCreateForm";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
-import appStyles from "../../App.module.css";
 import Asset from "../../components/Asset";
 import PopularProfiles from "../profiles/PopularProfiles";
 
