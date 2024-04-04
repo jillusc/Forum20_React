@@ -8,15 +8,13 @@ import { ProfileDataProvider } from './contexts/ProfileDataContext';
 import reportWebVitals from './reportWebVitals';
 
 ReactDOM.render(
-  <React.StrictMode>
     <Router>
       <CurrentUserProvider>
         <ProfileDataProvider>
           <App />
         </ProfileDataProvider>
       </CurrentUserProvider>
-    </Router>
-  </React.StrictMode>,
+    </Router>,
   document.getElementById('root')
 );
 
