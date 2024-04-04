@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import useLocation from "react-router";
+import useLocation from "react-router-dom";
 
 import Form from 'react-bootstrap/Form';
 import Col from 'react-bootstrap/Col';
@@ -9,6 +9,7 @@ import Container from 'react-bootstrap/Container';
 import appStyles from "../../App.module.css";
 import styles from "../../styles/PostsPage.module.css";
 
+import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import axiosReq from "../../API/axiosDefaults";
 import Post from "./Post";
 import Asset from "../../components/Asset";
@@ -22,6 +23,7 @@ function PostsPage({ message, filter = "" }) {
     const [hasLoaded, setHasLoaded] = useState(false);
     const { pathname } = useLocation();
     const [query, setQuery] = useState("");
+    const currentUser = useCurrentUser();
 
     useEffect(() => {
         const fetchPosts = async () => {
@@ -41,7 +43,7 @@ function PostsPage({ message, filter = "" }) {
         return () => {
             clearTimeout(timer);
         };
-    }, [filter, query, pathname]);
+    }, [filter, query, pathname, currentUser]);
 
     return (
         <Row className="h-100">
