@@ -4,12 +4,12 @@
 }
 
 .caretIcon:hover {
-  font-size: 2rem;
   color: #3c3c3c;
 }
 
 .DropdownItem {
   display: inline-block;
+  font-weight: bold;
   max-width: 50%;
   padding: 0px;
 }
@@ -18,8 +18,8 @@
   color: #8B0000;
 }
 
-.Absolute {
-  position: absolute;
-  right: 0;
-  z-index: 99;
+.dropdownContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }

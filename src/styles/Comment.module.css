@@ -32,9 +32,9 @@
 
 .caretIconContainer {
     position: relative;
-  }
-  
-  .caretIcon {
+}
+
+.caretIcon {
     position: absolute;
     margin-left: 15px;
-  }
+}
