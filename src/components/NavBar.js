@@ -49,7 +49,7 @@ const NavBar = () => {
         <i className="fa-solid fa-right-from-bracket"></i>Log out
       </NavLink>
       <div className={styles.profileWithAvatar}>
-        <NavLink className={styles.NavLink} to={`/profiles/${currentUser?.profile_id}`}>
+        <NavLink className={styles.NavLink} activeClassName={styles.Active} to={`/profiles/${currentUser?.profile_id}`}>
           <i className="fa-solid fa-user"></i>Profile
         </NavLink>
         <Avatar src={currentUser?.profile_image} height={50} />

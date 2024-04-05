@@ -57,43 +57,36 @@ function ProfilePage() {
 
     const mainProfile = (
         <>
-            {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
-            <Row noGutters className="px-3 text-center align-items-center">
-                <Col lg={12}>
-                    <Row className="justify-content-between align-items-center">
-                        <Col xs={3} className="text-left">
-                            <Image
-                                className={styles.ProfileImage}
-                                roundedCircle
-                                src={profile?.image}
-                            />
-                        </Col>
-                        <Col xs={6} className="text-center">
-                            <h3 className="m-2">{profile?.owner}</h3>
-                        </Col>
-                        <Col xs={3} className="text-right">
-                            {currentUser && !is_owner && (profile?.following_id ? (
-                                <Button className={`${btnStyles.Button} ${styles.button}`} onClick={() => handleUnfollow(profile)}>
-                                    Unfollow
-                                </Button>
-                            ) : (
-                                <Button className={`${btnStyles.Button} ${styles.button}`} onClick={() => handleFollow(profile)}>
-                                    Follow
-                                </Button>
-                            ))}
-                        </Col>
-                    </Row>
-                </Col>
-                {profile?.content && <Col className="p-3">{profile.content}</Col>}
-            </Row>
+        <Container className="position-relative">
+            <div className={`${styles.ProfileDropdown}`}>
+                {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
+            </div>
+            <div className="text-center my-3">
+                <Image
+                    className={styles.ProfileImage}
+                    roundedCircle
+                    src={profile?.image}
+                    alt="Profile avatar"
+                />
+                <h2 className="m-2">{profile?.owner}</h2>
+                {profile?.content && <h6>{profile.content}</h6>}
+                {currentUser && !is_owner && (
+                    <Button
+                        className={`${btnStyles.Button} mt-2 mb-2`}
+                        onClick={profile?.following_id ? () => handleUnfollow(profile) : () => handleFollow(profile)}
+                    >
+                        {profile?.following_id ? "Unfollow" : "Follow"}
+                    </Button>
+                )}
+            </div>
+            </Container>
         </>
     );
 
     const mainProfilePosts = (
         <>
             <hr />
-            <p className="text-center">{profile?.owner}'s posts</p>
-            <hr />
+            <h5 className={`${styles.OwnersPostsText} text-left`}>{profile?.owner}'s posts</h5>
             {profilePosts.results.length ? (
                 <InfiniteScroll
                     children={profilePosts.results.map((post) => (

@@ -8,18 +8,16 @@
 }
 
 .DropdownItem {
-  display: inline-block;
-  font-weight: bold;
-  max-width: 50%;
-  padding: 0px;
+  padding: 10px;
 }
 
 .DropdownItem:hover {
+  font-weight: bold;
   color: #8B0000;
 }
 
-.dropdownContainer {
+.DropdownMenuBox {
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  flex-direction: column;
+  align-items: flex-start;
 }

@@ -46,18 +46,21 @@ export const ProfileEditDropdown = ({ id }) => {
             <Dropdown.Toggle as={SquareCaret} />
             <Dropdown.Menu>
                 <Dropdown.Item
+                    className={styles.DropdownItem}
                     onClick={() => history.push(`/profiles/${id}/edit`)}
                     aria-label="edit-profile"
                 >
                     <i className="fa-solid fa-pencil" /> Edit Profile
                 </Dropdown.Item>
                 <Dropdown.Item
+                    className={styles.DropdownItem}
                     onClick={() => history.push(`/profiles/${id}/edit/username`)}
                     aria-label="edit-username"
                 >
                     <i className="fas fa-user-cog" /> Change Username
                 </Dropdown.Item>
                 <Dropdown.Item
+                    className={styles.DropdownItem}
                     onClick={() => history.push(`/profiles/${id}/edit/password`)}
                     aria-label="edit-password"
                 >
