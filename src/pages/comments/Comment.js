@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 
 import Media from "react-bootstrap/Media";
 
@@ -11,38 +11,43 @@ import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../API/axiosDefaults";
 
 import styles from "../../styles/Comment.module.css";
+import feedbackStyles from "../../styles/CustomFeedback.module.css"
+
+import { SuccessMessage, ErrorMessage } from "../../components/CustomFeedback";
 
 const Comment = (props) => {
     const { profile_id, profile_image, owner, updated_at, content, id, setPost,
         setComments,
     } = props;
     const [showEditForm, setShowEditForm] = useState(false);
+    const [successMessage, setSuccessMessage] = useState("");
     const currentUser = useCurrentUser();
     const is_owner = currentUser?.username === owner;
+    const history = useHistory();
 
     const handleDelete = async () => {
-        try {
-            // console.log('Attempting to delete comment with ID:', id);
-            await axiosRes.delete(`/comments/${id}/`);
-            // console.log('Comment deleted successfully'); 
-            setPost((prevPost) => ({
-                results: [
-                    {
-                        ...prevPost.results[0],
-                        comments_count: prevPost.results[0].comments_count - 1,
-                    },
-                ],
-            }));
-
-            setComments((prevComments) => ({
-                ...prevComments,
-                results: prevComments.results.filter((comment) => comment.id !== id),
-            }));
-        } catch (err) { }
+        const confirmDelete = window.confirm("Are you sure you want to delete this comment?");
+        if (confirmDelete) {
+            try {
+                await axiosRes.delete(`/comments/${id}/`);
+                setSuccessMessage("Comment successfully deleted.");
+                setTimeout(() => {
+                    setSuccessMessage("");
+                    window.location.reload();
+                }, 2000);
+            } catch (err) {
+                /* console.log(err); */
+            }
+        }
     };
 
     return (
         <>
+            {successMessage && (
+                <div className={feedbackStyles.fixedMessage}>
+                    <SuccessMessage message={successMessage} />
+                </div>
+            )}
             <hr />
             <Media>
                 <Link to={`/profiles/${profile_id}`}>

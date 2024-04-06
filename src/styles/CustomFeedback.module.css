@@ -1,0 +1,25 @@
+.fixedMessage {
+    position: fixed;
+    top: 70px;
+    left: 0;
+    right: 0px;
+    z-index: 99;
+    text-align: center;
+}
+
+.fixedMessage p {
+    padding: 5px;
+    line-height: 1.75rem;
+}
+
+.success {
+    background-color: #dff0d8;
+    border: 1px solid #d0e9c6;
+    color: #3c763d;
+}
+
+.error {
+    background-color: #f2dede;
+    border: 1px solid #ebccd1;
+    color: #a94442;
+}

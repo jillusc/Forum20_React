@@ -62,7 +62,9 @@ function PostsPage({ message, filter = "" }) {
                     <Form.Control value={query} onChange={(event) => setQuery(event.target.value)}
                         type="text" className="mr-sm-2" placeholder="Search posts" />
                 </Form>
-                <p className="text-left ml-3 mt-4 mb-3">Latest posts from our members</p>
+                {pathname === "/" && (
+                    <p className="text-left ml-3 mt-4 mb-3">Latest posts from our members</p>
+                )}
                 {hasLoaded ? (
                     <>
                         {posts.results.length ? (

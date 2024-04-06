@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
 
 import Card from "react-bootstrap/Card";
@@ -7,13 +7,17 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 
 import styles from "../../styles/Post.module.css";
+import feedbackStyles from "../../styles/CustomFeedback.module.css"
 
 import Avatar from "../../components/Avatar";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../API/axiosDefaults";
 import { MoreDropdown } from "../../components/MoreDropdown";
+import { SuccessMessage, ErrorMessage } from "../../components/CustomFeedback";
 
 const Post = (props) => {
+    const [successMessage, setSuccessMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
     const { id, owner, profile_id, profile_image, comments_count, likes_count,
         like_id, title, content, image, updated_at, postPage, setPosts,
     } = props;
@@ -26,11 +30,18 @@ const Post = (props) => {
     };
 
     const handleDelete = async () => {
-        try {
-            await axiosRes.delete(`/posts/${id}/`);
-            history.goBack();
-        } catch (err) {
-            /* console.log(err); */
+        const confirmDelete = window.confirm("Are you sure you want to delete this post?");
+        if (confirmDelete) {
+            try {
+                await axiosRes.delete(`/posts/${id}/`);
+                setSuccessMessage("Post successfully deleted.");
+                setTimeout(() => {
+                    setSuccessMessage("");
+                    window.location.reload();
+                }, 2000);
+            } catch (err) {
+                /* console.log(err); */
+            }
         }
     };
 
@@ -123,6 +134,11 @@ const Post = (props) => {
                     {comments_count}
                 </div>
             </Card.Body>
+            {successMessage && (
+                <div className={feedbackStyles.fixedMessage}>
+                    <SuccessMessage message={successMessage} />
+                </div>
+            )}
         </Card>
     );
 };

@@ -11,15 +11,20 @@ import Row from "react-bootstrap/Row";
 
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
+import feedbackStyles from "../../styles/CustomFeedback.module.css"
 
 import { axiosReq } from "../../API/axiosDefaults";
 import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
+import { SuccessMessage, ErrorMessage } from "../../components/CustomFeedback";
 
 const ProfileEditForm = () => {
+    const [successMessage, setSuccessMessage] = useState("");
+    const [errors, setErrors] = useState({});
+
     const currentUser = useCurrentUser();
     const setCurrentUser = useSetCurrentUser();
-    const { id } = useParams();
     const history = useHistory();
+    const { id } = useParams();
     const imageFile = useRef();
 
     const [profileData, setProfileData] = useState({
@@ -27,9 +32,8 @@ const ProfileEditForm = () => {
         content: "",
         image: "",
     });
-    const { name, content, image } = profileData;
 
-    const [errors, setErrors] = useState({});
+    const { name, content, image } = profileData;
 
     useEffect(() => {
         const handleMount = async () => {
@@ -62,21 +66,25 @@ const ProfileEditForm = () => {
         const formData = new FormData();
         formData.append("name", name);
         formData.append("content", content);
-
         if (imageFile?.current?.files[0]) {
             formData.append("image", imageFile?.current?.files[0]);
         }
-
         try {
             const { data } = await axiosReq.put(`/profiles/${id}/`, formData);
+            setSuccessMessage("Profile edited successfully.");
             setCurrentUser((currentUser) => ({
                 ...currentUser,
                 profile_image: data.image,
             }));
-            history.goBack();
+            setTimeout(() => {
+                history.push(`/profiles/${data.id}`);
+            }, 2000);
         } catch (err) {
             /* console.log(err); */
-            setErrors(err.response?.data);
+            if (err.response?.status !== 401) {
+                const errorMessage = err.response?.data?.message || "An error occurred.";
+                setErrors({ ...errors, message: errorMessage });
+            }
         }
     };
 
@@ -145,6 +153,18 @@ const ProfileEditForm = () => {
                                 }}
                             />
                         </Form.Group>
+                        {successMessage && (
+                            <div className={feedbackStyles.fixedMessage}>
+                                <SuccessMessage message={successMessage} />
+                            </div>
+                        )}
+                        {Object.keys(errors).map((key) =>
+                            errors[key].map((message, idx) => (
+                                <div key={`${key}-${idx}`} className={feedbackStyles.fixedMessage}>
+                                    <ErrorMessage message={message} />
+                                </div>
+                            ))
+                        )}
                         <div className="d-md-none">{textFields}</div>
                     </Container>
                 </Col>

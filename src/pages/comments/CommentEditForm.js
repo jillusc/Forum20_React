@@ -4,10 +4,14 @@ import Form from "react-bootstrap/Form";
 
 import formStyles from "../../styles/FormStyles.module.css"
 import btnStyles from "../../styles/Button.module.css";
+import feedbackStyles from "../../styles/CustomFeedback.module.css"
 
 import { axiosRes } from "../../API/axiosDefaults";
+import { SuccessMessage, ErrorMessage } from "../../components/CustomFeedback";
 
 function CommentEditForm(props) {
+  const [successMessage, setSuccessMessage] = useState("");
+  const [errors, setErrors] = useState({});
   const { id, content, setShowEditForm, setComments } = props;
   const [formContent, setFormContent] = useState(content);
 
@@ -18,24 +22,25 @@ function CommentEditForm(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      await axiosRes.put(`/comments/${id}/`, {
+      const response = await axiosRes.put(`/comments/${id}/`, {
         content: formContent.trim(),
       });
       setComments((prevComments) => ({
         ...prevComments,
-        results: prevComments.results.map((comment) => {
-          return comment.id === id
-            ? {
-              ...comment,
-              content: formContent.trim(),
-              updated_at: "now",
-            }
-            : comment;
-        }),
+        results: prevComments.results.map((comment) =>
+          comment.id === id ? { ...comment, content: formContent.trim(), updated_at: "now" } : comment
+        ),
       }));
-      setShowEditForm(false);
+      setSuccessMessage("Comment edited successfully.");
+      setTimeout(() => {
+        setShowEditForm(false);
+      }, 2000);
     } catch (err) {
-      console.log(err);
+      /* console.log(err); */
+      if (err.response?.status !== 401) {
+        const errorMessage = err.response?.data?.message || "An error occurred.";
+        setErrors({ ...errors, ...err.response?.data });
+      }
     }
   };
 
@@ -50,6 +55,18 @@ function CommentEditForm(props) {
           rows={2}
         />
       </Form.Group>
+      {successMessage && (
+        <div className={feedbackStyles.fixedMessage}>
+          <SuccessMessage message={successMessage} />
+        </div>
+      )}
+      {Object.keys(errors).map((key) =>
+        errors[key].map((message, idx) => (
+          <div key={`${key}-${idx}`} className={feedbackStyles.fixedMessage}>
+            <ErrorMessage message={message} />
+          </div>
+        ))
+      )}
       <div className="text-right">
         <button
           className={btnStyles.Button}

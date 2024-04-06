@@ -9,3 +9,17 @@ label {
 .uploadIcon {
   cursor: pointer;
 }
+
+.TextLink {
+  text-decoration: underline;
+  text-align: center;
+  display: inline;
+  margin: auto;
+  color: #3c3c3c;
+}
+
+.TextLink:hover {
+  color: #8B0000;
+  font-weight: bolder;
+  text-decoration: none;
+}
