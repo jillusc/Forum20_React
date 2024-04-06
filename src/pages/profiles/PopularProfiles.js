@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 import Container from "react-bootstrap/Container";
 
@@ -17,17 +18,13 @@ const PopularProfiles = ({ mobile }) => {
             {popularProfiles.results.length ? (
                 <>
                     <p>Most followed profiles</p>
-                    {mobile ? (
-                        <div className="d-flex justify-content-around">
-                            {popularProfiles.results.slice(0, 4).map((profile) => (
-                                <Profile key={profile.id} profile={profile} mobile />
-                            ))}
-                        </div>
-                    ) : (
-                        popularProfiles.results.map((profile) => (
-                            <Profile key={profile.id} profile={profile} />
-                        ))
-                    )}
+                    <div className={mobile ? "d-flex justify-content-around" : ""}>
+                        {popularProfiles.results.slice(0, 4).map((profile) => (
+                            <Link key={profile.id} to={`/profile/${profile.username}`} className={appStyles.Link}>
+                                <Profile profile={profile} mobile />
+                            </Link>
+                        ))}
+                    </div>
                 </>
             ) : (
                 <Asset spinner />

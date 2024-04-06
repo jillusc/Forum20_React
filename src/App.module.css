@@ -34,6 +34,13 @@ figure {
   display: inline-block;
 }
 
+.Link {
+  font-family: "Quicksand", sans-serif;
+  color: #3c3c3c;
+  font-weight: bold;
+  text-decoration: none;
+}
+
 /* scrollbar */
 *::-webkit-scrollbar {
   width: 8px;
