@@ -82,7 +82,7 @@ function PostEditForm() {
             await axiosReq.put(`/posts/${id}/`, formData);
             setSuccessMessage("Post edited successfully.");
             setTimeout(() => {
-                history.push(`/posts/${data.id}`);
+                history.push(`/posts/${id}`);
             }, 2000);
         } catch (err) {
             /* console.log(err); */
