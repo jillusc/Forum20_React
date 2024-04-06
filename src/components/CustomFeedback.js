@@ -18,5 +18,4 @@ const ErrorMessage = ({ message }) => {
   );
 };
 
-
 export { SuccessMessage, ErrorMessage };
