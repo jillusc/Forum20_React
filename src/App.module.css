@@ -41,6 +41,12 @@ figure {
   text-decoration: none;
 }
 
+.Link:hover {
+  color: #3c3c3c;
+  font-weight: bold;
+  text-decoration: none;
+}
+
 /* scrollbar */
 *::-webkit-scrollbar {
   width: 8px;

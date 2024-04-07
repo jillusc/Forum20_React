@@ -6,6 +6,7 @@ import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
 
 import styles from "../../styles/Profile.module.css";
+import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
@@ -29,7 +30,9 @@ const Profile = (props) => {
                 </Link>
             </div>
             <div className={`mx-2 ${styles.WordBreak}`}>
-                <strong>{owner}</strong>
+                <Link to={`/profiles/${id}`} className={appStyles.Link}>
+                    {owner}
+                </Link>
             </div>
             <div className={`text-right ${!mobile && "ml-auto"}`}>
                 {!mobile && currentUser && !is_owner &&
