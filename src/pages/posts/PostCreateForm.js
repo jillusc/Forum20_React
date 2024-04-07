@@ -24,7 +24,12 @@ import { SuccessMessage, ErrorMessage } from "../../components/CustomFeedback";
 function PostCreateForm() {
     useRedirect("loggedOut");
     const [successMessage, setSuccessMessage] = useState("");
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({
+        title: [],
+        content: [],
+        image: []
+    });
+    const [isPrivate, setIsPrivate] = useState(false);
 
     const [postData, setPostData] = useState({
         title: "",
@@ -37,14 +42,17 @@ function PostCreateForm() {
     const history = useHistory();
 
     const handleChange = (event) => {
-        setPostData({ ...postData,
-            [event.target.name]: event.target.value });
+        setPostData({
+            ...postData,
+            [event.target.name]: event.target.value
+        });
     };
 
     const handleChangeImage = (event) => {
         if (event.target.files[0]) {
             URL.revokeObjectURL(image);
-            setPostData({ ...postData,
+            setPostData({
+                ...postData,
                 image: URL.createObjectURL(event.target.files[0])
             });
         }
@@ -53,16 +61,17 @@ function PostCreateForm() {
     const handleSubmit = async (event) => {
         event.preventDefault();
         if (!imageInput.current.files[0]) {
-            setErrors({
-                ...errors,
+            setErrors(prevErrors => ({
+                ...prevErrors,
                 image: ["Please upload an image."]
-            });
+            }));
             return;
         }
         const formData = new FormData();
         formData.append("title", title);
         formData.append("content", content);
         formData.append("image", imageInput.current.files[0]);
+        formData.append("is_private", isPrivate);
 
         try {
             const { data } = await axiosReq.post("/posts/", formData);
@@ -105,54 +114,69 @@ function PostCreateForm() {
             <Button className={`${btnStyles.Button}`} onClick={() => history.goBack()}>
                 Cancel
             </Button>
+            <Form.Group>
+                <Form.Check
+                    type="checkbox"
+                    className={`${formStyles.customCheckbox}`}
+                    label="Make this post visible only to followers"
+                    checked={isPrivate}
+                    onChange={(e) => setIsPrivate(e.target.checked)}
+                />
+            </Form.Group>
         </div>
     );
 
     return (
         <Form onSubmit={handleSubmit}>
-            <Row>
-                <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
-                    <Container className={`${appStyles.Content} d-flex flex-column justify-content-center`}>
-                        <Form.Group className="text-center">
+            <Row className="d-flex flex-column flex-md-row">
+                <Col className="py-2 p-0 p-md-2 d-flex flex-column" md={7} lg={8}>
+                    <Container className={`${appStyles.Content} d-flex flex-column h-100`}>
+                        <Form.Group className="text-center flex-grow-1">
                             {image ? (
                                 <>
                                     <figure>
                                         <Image className={`${appStyles.Image} img-fluid`} src={image} rounded />
                                     </figure>
-                                    <div>
-                                        <Link className={styles.TextLink} htmlFor="image-upload">Change the image</Link>
-                                    </div>
+                                    <label htmlFor="image-upload" className={styles.TextLink} style={{ cursor: 'pointer', display: 'inline-block' }}>Change the image</label>
                                 </>
                             ) : (
-                                <Form.Label className={`d-flex justify-content-center ${formStyles.uploadIcon}`} htmlFor="image-upload">
-                                    <Asset src={Upload} message="Upload an image" />
-                                </Form.Label>
+                                <label
+                                    htmlFor="image-upload"
+                                    className={`d-flex flex-column align-items-center ${styles.uploadContainer}`}
+                                    style={{ cursor: 'pointer' }}
+                                >
+                                    <div className={`d-flex justify-content-center ${formStyles.uploadIcon}`}>
+                                        <Asset src={Upload} />
+                                    </div>
+                                    <div className={`d-flex justify-content-center ${btnStyles.Button}`}>
+                                        <span>Upload an image</span>
+                                    </div>
+                                </label>
                             )}
-                            <Form.File id="image-upload" accept="image/*" onChange={handleChangeImage} ref={imageInput} />
+                            <Form.File id="image-upload" accept="image/*" onChange={handleChangeImage} ref={imageInput} style={{ display: 'none' }} />
                             {errors?.image?.map((message, idx) => (
                                 <Alert variant="warning" key={idx}>
                                     {message}
                                 </Alert>
                             ))}
                         </Form.Group>
+
                         {successMessage && (
                             <div className={feedbackStyles.fixedMessage}>
                                 <SuccessMessage message={successMessage} />
                             </div>
                         )}
                         {Object.keys(errors).map((key) =>
-                            errors[key].map((message, idx) => (
+                            Array.isArray(errors[key]) && errors[key].map((message, idx) => (
                                 <div key={`${key}-${idx}`} className={feedbackStyles.fixedMessage}>
                                     <ErrorMessage message={message} />
                                 </div>
                             ))
                         )}
-                        <div className="d-md-none">{textFields}</div>
                     </Container>
                 </Col>
-                <Col md={5} lg={4} className="d-none d-md-block p-0 p-md-2">
-                    <Container className={appStyles.Content}>{textFields}
-                    </Container>
+                <Col md={5} lg={4} className="d-none d-md-block p-0 p-md-2 d-flex flex-column h-100">
+                    <Container className={`${appStyles.Content} h-100`}>{textFields}</Container>
                 </Col>
             </Row>
         </Form>

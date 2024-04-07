@@ -36,8 +36,7 @@ const Post = (props) => {
                 await axiosRes.delete(`/posts/${id}/`);
                 setSuccessMessage("Post successfully deleted.");
                 setTimeout(() => {
-                    setSuccessMessage("");
-                    window.location.reload();
+                    history.push(`/profiles/${profile_id}`);
                 }, 2000);
             } catch (err) {
                 /* console.log(err); */

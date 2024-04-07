@@ -12,6 +12,16 @@
     border-radius: .25rem;
 }
 
+.customCheckbox {
+    margin-top: 30px;
+}
+
+.customCheckbox label {
+    font-size: .85rem;
+    font-weight: normal;
+    color: #333;
+}
+
 input[type="file"] {
     display: none;
 }
@@ -22,4 +32,6 @@ label {
 
 .uploadIcon {
     cursor: pointer;
+    margin-top: 54px;
+    margin-bottom: 40px;
 }
