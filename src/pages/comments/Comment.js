@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 import Media from "react-bootstrap/Media";
 
@@ -13,17 +13,16 @@ import { axiosRes } from "../../API/axiosDefaults";
 import styles from "../../styles/Comment.module.css";
 import feedbackStyles from "../../styles/CustomFeedback.module.css"
 
-import { SuccessMessage, ErrorMessage } from "../../components/CustomFeedback";
+import { SuccessMessage } from "../../components/CustomFeedback";
 
 const Comment = (props) => {
-    const { profile_id, profile_image, owner, updated_at, content, id, setPost,
+    const { profile_id, profile_image, owner, updated_at, content, id,
         setComments,
     } = props;
     const [showEditForm, setShowEditForm] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
     const currentUser = useCurrentUser();
     const is_owner = currentUser?.username === owner;
-    const history = useHistory();
 
     const handleDelete = async () => {
         const confirmDelete = window.confirm("Are you sure you want to delete this comment?");

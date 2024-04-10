@@ -18,7 +18,7 @@ function CommentCreateForm(props) {
   const { post, setPost, setComments, profileImage, profile_id } = props;
   const [content, setContent] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const [errors, setErrors] = useState({});
+  const [errors] = useState({});
   const history = useHistory();
 
   const handleChange = (event) => {

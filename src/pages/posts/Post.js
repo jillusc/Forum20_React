@@ -13,11 +13,10 @@ import Avatar from "../../components/Avatar";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../API/axiosDefaults";
 import { MoreDropdown } from "../../components/MoreDropdown";
-import { SuccessMessage, ErrorMessage } from "../../components/CustomFeedback";
+import { SuccessMessage } from "../../components/CustomFeedback";
 
 const Post = (props) => {
     const [successMessage, setSuccessMessage] = useState("");
-    const [errorMessage, setErrorMessage] = useState("");
     const { id, owner, profile_id, profile_image, comments_count, likes_count,
         like_id, title, content, image, updated_at, postPage, setPosts,
     } = props;

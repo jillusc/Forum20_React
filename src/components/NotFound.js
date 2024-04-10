@@ -10,7 +10,7 @@ const NotFound = () => {
       <Asset
         src={NoResults}
         message={`The page you're looking for doesn't exist`} />
-        <Link to="/" className={styles.HomeLink}>Back to Forum20 homepage</Link>
+        <Link to="/" className={styles.HomeLink}>Back to forum20 homepage</Link>
     </div>
   );
 };
