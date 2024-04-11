@@ -193,43 +193,40 @@ The Projects functionality in Github was used to manage the process of creating 
 
 The design of forum20 was based on supporting the theme of modern art and combines various aspects to invite engagement and interaction from visitors:
 
-### Colour
+#### Colour
 
 The colour scheme is entirely minimal with a completely white background and the logo in monochrome. The intention behind this is that the site is predominantly imaged-based and seeks to emulate a real modern art gallery, where the artworks are presented on a clean, white background: *"The aesthetic was introduced in the early twentieth century in response to the increasing abstraction of modern art. With an emphasis on colour and light (many) artists … preferred to exhibit their works against white walls in order to minimise distraction."* &nbsp; &nbsp; <u><small>[source]( https://www.tate.org.uk/art/art-terms/w/white-cube)</small></u><br>
-Accent colours are a deep wine red and a soft peach, chosen to offset each other in a nice way whilst maintaining the sense of sophistication that is key to the theme of the site. For the text, rather than purest black, a dark charcoal shade was chosen to avoid the starkest contrast on the eye. The site's crollbars also utilise the main colour scheme.<br><br>
-<img src="README%20images/forum-20-colours.jpg" height="320px" align="center">
+Accent colours are a deep wine red and a soft peach, chosen to offset each other in a nice way whilst maintaining the sense of sophistication that is key to the theme of the site. For the text, rather than purest black, a dark charcoal shade was chosen to avoid the starkest contrast on the eye. The site's scrollbars also utilise the main colour scheme:<br><br>
+<img src="README%20images/forum-20-colours.jpg" height="320px">
 
-### Typography
+#### Typography
 
-The site uses just one font, Quicksand, imported from Google Fonts. It is a modern typeface with rounded edges and a minimalist look. Because it is the single font used across the app, a cohesive visual identity is created which complements the artworks without overshadowing them or cluttering the site. The monochrome logo was created using two different fonts: Broadway (for the f and 0 characters) and Engravers MT (for the 2), reflecting the (aesthetic) of modern art being defined by a number of styles and movements. The decision not to represent each letter of the word "forum" was made in an effort to minimise the effect of this so as not to appear overdone and to retain a level of sophistication:<br><br>
+The site uses just one font, Quicksand, imported from Google Fonts. It is a modern typeface with rounded edges and a minimalist look. Because it is the single font used across the app, a cohesive visual identity is created which complements the artworks without overshadowing them or cluttering the site. The monochrome logo was created using two different fonts: Broadway (for the f and 0 characters) and Engravers MT (for the 2), reflecting the essence of modern art being defined by a number of styles and movements. The decision not to represent each letter of the word "forum" was made in an effort to minimise the effect of this so as not to appear overdone and to retain a level of sophistication:<br><br>
 <img src="README%20images/logo.png">
-### Imagery
+
+#### Imagery
 
 Whilst the only imagery aside from a minimal logo comes in the form of user posts and avatars, this is positively sufficient, visually: rectangular images of artworks and contrastingly small, circular avatar 'buttons' create an appealing uniformity. Through usage of the CSS property 'object-fit: contain' and the 'img-fluid' class, post images are standardised with a consistent aspect ratio, and the black background creates the letterbox effect, resulting in a stylish display:<br><br>
-<img src="README%20images/letterbox1.jpg" width="270px">
-<img src="README%20images/letterbox4.jpg" width="262px" align="right">
+<img src="README%20images/letterbox1.jpg" width="37px">
+<img src="README%20images/letterbox4.jpg" width="375px">
 
-
-
-### Favicon
+#### Favicon
 
 From the logo, a favicon was created using basic image editing software. The number 20, compiled with the two different fonts, provides a (modernist) reminder of the platform's subject - 20th century art - and serves to keep it in visitors' vision and minds:<br><br>
 <img src="README%20images/favicon.png">
-
 
 ## Data Models
 
 This project follows Object-Oriented Programming principles and employs Django's Class-Based Generic Views. It includes five custom models:
 
 - Post: detailing user posts with attributes such as owner (linked to the User model), post privacy status, timestamps of creation and updates, a post title and content text and an image.
-- Profile: for user profiles - directly associated with a unique User instance.
+- Profile: for user profiles and directly associated with a unique User instance.
 - Comment: enabling registered users to submit comments, this establishes one-to-many relationships with both the User model (via comment owner) and the Post model (linking a comment with a post).
 - Like: featuring a many-to-one relationship with both the User model (via like owner) and the Post model (identifying which post was liked).
 - Follower: representing the relationships between users, with a many-to-one relationship to the User model twice: once for the user who's following and once for the followed user.
 
 The database schema are illustrated by the ERD diagram below:<br><br>
 <img src="README%20images/ERD.jpg">
-
 
 ## Features
 
@@ -247,39 +244,40 @@ This is an application where visitors can explore 20th century artworks and enri
 
 ### Features to implement
 
- - Activity: the site could be extended to offer functionality more like a conventional social media app whereby users could privately message each other, receive notifications and so on.
+ - Activity: the site could be extended to offer functionality more akin to a conventional social media app whereby users can privately message each other, receive notifications,add tags to content and so on.
  - File Uploads: implementing the ability to upload various file types such as documents, video, audio, to share not only images but articles, exhibition news and reviews, book recommendations, podcasts and the like would significantly enhance the scope of forum20.
- - User Profile: there is the potential to develop members' profile pages, extending beyond a simple bio, perhaps with a section detailing favourite artists, for example, and stats as to how active they are, e.g. number of posts.
+ - User Profiles: there is the potential to develop members' profile pages, extending beyond a simple bio with perhaps a section detailing favourite artists, for example, and stats as to how active they are, e.g. number of posts.
 
 
 ### Header
 
  - <strong>Logo</strong>: positioned in the top left of the navigation bar, the logo is per convention linked to the home page for ease of navigation for the user.<br><br>
- - <strong>Navigation bar</strong>: the navbar is present at the top of every page and displays two sets of links which are conditionally rendered dependent on a logged-in or non-authenticated user. These navlinks are in uppercase text and paired with an icon from Font Awesome. On hover, links & icons turn from the default charcoal colour to wine red. The link & icon of the currently active page display slightly larger and in title case, distinguishing active pages effectively. Given a logged-in user, their profile picture is rendered as an avatar at the right hand side of the navbar and intuitively links to their profile page. On smaller screens, the navigation items reduce into a hamburger menu with the avatar at the bottom:<br><br>
+ - <strong>Navigation bar</strong>: the navbar is present at the top of every page and displays two sets of links which are conditionally rendered dependent on a logged-in or non-authenticated user. These navlinks are in uppercase text and paired with an icon from Font Awesome. On hover, links & icons turn from the default charcoal colour to wine red. The link & icon of the currently active page display slightly larger and in title case, distinguishing active pages effectively. Given a logged-in user, their profile picture is rendered as an avatar at the right hand side of the navbar and intuitively links to their profile page. On smaller screens, the navigation items reduce into a hamburger menu:<br><br>
 <img src="README%20images/logo-nav-items.jpg" width="900px"><br><br>
-<img src="README%20images/navbar-logged-in.jpg" width="900px">
+<img src="README%20images/navbar-logged-in.jpg" width="900px"><br><br>
+<img src="README%20images/nav-hamburger.jpg" width="120px">
 
 
 ### Home page
 
-The homepage displays member posts in Bootstrap cards, ordered by most recent. For non-authenticated users, a welcome heading informs the visitor what the site is named and what it does in just a few words. It has a clear textual link inviting the user to "Join the community!" and this opens the signup page onclick. Viewers of the homepage take an immediate dive into the heart of the app as they are greeted with a good amout of colour and options, organised into neatly defined sections: they get an instant taste of what is on offer through a (seemingly endless) supply of posts as they scroll; a component renders to the side of the main content on larger screens (above, on smaller ones) containing a snapshot of information on exisiting members under the heading "Most followed profiles", temptingly demonstrating the social media character of the site:<br><br>
+The homepage displays member posts in Bootstrap cards, ordered by most recent. For non-authenticated users, a welcome heading informs the visitor what the site is named and what it does in just a few words. It has a clear textual link inviting the user to "Join the community!" and this opens the signup page onclick. Viewers of the homepage take an immediate dive into the heart of the app as they are greeted with a good amout of colour and options, organised into neatly defined sections: they get an instant taste of what is on offer through a (seemingly endless) supply of posts as they scroll; a component renders to the side of the main content on larger screens (on smaller ones, above) containing a snapshot of information on exisiting members under the heading "Most followed profiles", temptingly demonstrating the social media character of the site:<br><br>
 <img src="README%20images/page-home.jpg">
 
 ### Sign Up and Log In pages
 
 These pages both present forms for their respective purposes. Simplicity is key here: with a contrast to the hive of activity found on the site's main pages, users can efficiently input minimal information and then promptly return to accessing the content that interests them. Upon successful signup, the login page is loaded; upon successful login, the homepage. In both cases, the page redirections steer the user towards establishing their next options:<br><br>
-<img src="README%20images/page-log_in2.jpg" width="270px" align="right">
+<img src="README%20images/page-log_in2.jpg" width="270px">
 <img src="README%20images/page-sign_up.jpg" width="270px">
 
 ### Feed and Liked pages
 
-Tailored content is displayed to the registered user. The Feed page presents a curated view of posts from other members whom the user follows, giving easy access to new, relevant content at a click. The Liked page aggregates all the posts that the user has expressed interest in by adding a like, and this provides a convenient way for the user to revisit and review their interactions.<br><br>
+Tailored content is displayed to the registered user through these pages. The Feed presents a curated view of posts from other members whom the user follows, giving easy access to new, relevant content at a click. The Liked page aggregates all the posts that the user has expressed interest in by adding a like, and this provides a convenient way for the user to revisit and review their interactions:<br><br>
 <img src="README%20images/page-feed.jpg"><br><br>
 <img src="README%20images/page-liked.jpg">
 
-### Add post page
+### Add Post page
 
-Clicking on the Add post navlink opens a page with a form. This features a larger box via which to upload an image and a narrower one where the user can enter a title for the post and further text content. A checkbox affords the user some control by enabling setting the post as visible only to their followers. Upon successful creation, a custom feedback message displays before the Post page is rendered to display the submitted post:<br><br>
+Clicking on the Add Post navlink opens a page with a form. This features a larger box via which to upload an image and a narrower one where the user can enter a title for the post and further text content. A checkbox affords the user some control by enabling setting the post as visible only to their followers. Upon successful creation, a custom feedback message displays before the Post page is rendered to display the submitted post:<br><br>
 <img src="README%20images/page-addpost1.jpg"><br><br>
 <img src="README%20images/page-addpost2.jpg">
 
@@ -298,34 +296,34 @@ This page offers users a personalised space to manage their account and their si
 <img src="README%20images/success_message.jpg"><br><br>
 <strong>Dialog</strong>: the window.confirm() method was implemented to prompt users to confirm their action before proceeding with deletion of posts and comments: <br><br>
 <img src="README%20images/window_dialog.jpg"><br><br>
-<strong>Caret</strong>: a custom component with a caret icon was created and styled within the app's theme, providing dropdown menu functionality for editing and deleting items where appropriate:<br><br>
+<strong>Caret</strong>: a custom component with a caret icon was created and styled within the app's theme, providing dropdown menu functionality for editing and deleting items where appropriate (post, comment, profile):<br><br>
 <img src="README%20images/caret_dropdown.jpg" width="200px"><br><br>
-<strong>Tooltips</strong>: used whenhovering over the mini follow/unfollow buttons in the popular profiles component for clarity:<br><br>
+<strong>Tooltips</strong>: used when hovering over the mini follow/unfollow buttons in the popular profiles component for clarity:<br><br>
 <img src="README%20images/tooltip.jpg" width="260px"><br><br>
-<strong>Pointers</strong>: in the CSS stylesheets, the 'cursor: pointer' attribute was placed as an indication to the user of an interactive element.
+<strong>Pointers</strong>: in the CSS stylesheets, the 'cursor: pointer' attribute was set as an indication to the user of an interactive element.
 
 ## Testing Documentation
 
-The forum20 application was subjected to manual testing in Google Chrome, Mozilla Firefox, Microsoft Edge and Safari browsers, and Samsung Internet and Safari on mobile.<br>
+The forum20 application was subjected to manual testing in Google Chrome, Mozilla Firefox, Microsoft Edge and Safari browsers.<br>
 Documentation can be found [here](README%20images/forum20%20testing.pdf).
 
 The project's User Stories were evaluated to confirm whether they were met.<br>
-Documentation for this is [here](README%20images/forum20%20user%20stories%20met.pdf).
+Documentation for this is [here](README%20images/user%20stories%20met.pdf).
 
 ## Security
 
-Authentication tokens are used to provide secure access to API endpoints.
-JSON Web Tokens are securely stored in HTTP cookies.
-Django's built-in user authentication system is utilised to handle user registration, login and profile management.
-User passwords are securely stored and validated using Django's password validation system.
-Cross-Origin Resource Sharing (CORS) is configured to help prevent unauthorised access to sensitive data by restricting access to allowed origins only.
-The project employs CSRF protection to prevent Cross-Site Request Forgery attacks.
-Database connections are managed securely using environment variables and the dj_database_url package to parse the database URL.
-File uploads are handled, stored and accessed securely thanks to the use of Cloudinary. The Cloudinary API details and the secret key are stored in the env.py file alongside the database URL.
-Models and views utilise ownership and content validation and permission classes, respectively.
-The submission of forms relies on validated data and error messages are in place for missing or incorrect data.
-Axios is configured, using HTTPS for encrypted data transmission and enabling secure HTTP cookies. 
-A simple, custom 401 Error page was created to inform of such an error and includes a link to direct the user back to the site.<br><br>
+Authentication tokens are used to provide secure access to API endpoints.<br>
+JSON Web Tokens are securely stored in HTTP cookies.<br>
+Django's built-in user authentication system is utilised to handle user registration, login and profile management.<br>
+User passwords are securely stored and validated using Django's password validation system.<br>
+Cross-Origin Resource Sharing (CORS) is configured to help prevent unauthorised access to sensitive data by restricting access to allowed origins only.<br>
+The project employs CSRF protection to prevent Cross-Site Request Forgery attacks.<br>
+Database connections are managed securely using environment variables and the dj_database_url package to parse the database URL.<br>
+File uploads are handled, stored and accessed securely thanks to the use of Cloudinary.<br>The Cloudinary API details and the secret key are stored in the env.py file alongside the database URL.<br>
+Models and views utilise ownership and content validation and permission classes, respectively.<br>
+The submission of forms relies on validated data and error messages are in place for missing or incorrect data.<br>
+Axios is configured, using HTTPS for encrypted data transmission and enabling secure HTTP cookies. <br>
+A simple, custom 401 Error page was created to inform of such error and includes a link to direct the user back to the site.<br><br>
 <img src="README%20images/page-401.jpg"><br><br>
 <img src="README%20images/page-4012.jpg"><br><br>
 
@@ -353,7 +351,7 @@ v) Click the Open app button to verify it runs correctly.<br>
 - [Heroku](https://dashboard.heroku.com/login) - used for deploying the site.
 - [Chrome Developer Tools](https://developer.chrome.com/docs/devtools) - used for general troubleshooting.
 - [ChatGPT](https://chat.openai.com) - used for general troubleshooting.
-- [W3C](https://www.w3.org) - used for CSS code validation.
+- [W3C](https://www.w3.org) - used for CSS code validation.<br><br>
 
 - [ElephantSQL](https://www.elephantsql.com) - used to create the PostgreSQL database for this app.
 - [psycopg2](https://www.psycopg.org/) - used for interacting with the database in Python.
@@ -361,7 +359,7 @@ v) Click the Open app button to verify it runs correctly.<br>
 - [Django REST Framework](https://www.django-rest-framework.org/) - used as a toolkit for building the backend API.
 - [Gunicorn](https://gunicorn.org) - used as a production-ready web server for Heroku.
 - [Pillow](https://python-pillow.org/) - used for image processing and manipulation.
-- [Cloudinary](https://cloudinary.com) - used to host images securely.
+- [Cloudinary](https://cloudinary.com) - used to host images securely.<br><br>
 
 - [REACT](https://reactjs.org/) - used as a JavaScript library for UI.
 - [react.router-dom](https://reactrouter.com) - used for routing functionality in the frontend.
@@ -371,11 +369,12 @@ v) Click the Open app button to verify it runs correctly.<br>
 
 ## Improvements/Bug fixes
 
-The app is not yet presented in a completed, optimal state and would benefit from the following enhancements and modifications:
+The app is not yet presented in a completed or optimal state and would benefit from the following modifications and enhancements:
 
+   - Addressing the tests that failed to pass, particularly around functionality of post editing. See <u>[documentation](README%20images/forum20%20testing.pdf)</u>.
    - A feature for retrieving a forgotten password
    - An option for the user to delete their account
-   - Consistent and effective error messaging
+   - Consistent and effective application of error and success messaging
    - Provide clarity to the user that, when uploading a post, it must include a title
    - Ensuring application of the active class (NavLink style) upon all page reloads
    - Improving the visibilty of Follow/Unfollow buttons in the 'Most followed profiles' box so users can see at a glance which profiles they currently follow
