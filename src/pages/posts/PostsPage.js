@@ -18,6 +18,7 @@ import Asset from "../../components/Asset";
 import NoResults from "../../assets/no-results-icon.png";
 import { fetchMoreData } from "../../utils/utils";
 import PopularProfiles from "../profiles/PopularProfiles";
+import UserCommentsActivity from "../comments/UserCommentsActivity";
 
 function PostsPage({ message, filter = "" }) {
     const [posts, setPosts] = useState({ results: [] });
@@ -68,15 +69,17 @@ function PostsPage({ message, filter = "" }) {
                 {hasLoaded ? (
                     <>
                         {posts.results.length ? (
-                            <InfiniteScroll
-                                children={posts.results.map((post) => (
-                                    <Post key={post.id} {...post} setPosts={setPosts} postPage={true} />
-                                ))}
-                                dataLength={posts.results.length}
-                                loader={<Asset spinner />}
-                                hasMore={!!posts.next}
-                                next={() => fetchMoreData(posts, setPosts)}
-                            />
+                            <>
+                                <InfiniteScroll
+                                    children={posts.results.map((post) => (
+                                        <Post key={post.id} {...post} setPosts={setPosts} postPage={true} />
+                                    ))}
+                                    dataLength={posts.results.length}
+                                    loader={<Asset spinner />}
+                                    hasMore={!!posts.next}
+                                    next={() => fetchMoreData(posts, setPosts)}
+                                />
+                            </>
                         ) : (
                             <Container className={appStyles.Content}>
                                 <Asset src={NoResults} message={message} />
@@ -89,9 +92,11 @@ function PostsPage({ message, filter = "" }) {
                     </Container>
                 )}
             </Col>
-            <Col md={4} className="d-lg-block p-0 p-lg-2">
-                <PopularProfiles />
-            </Col>
+            {pathname === "/activity" && (
+                <Col md={4} className="d-lg-block p-0 p-lg-2">
+                    <UserCommentsActivity />
+                </Col>
+            )}
         </Row>
     );
 }

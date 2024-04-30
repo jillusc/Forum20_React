@@ -350,8 +350,7 @@ v) Click the Open app button to verify it runs correctly.<br>
 - [Gitpod](https://gitpod.io) - used as an IDE for the project.
 - [Heroku](https://dashboard.heroku.com/login) - used for deploying the site.
 - [Chrome Developer Tools](https://developer.chrome.com/docs/devtools) - used for general troubleshooting.
-- [ChatGPT](https://chat.openai.com) - used for general troubleshooting.
-- [W3C](https://www.w3.org) - used for CSS code validation.<br><br>
+- [ChatGPT](https://chat.openai.com) - used for general troubleshooting.<br><br>
 
 - [ElephantSQL](https://www.elephantsql.com) - used to create the PostgreSQL database for this app.
 - [psycopg2](https://www.psycopg.org/) - used for interacting with the database in Python.
@@ -359,13 +358,17 @@ v) Click the Open app button to verify it runs correctly.<br>
 - [Django REST Framework](https://www.django-rest-framework.org/) - used as a toolkit for building the backend API.
 - [Gunicorn](https://gunicorn.org) - used as a production-ready web server for Heroku.
 - [Pillow](https://python-pillow.org/) - used for image processing and manipulation.
-- [Cloudinary](https://cloudinary.com) - used to host images securely.<br><br>
+- [Cloudinary](https://cloudinary.com) - used to host images securely.
+- [CI Python Linter](https://pep8ci.herokuapp.com/) - used to fix the Python code to Pep8 standards.<br><br>
 
 - [REACT](https://reactjs.org/) - used as a JavaScript library for UI.
 - [react.router-dom](https://reactrouter.com) - used for routing functionality in the frontend.
 - [Axios](https://axios-http.com/) - used for making HTTP requests from the frontend to the backend services.
 - [Bootstrap 4.6](https://getbootstrap.com/docs/4.6/getting-started/introduction)- used as a CSS Framework.
 - [Font Awesome](https://fontawesome.com) - used for icons.
+- [ESLint](https://eslint.org/) - used for JavaScript code validation.
+- [W3C](https://www.w3.org) - used for CSS code validation.<br><br>
+
 
 ## Improvements/Bug fixes
 
@@ -378,7 +381,7 @@ The app is not yet presented in a completed or optimal state and would benefit f
    - Provide clarity to the user that, when uploading a post, it must include a title
    - Ensuring application of the active class (NavLink style) upon all page reloads
    - Improving the visibilty of Follow/Unfollow buttons in the 'Most followed profiles' box so users can see at a glance which profiles they currently follow
-   - Reworking the Liked page into an Activity page to display the logged-in user's contributions - likes, comments, posts, etc. - in a single, organised view. [This was attempted but not able to be made fully funtional within the timeframe.]
+   - Reworking the Liked page into an Activity page to display the logged-in user's contributions - likes, comments, posts, etc. - in a single, organised view. [This was attempted but not able to be made fully functional within the timeframe.]
    - Removing the 'Most followed profiles' component that renders at the bottom of the screen on mobiles
    - The logo could be remade to render more sharply.
 

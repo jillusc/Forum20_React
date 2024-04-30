@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-
 import Media from "react-bootstrap/Media";
+
+import styles from "../../styles/Comment.module.css";
+import feedbackStyles from "../../styles/CustomFeedback.module.css"
 
 import Avatar from "../../components/Avatar";
 import { MoreDropdown } from "../../components/MoreDropdown";
@@ -9,10 +11,6 @@ import CommentEditForm from "./CommentEditForm";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../API/axiosDefaults";
-
-import styles from "../../styles/Comment.module.css";
-import feedbackStyles from "../../styles/CustomFeedback.module.css"
-
 import { SuccessMessage } from "../../components/CustomFeedback";
 
 const Comment = (props) => {
@@ -48,7 +46,7 @@ const Comment = (props) => {
                 </div>
             )}
             <hr />
-            <Media>
+            <Media className="w-100">
                 <Link to={`/profiles/${profile_id}`}>
                     <Avatar src={profile_image} />
                 </Link>
