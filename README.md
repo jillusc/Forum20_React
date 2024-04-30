@@ -336,13 +336,36 @@ A simple, custom 401 Error page was created to inform of such error and includes
 
 ## Deployment
 
-Assuming a GitHub account, a ready repository and an Heroku account, the following steps outline the deployment process:
+#### Frontend: 
+Assuming a GitHub account, a ready repository and an Heroku account, the following steps outline the frontend deployment process:
 
 i) Visit the Heroku dashboard and create a new app with a unique name.<br>
-ii) In the Deployment method section, select GitHub to connect it to the relevant repository.<br>
-iii) Click the Deploy Branch button to manually deploy the main branch, and monitor the build output in the Activity tab.<br>
-iv) In the Resources tab, select an Eco dyno for lightweight container deployment.<br>
-v) Click the Open app button to verify it runs correctly.<br>
+ii) In the Deployment method section, select GitHub to connect it to the relevant repository. Click the Deploy Branch button to manually deploy the main branch, and monitor the build output in the Activity tab.<br>
+iii) In the Resources tab, select an Eco dyno for lightweight container deployment.<br>
+iv) Click the Open app button to verify it runs correctly.<br>
+
+#### Backend:
+Assuming a created database (e.g. ElephantSQL), a ready repository and an Heroku account, the following steps outline the backend deployment process:
+
+i) Visit the Heroku dashboard and create a new app with a unique name.<br>
+ii) From the Settings tab, add a Config Var for DATABASE_URL, and copy/paste your database's URL for the value (without any quotation marks).<br>
+iii) In your IDE, install both dj_database_url and psycopg2 to enable connection to your database.<br>
+iv) In settings.py, import dj_database_url. Update the DATABASES section to use a local SQLite database if in development mode, otherwise to connect to your database provided the DATABASE_URL environment variable exists (see next step).<br>
+v) In env.py, add a new environment variable with the key set to DATABASE_URL and the value to your database's URL (quotation marks are necessary here as this needs to be a string). Temporarily comment-out the DEV environment variable so that your IDE can connect to your external database.<br>
+vi) Back in settings.py, add a print statement (within the else block) to confirm you have connected to the external database.<br>
+vii) In the terminal, dry-run your makemigrations to confirm you are connected to the external database. When confirmed, migrate your models to the database.<br>
+viii) Create a superuser.<br>
+ix) Visit ElephantSQL to confirm the migration has taken effect: select BROWSER on the left side navigation; click Table queries; select auth_user; click Execute. The newly-created superuser's details should display, confirming success.<br>
+x) In your IDE, install gunicorn and update the requirements.txt.<br>
+xi) Create a Procfile with the following lines, then save the file:<br>
+release: python manage.py makemigrations && python manage.py migrate<br>
+web: gunicorn drf_api.wsgi<br>
+xii) In settings.py, update the value of the ALLOWED_HOSTS variable to include your Heroku app’s URL. Add corsheaders to INSTALLED_APPS. Add corsheaders middleware to the top of the MIDDLEWARE section. Under the MIDDLEWARE list, set the ALLOWED_ORIGINS for the network requests made to the server (it will use the CLIENT_ORIGIN variable, which is the frontend app's url). Next, enable sending cookies in CORS and set the JWT_AUTH_SAMESITE attribute to 'None'. Ensure the SECRET_KEY is stored in env.py rather than settings.py. Finally, set DEBUG to True in development, False in production (in env.py, comment back in the DEV variable as in step v).<br>
+xiii) When requirements.txt is up-to-date, commit and push these changes to GitHub.<br>
+xiv) Back in Heroku, open the Settings tab and add the SECRET_KEY and CLOUDINARY_URL as Config Vars.<br>
+xv) In the Deployment method section, select GitHub to connect it to the relevant repository. Opt to Enable Automatic Deploys. Click the Deploy Branch button to manually deploy the main branch, and monitor the build output in the Activity tab.<br>
+xvi) Click the Open app button to verify it runs correctly. <br>
+
 
 ## Languages used
 
