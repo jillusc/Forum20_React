@@ -19,20 +19,15 @@ import { SuccessMessage, ErrorMessage } from "../../components/CustomFeedback";
 
 const ProfileEditForm = () => {
     const [successMessage, setSuccessMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
     const [errors, setErrors] = useState({});
-
     const currentUser = useCurrentUser();
     const setCurrentUser = useSetCurrentUser();
     const history = useHistory();
     const { id } = useParams();
     const imageFile = useRef();
-
     const [profileData, setProfileData] = useState({
-        name: "",
-        content: "",
-        image: "",
-    });
-
+        name: "", content: "", image: "",});
     const { name, content, image } = profileData;
 
     useEffect(() => {
@@ -43,7 +38,6 @@ const ProfileEditForm = () => {
                     const { name, content, image } = data;
                     setProfileData({ name, content, image });
                 } catch (err) {
-                    /* console.log(err); */
                     history.push("/");
                 }
             } else {
@@ -55,8 +49,7 @@ const ProfileEditForm = () => {
     }, [currentUser, history, id]);
 
     const handleChange = (event) => {
-        setProfileData({
-            ...profileData,
+        setProfileData({...profileData,
             [event.target.name]: event.target.value,
         });
     };
@@ -71,19 +64,20 @@ const ProfileEditForm = () => {
         }
         try {
             const { data } = await axiosReq.put(`/profiles/${id}/`, formData);
-            setSuccessMessage("Profile edited successfully.");
             setCurrentUser((currentUser) => ({
                 ...currentUser,
                 profile_image: data.image,
             }));
+            setSuccessMessage("Profile edited successfully.");
+            setSuccessMessage("")
             setTimeout(() => {
                 history.push(`/profiles/${data.id}`);
             }, 2000);
         } catch (err) {
-            /* console.log(err); */
-            if (err.response?.status !== 401) {
-                const errorMessage = err.response?.data?.message || "An error occurred.";
-                setErrors({ ...errors, message: errorMessage });
+            if (err.response?.data) {
+                setErrors(err.response.data);
+            } else {
+                setErrorMessage("Profile edit failed. Please check and try again.");
             }
         }
     };
@@ -100,7 +94,6 @@ const ProfileEditForm = () => {
                     rows={7}
                 />
             </Form.Group>
-
             {errors?.content?.map((message, idx) => (
                 <Alert variant="warning" key={idx}>
                     {message}
@@ -158,12 +151,10 @@ const ProfileEditForm = () => {
                                 <SuccessMessage message={successMessage} />
                             </div>
                         )}
-                        {Object.keys(errors).map((key) =>
-                            errors[key].map((message, idx) => (
-                                <div key={`${key}-${idx}`} className={feedbackStyles.fixedMessage}>
-                                    <ErrorMessage message={message} />
-                                </div>
-                            ))
+                        {errorMessage && (
+                            <div className={feedbackStyles.fixedMessage}>
+                                <ErrorMessage message={errorMessage} />
+                            </div>
                         )}
                         <div className="d-md-none">{textFields}</div>
                     </Container>

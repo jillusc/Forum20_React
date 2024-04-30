@@ -24,19 +24,18 @@ import { SuccessMessage, ErrorMessage } from "../../components/CustomFeedback";
 function PostCreateForm() {
     useRedirect("loggedOut");
     const [successMessage, setSuccessMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
     const [errors, setErrors] = useState({
         title: [],
         content: [],
         image: []
     });
     const [isPrivate, setIsPrivate] = useState(false);
-
     const [postData, setPostData] = useState({
         title: "",
         content: "",
         image: "",
     });
-
     const { title, content, image } = postData;
     const imageInput = useRef(null);
     const history = useHistory();
@@ -60,6 +59,13 @@ function PostCreateForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (!title.trim()) {
+            setErrors(prevErrors => ({
+                ...prevErrors,
+                title: ["Please give your post a title."]
+            }));
+            return;
+        }
         if (!imageInput.current.files[0]) {
             setErrors(prevErrors => ({
                 ...prevErrors,
@@ -80,10 +86,10 @@ function PostCreateForm() {
                 history.push(`/posts/${data.id}`);
             }, 2000);
         } catch (err) {
-            /* console.log(err); */
-            if (err.response?.status !== 401) {
-                const errorMessage = err.response?.data?.message || "An error occurred.";
-                setErrors({ ...errors, message: errorMessage });
+            if (err.response?.data) {
+                setErrors(err.response.data);
+            } else {
+                setErrorMessage("Post submission failed. Please check and try again.");
             }
         }
     };
@@ -160,18 +166,15 @@ function PostCreateForm() {
                                 </Alert>
                             ))}
                         </Form.Group>
-
                         {successMessage && (
                             <div className={feedbackStyles.fixedMessage}>
                                 <SuccessMessage message={successMessage} />
                             </div>
                         )}
-                        {Object.keys(errors).map((key) =>
-                            Array.isArray(errors[key]) && errors[key].map((message, idx) => (
-                                <div key={`${key}-${idx}`} className={feedbackStyles.fixedMessage}>
-                                    <ErrorMessage message={message} />
-                                </div>
-                            ))
+                        {errorMessage && (
+                            <div className={feedbackStyles.fixedMessage}>
+                                <ErrorMessage message={errorMessage} />
+                            </div>
                         )}
                     </Container>
                 </Col>

@@ -14,6 +14,7 @@ import { fetchMoreData } from "../../utils/utils";
 const UserCommentsActivity = ({ mobile }) => {
     const currentUser = useCurrentUser();
     const [userComments, setUserComments] = useState({ results: [], loading: true, error: null });
+    const [, setErrors] = useState({});
 
     useEffect(() => {
         const fetchUserComments = async () => {
@@ -27,12 +28,12 @@ const UserCommentsActivity = ({ mobile }) => {
                         error: null
                     });
                 } catch (err) {
-                    /* console.log(err); */
+                    setErrors(err.response?.data);
                 }
             }
         };
         fetchUserComments();
-    }, [currentUser?.profile_id]);
+    }, [currentUser?.profile_id, setErrors]);
 
     return (
         <Container className={appStyles.Content}>

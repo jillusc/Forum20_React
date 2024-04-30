@@ -3,6 +3,7 @@ import { useHistory, Link } from "react-router-dom";
 
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
+import Alert from "react-bootstrap/Alert";
 
 import feedbackStyles from "../../styles/CustomFeedback.module.css"
 
@@ -18,24 +19,23 @@ function CommentCreateForm(props) {
   const { post, setPost, setComments, profileImage, profile_id } = props;
   const [content, setContent] = useState("");
   const [successMessage, setSuccessMessage] = useState("");
-  const [errors] = useState({});
+  const [errorMessage, setErrorMessage] = useState("");
+  const [errors, setErrors] = useState({});
   const history = useHistory();
 
   const handleChange = (event) => {
     setContent(event.target.value);
+    setErrorMessage("");
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
       const { data } = await axiosRes.post("/comments/", {
-        content,
-        post,
+        content, post,
       });
       setSuccessMessage("Comment added.");
-      setTimeout(() => {
-        history.push(`/posts/${data.id}`);
-      }, 2000);
+      setContent("");
       setPost((prevPost) => ({
         results: [
           {
@@ -48,9 +48,16 @@ function CommentCreateForm(props) {
         ...prevComments,
         results: [data, ...prevComments.results],
       }));
-      setContent("");
+      setTimeout(() => {
+        setSuccessMessage("");
+        history.push(`/posts/${data.id}`);
+      }, 2000);
     } catch (err) {
-      /* console.log(err); */
+      if (err.response?.data) {
+        setErrors(err.response.data);
+      } else {
+        setErrorMessage("Comment submission failed. Please check and try again.");
+      }
     }
   };
 
@@ -69,6 +76,9 @@ function CommentCreateForm(props) {
             onChange={handleChange}
             rows={2}
           />
+          {errors?.content?.map((message, idx) => (
+            <Alert key={idx} variant="warning">{message}</Alert>
+          ))}
         </InputGroup>
       </Form.Group>
       {successMessage && (
@@ -76,12 +86,10 @@ function CommentCreateForm(props) {
           <SuccessMessage message={successMessage} />
         </div>
       )}
-      {Object.keys(errors).map((key) =>
-        errors[key].map((message, idx) => (
-          <div key={`${key}-${idx}`} className={feedbackStyles.fixedMessage}>
-            <ErrorMessage message={message} />
-          </div>
-        ))
+      {errorMessage && (
+        <div className={feedbackStyles.fixedMessage}>
+          <ErrorMessage message={errorMessage} />
+        </div>
       )}
       <button
         className={`${btnStyles.Button} d-block m-auto`}

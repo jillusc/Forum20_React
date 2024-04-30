@@ -13,10 +13,12 @@ import Avatar from "../../components/Avatar";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../API/axiosDefaults";
 import { MoreDropdown } from "../../components/MoreDropdown";
-import { SuccessMessage } from "../../components/CustomFeedback";
+import { SuccessMessage, ErrorMessage } from "../../components/CustomFeedback";
 
 const Post = (props) => {
     const [successMessage, setSuccessMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [setErrors] = useState({});
     const { id, owner, profile_id, profile_image, comments_count, likes_count,
         like_id, title, content, image, updated_at, postPage, setPosts,
     } = props;
@@ -35,10 +37,15 @@ const Post = (props) => {
                 await axiosRes.delete(`/posts/${id}/`);
                 setSuccessMessage("Post successfully deleted.");
                 setTimeout(() => {
+                    setSuccessMessage("");
                     history.push(`/profiles/${profile_id}`);
                 }, 2000);
             } catch (err) {
-                /* console.log(err); */
+                if (err.response?.data) {
+                    setErrors(err.response.data);
+                } else {
+                    setErrorMessage("Post deletion failed. Please check and try again.");
+                }
             }
         }
     };
@@ -58,9 +65,10 @@ const Post = (props) => {
                 }),
             }));
         } catch (err) {
-            /* console.log(err); */
+            setErrors(err.response.data);
         }
     };
+
     const handleUnlike = async () => {
         try {
             await axiosRes.delete(`/likes/${like_id}/`);
@@ -76,7 +84,7 @@ const Post = (props) => {
                 }),
             }));
         } catch (err) {
-            /* console.log(err); */
+            setErrors(err.response.data);
         }
     };
 
@@ -135,6 +143,11 @@ const Post = (props) => {
             {successMessage && (
                 <div className={feedbackStyles.fixedMessage}>
                     <SuccessMessage message={successMessage} />
+                </div>
+            )}
+            {errorMessage && (
+                <div className={feedbackStyles.fixedMessage}>
+                    <ErrorMessage message={errorMessage} />
                 </div>
             )}
         </Card>

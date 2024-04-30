@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 import { Link } from "react-router-dom";
 import Media from "react-bootstrap/Media";
 
@@ -11,7 +12,7 @@ import CommentEditForm from "./CommentEditForm";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosRes } from "../../API/axiosDefaults";
-import { SuccessMessage } from "../../components/CustomFeedback";
+import { SuccessMessage, ErrorMessage } from "../../components/CustomFeedback";
 
 const Comment = (props) => {
     const { profile_id, profile_image, owner, updated_at, content, id,
@@ -19,6 +20,8 @@ const Comment = (props) => {
     } = props;
     const [showEditForm, setShowEditForm] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [errors, setErrors] = useState({});
     const currentUser = useCurrentUser();
     const is_owner = currentUser?.username === owner;
 
@@ -29,22 +32,24 @@ const Comment = (props) => {
                 await axiosRes.delete(`/comments/${id}/`);
                 setSuccessMessage("Comment successfully deleted.");
                 setTimeout(() => {
+                    setComments((prevComments) => ({
+                        ...prevComments,
+                        results: prevComments.results.filter((comment) => comment.id !== id),
+                    }));
                     setSuccessMessage("");
-                    window.location.reload();
                 }, 2000);
             } catch (err) {
-                /* console.log(err); */
+                if (err.response?.data) {
+                setErrors(err.response.data);
+                } else {
+                setErrorMessage("Comment deletion failed. Please try again.");
+                }
             }
         }
     };
 
     return (
         <>
-            {successMessage && (
-                <div className={feedbackStyles.fixedMessage}>
-                    <SuccessMessage message={successMessage} />
-                </div>
-            )}
             <hr />
             <Media className="w-100">
                 <Link to={`/profiles/${profile_id}`}>
@@ -63,6 +68,7 @@ const Comment = (props) => {
                             profileImage={profile_image}
                             setComments={setComments}
                             setShowEditForm={setShowEditForm}
+                            errors={errors}
                         />
                     ) : (
                         <p className={styles.Comment}>{content}</p>
@@ -73,8 +79,19 @@ const Comment = (props) => {
                         <MoreDropdown handleEdit={() => setShowEditForm(true)} handleDelete={handleDelete} />
                     </div>
                 )}
+                {successMessage && (
+                    <div className={feedbackStyles.fixedMessage}>
+                        <SuccessMessage message={successMessage} />
+                    </div>
+                )}
+                {errorMessage && (
+                    <div className={feedbackStyles.fixedMessage}>
+                        <ErrorMessage message={errorMessage} />
+                    </div>
+                )}
             </Media>
         </>
     );
-}
+};
+
 export default Comment;

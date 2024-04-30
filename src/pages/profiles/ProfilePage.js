@@ -12,6 +12,7 @@ import Container from "react-bootstrap/Container";
 import styles from "../../styles/ProfilePage.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
+import feedbackStyles from "../../styles/CustomFeedback.module.css"; // Import feedbackStyles
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { useProfileData, useSetProfileData } from "../../contexts/ProfileDataContext";
@@ -23,8 +24,10 @@ import PopularProfiles from "./PopularProfiles";
 import Post from "../posts/Post";
 import { ProfileEditDropdown } from "../../components/MoreDropdown";
 import NoResults from "../../assets/no-results-icon.png";
+import { ErrorMessage } from "../../components/CustomFeedback";
 
 function ProfilePage() {
+    const [errors, setErrors] = useState({});
     const [hasLoaded, setHasLoaded] = useState(false);
     const [profilePosts, setProfilePosts] = useState({ results: [] });
     const currentUser = useCurrentUser();
@@ -49,7 +52,7 @@ function ProfilePage() {
                 setProfilePosts(profilePosts);
                 setHasLoaded(true);
             } catch (err) {
-                /* console.log(err); */
+                setErrors(err.response?.data);
             }
         };
         fetchData();
@@ -57,28 +60,28 @@ function ProfilePage() {
 
     const mainProfile = (
         <>
-        <Container className="position-relative">
-            <div className={`${styles.ProfileDropdown}`}>
-                {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
-            </div>
-            <div className="text-center my-3">
-                <Image
-                    className={styles.ProfileImage}
-                    roundedCircle
-                    src={profile?.image}
-                    alt="Profile avatar"
-                />
-                <h2 className="m-2">{profile?.owner}</h2>
-                {profile?.content && <h6>{profile.content}</h6>}
-                {currentUser && !is_owner && (
-                    <Button
-                        className={`${btnStyles.Button} mt-2 mb-2`}
-                        onClick={profile?.following_id ? () => handleUnfollow(profile) : () => handleFollow(profile)}
-                    >
-                        {profile?.following_id ? "Unfollow" : "Follow"}
-                    </Button>
-                )}
-            </div>
+            <Container className="position-relative">
+                <div className={`${styles.ProfileDropdown}`}>
+                    {profile?.is_owner && <ProfileEditDropdown id={profile?.id} />}
+                </div>
+                <div className="text-center my-3">
+                    <Image
+                        className={styles.ProfileImage}
+                        roundedCircle
+                        src={profile?.image}
+                        alt="Profile avatar"
+                    />
+                    <h2 className="m-2">{profile?.owner}</h2>
+                    {profile?.content && <h6>{profile.content}</h6>}
+                    {currentUser && !is_owner && (
+                        <Button
+                            className={`${btnStyles.Button} mt-2 mb-2`}
+                            onClick={profile?.following_id ? () => handleUnfollow(profile) : () => handleFollow(profile)}
+                        >
+                            {profile?.following_id ? "Unfollow" : "Follow"}
+                        </Button>
+                    )}
+                </div>
             </Container>
         </>
     );
@@ -111,6 +114,13 @@ function ProfilePage() {
             <Col className="py-2 p-0 p-lg-2" lg={8}>
                 <PopularProfiles mobile />
                 <Container className={appStyles.Content}>
+                    {Object.keys(errors).map((key) =>
+                        Array.isArray(errors[key]) && errors[key].map((message, idx) => (
+                            <div key={`${key}-${idx}`} className={feedbackStyles.fixedMessage}>
+                                <ErrorMessage message={message} />
+                            </div>
+                        ))
+                    )}
                     {hasLoaded ? (
                         <>
                             {mainProfile}

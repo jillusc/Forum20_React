@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
 import Form from "react-bootstrap/Form";
+import Alert from "react-bootstrap/Alert";
 
 import formStyles from "../../styles/FormStyles.module.css"
 import btnStyles from "../../styles/Button.module.css";
@@ -11,6 +12,7 @@ import { SuccessMessage, ErrorMessage } from "../../components/CustomFeedback";
 
 function CommentEditForm(props) {
   const [successMessage, setSuccessMessage] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
   const [errors, setErrors] = useState({});
   const { id, content, setShowEditForm, setComments } = props;
   const [formContent, setFormContent] = useState(content);
@@ -22,24 +24,27 @@ function CommentEditForm(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await axiosRes.put(`/comments/${id}/`, {
+      await axiosRes.put(`/comments/${id}/`, {
         content: formContent.trim(),
       });
       setComments((prevComments) => ({
         ...prevComments,
         results: prevComments.results.map((comment) =>
-          comment.id === id ? { ...comment, content: formContent.trim(), updated_at: "now" } : comment
-        ),
+          comment.id === id ? {
+            ...comment, content: formContent.trim(),
+            updated_at: "now"
+          } : comment),
       }));
-      setSuccessMessage("Comment edited successfully.");
+      setSuccessMessage("Comment saved.");
       setTimeout(() => {
         setShowEditForm(false);
+        setSuccessMessage("");
       }, 2000);
     } catch (err) {
-      /* console.log(err); */
-      if (err.response?.status !== 401) {
-        const errorMessage = err.response?.data?.message || "An error occurred.";
-        setErrors({ ...errors, ...err.response?.data });
+      if (err.response?.data) {
+        setErrors(err.response.data);
+      } else {
+        setErrorMessage("Comment edit failed. Please check and try again.");
       }
     }
   };
@@ -54,18 +59,19 @@ function CommentEditForm(props) {
           onChange={handleChange}
           rows={2}
         />
+        {errors?.content?.map((message, idx) => (
+          <Alert key={idx} variant="warning">{message}</Alert>
+        ))}
       </Form.Group>
       {successMessage && (
         <div className={feedbackStyles.fixedMessage}>
           <SuccessMessage message={successMessage} />
         </div>
       )}
-      {Object.keys(errors).map((key) =>
-        errors[key].map((message, idx) => (
-          <div key={`${key}-${idx}`} className={feedbackStyles.fixedMessage}>
-            <ErrorMessage message={message} />
-          </div>
-        ))
+      {errorMessage && (
+        <div className={feedbackStyles.fixedMessage}>
+          <ErrorMessage message={errorMessage} />
+        </div>
       )}
       <div className="text-right">
         <button
@@ -73,14 +79,14 @@ function CommentEditForm(props) {
           disabled={!content.trim()}
           type="submit"
         >
-          save
+          Save
         </button>
         <button
           className={btnStyles.Button}
           onClick={() => setShowEditForm(false)}
           type="button"
         >
-          cancel
+          Cancel
         </button>
       </div>
     </Form>

@@ -10,11 +10,16 @@ import Row from "react-bootstrap/Row";
 
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
+import feedbackStyles from "../../styles/CustomFeedback.module.css"
 
 import { axiosRes } from "../../API/axiosDefaults";
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
+import { SuccessMessage, ErrorMessage } from "../../components/CustomFeedback";
 
 const UserPasswordForm = () => {
+    const [successMessage, setSuccessMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
+    const [errors, setErrors] = useState({});
     const history = useHistory();
     const { id } = useParams();
     const currentUser = useCurrentUser();
@@ -22,9 +27,7 @@ const UserPasswordForm = () => {
         new_password1: "",
         new_password2: "",
     });
-
     const { new_password1, new_password2 } = userData;
-    const [errors, setErrors] = useState({});
 
     const handleChange = (event) => {
         setUserData({
@@ -43,10 +46,17 @@ const UserPasswordForm = () => {
         event.preventDefault();
         try {
             await axiosRes.post("/dj-rest-auth/password/change/", userData);
-            history.goBack();
+            setSuccessMessage("Password changed successfully.");
+            setTimeout(() => {
+                setSuccessMessage("");
+                history.goBack();
+            }, 2000);
         } catch (err) {
-            /* console.log(err); */
-            setErrors(err.response?.data);
+            if (err.response?.data) {
+                setErrors(err.response?.data);
+            } else {
+            setErrorMessage("Password change failed. Please try again later.");
+            }
         }
     };
 
@@ -85,6 +95,16 @@ const UserPasswordForm = () => {
                                 {message}
                             </Alert>
                         ))}
+                        {successMessage && (
+                            <div className={feedbackStyles.fixedMessage}>
+                                <SuccessMessage message={successMessage} />
+                            </div>
+                        )}
+                        {errorMessage && (
+                            <div className={feedbackStyles.fixedMessage}>
+                                <ErrorMessage message={errorMessage} />
+                            </div>
+                        )}
                         <Button type="submit" className={`${btnStyles.Button}`}>
                             Save
                         </Button>

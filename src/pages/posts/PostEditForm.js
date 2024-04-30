@@ -20,8 +20,12 @@ import { SuccessMessage, ErrorMessage } from "../../components/CustomFeedback";
 
 function PostEditForm() {
     const [successMessage, setSuccessMessage] = useState("");
-    const [errors, setErrors] = useState({});
-
+    const [errorMessage, setErrorMessage] = useState("");
+    const [errors, setErrors] = useState({
+        title: [],
+        content: [],
+        image: []
+    });
     const [postData, setPostData] = useState({
         title: "",
         content: "",
@@ -40,9 +44,9 @@ function PostEditForm() {
                 const { title, content, image, is_owner } = data;
                 is_owner ? setPostData({ title, content, image }) : history.push("/");
             } catch (err) {
-                /* console.log(err); */
+                setErrorMessage("Failed to fetch post details. Please try again later.");
             }
-        };
+        }
 
         handleMount();
     }, [history, id]);
@@ -64,6 +68,13 @@ function PostEditForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        if (!title.trim()) {
+            setErrors(prevErrors => ({
+                ...prevErrors,
+                title: ["Please give your post a title."]
+            }));
+            return;
+        }
         if (!imageInput.current.files[0]) {
             setErrors({
                 ...errors,
@@ -77,18 +88,17 @@ function PostEditForm() {
         if (imageInput?.current?.files[0]) {
             formData.append("image", imageInput.current.files[0]);
         }
-        
         try {
             await axiosReq.put(`/posts/${id}/`, formData);
-            setSuccessMessage("Post edited successfully.");
+            setSuccessMessage("Post saved.");
             setTimeout(() => {
                 history.push(`/posts/${id}`);
             }, 2000);
         } catch (err) {
-            /* console.log(err); */
-            if (err.response?.status !== 401) {
-                const errorMessage = err.response?.data?.message || "An error occurred.";
-                setErrors({ ...errors, message: errorMessage });
+            if (err.response?.data) {
+                setErrors(err.response.data);
+            } else {
+                setErrorMessage("Post edit failed. Please check and try again.");
             }
         }
     };
@@ -141,12 +151,10 @@ function PostEditForm() {
                                 <SuccessMessage message={successMessage} />
                             </div>
                         )}
-                        {Object.keys(errors).map((key) =>
-                            errors[key].map((message, idx) => (
-                                <div key={`${key}-${idx}`} className={feedbackStyles.fixedMessage}>
-                                    <ErrorMessage message={message} />
-                                </div>
-                            ))
+                        {errorMessage && (
+                            <div className={feedbackStyles.fixedMessage}>
+                                <ErrorMessage message={errorMessage} />
+                            </div>
                         )}
                         <div className="d-md-none">{textFields}</div>
                     </Container>

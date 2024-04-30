@@ -10,6 +10,7 @@ import Container from 'react-bootstrap/Container';
 
 import appStyles from "../../App.module.css";
 import styles from "../../styles/PostsPage.module.css";
+import feedbackStyles from "../../styles/CustomFeedback.module.css"
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosReq } from "../../API/axiosDefaults";
@@ -19,8 +20,10 @@ import NoResults from "../../assets/no-results-icon.png";
 import { fetchMoreData } from "../../utils/utils";
 import PopularProfiles from "../profiles/PopularProfiles";
 import UserCommentsActivity from "../comments/UserCommentsActivity";
+import { ErrorMessage } from "../../components/CustomFeedback";
 
 function PostsPage({ message, filter = "" }) {
+    const [errors, setErrors] = useState({});
     const [posts, setPosts] = useState({ results: [] });
     const [hasLoaded, setHasLoaded] = useState(false);
     const { pathname } = useLocation();
@@ -35,7 +38,7 @@ function PostsPage({ message, filter = "" }) {
                 setPosts(data);
                 setHasLoaded(true);
             } catch (err) {
-                /* console.log(err); */
+                setErrors(err.response?.data);
             }
         };
         setHasLoaded(false);
@@ -65,6 +68,13 @@ function PostsPage({ message, filter = "" }) {
                 </Form>
                 {pathname === "/" && (
                     <p className="text-left ml-3 mt-4 mb-3">Latest posts from our members</p>
+                )}
+                {Object.keys(errors).map((key) =>
+                    Array.isArray(errors[key]) && errors[key].map((message, idx) => (
+                        <div key={`${key}-${idx}`} className={feedbackStyles.fixedMessage}>
+                            <ErrorMessage message={message} />
+                        </div>
+                    ))
                 )}
                 {hasLoaded ? (
                     <>

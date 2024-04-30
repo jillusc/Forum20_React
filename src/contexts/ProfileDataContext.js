@@ -1,4 +1,5 @@
 import React, { createContext, useContext, useState, useEffect } from "react";
+
 import { axiosReq, axiosRes } from "../API/axiosDefaults";
 import { useCurrentUser } from "./CurrentUserContext";
 import { followHelper, unfollowHelper } from "../utils/utils";
@@ -37,7 +38,7 @@ export const ProfileDataProvider = ({ children }) => {
                 },
             }));
         } catch (err) {
-            /* console.log(err); */
+            console.log("An error occurred whilst following:", err);
         }
     };
 
@@ -59,7 +60,7 @@ export const ProfileDataProvider = ({ children }) => {
                 },
             }));
         } catch (err) {
-            /* console.log(err); */
+            console.log("An error occurred whilst unfollowing:", err);
         }
     };
 
@@ -72,7 +73,7 @@ export const ProfileDataProvider = ({ children }) => {
                     popularProfiles: data,
                 }));
             } catch (err) {
-                /* console.log(err); */
+                console.log("An error occurred whilst retrieving profile data:", err);
             }
         };
         handleMount();

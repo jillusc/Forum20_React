@@ -19,6 +19,7 @@ import Asset from "../../components/Asset";
 import PopularProfiles from "../profiles/PopularProfiles";
 
 function PostPage() {
+  const [setErrors] = useState({});
   const { id } = useParams();
   const [post, setPost] = useState({ results: [] });
   const currentUser = useCurrentUser();
@@ -35,11 +36,11 @@ function PostPage() {
         setPost({ results: [post] });
         setComments(comments);
       } catch (err) {
-        /* console.log(err); */
+        setErrors(err.response?.data);
       }
     };
     handleMount();
-  }, [id]);
+  }, [id, setErrors]);
 
   return (
     <Row className="h-100">

@@ -10,12 +10,16 @@ import Row from "react-bootstrap/Row";
 
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
+import feedbackStyles from "../../styles/CustomFeedback.module.css"
 
 import { axiosRes } from "../../API/axiosDefaults";
 import { useCurrentUser, useSetCurrentUser } from "../../contexts/CurrentUserContext";
+import { SuccessMessage, ErrorMessage } from "../../components/CustomFeedback";
 
 const UsernameForm = () => {
     const [username, setUsername] = useState("");
+    const [successMessage, setSuccessMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState("");
     const [errors, setErrors] = useState({});
     const history = useHistory();
     const { id } = useParams();
@@ -33,17 +37,22 @@ const UsernameForm = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         try {
-            await axiosRes.put("/dj-rest-auth/user/", {
-                username,
-            });
+            await axiosRes.put("/dj-rest-auth/user/", { username });
             setCurrentUser((prevUser) => ({
                 ...prevUser,
                 username,
             }));
-            history.goBack();
+            setSuccessMessage("Username changed successfully.");
+            setTimeout(() => {
+                setSuccessMessage("");
+                history.goBack();
+            }, 2000);
         } catch (err) {
-            /* console.log(err); */
-            setErrors(err.response?.data);
+            if (err.response?.data) {
+                setErrors(err.response.data);
+            } else {
+            setErrorMessage("Username change failed. Please try again later.");
+            }
         }
     };
 
@@ -66,6 +75,16 @@ const UsernameForm = () => {
                                 {message}
                             </Alert>
                         ))}
+                        {successMessage && (
+                            <div className={feedbackStyles.fixedMessage}>
+                                <SuccessMessage message={successMessage} />
+                            </div>
+                        )}
+                        {errorMessage && (
+                            <div className={feedbackStyles.fixedMessage}>
+                                <ErrorMessage message={errorMessage} />
+                            </div>
+                        )}
                         <Button className={`${btnStyles.Button}`} type="submit">
                             Save
                         </Button>
