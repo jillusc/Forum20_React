@@ -207,7 +207,7 @@ The site uses just one font, Quicksand, imported from Google Fonts. It is a mode
 #### Imagery
 
 Whilst the only imagery aside from a minimal logo comes in the form of user posts and avatars, this is positively sufficient, visually: rectangular images of artworks and contrastingly small, circular avatar 'buttons' create an appealing uniformity. Through usage of the CSS property 'object-fit: contain' and the 'img-fluid' class, post images are standardised with a consistent aspect ratio, and the black background creates the letterbox effect, resulting in a stylish display:<br><br>
-<img src="README%20images/letterbox1.jpg" width="37px">
+<img src="README%20images/letterbox1.jpg" width="375px">
 <img src="README%20images/letterbox4.jpg" width="375px">
 
 #### Favicon
@@ -237,14 +237,17 @@ This is an application where visitors can explore 20th century artworks and enri
  - User Profiles: each registered user has a Profile page displaying their name, avatar, bio section and their submitted posts.
  - Admin Panel: through the Django admin panel, admin personnel have control to manage user accounts and site content.
  - JSON Web Tokens: JWT's are utilised to maintain user sessions securely, allowing users to remain logged in until they choose to log out.
- - Infinite Scroll: this enhancement means posts are loaded automatically without the need to navigate to a different page.
- - Responsive Design: the application adapts to various screen sizes, ensuring a decent user experience across devices.
- - Routing: this enables seamless navigation between different sections, offering users a structured and intuitive browsing experience.
-
+ 
+ - React architecture: UX is enhanced by use of the following features of React:
+    - Components: React's modular approach enables faster development and consistency
+    - Rendering: the Virtual DOM ensures quick updates, leading to smoother interactions
+    - State Management: React's built-in state management tools keep UIs up-to-date with minimal code
+    - Routing: React Router enables seamless navigation without page reloads, offering users a structured and intuitive browsing experience
+    - Infinite Scroll: implemented for effortless browsing, loading content dynamically without navigating to a different page.
 
 ### Features to implement
 
- - Activity: the site could be extended to offer functionality more akin to a conventional social media app whereby users can privately message each other, receive notifications,add tags to content and so on.
+ - Extended Features: the site could be augmented to offer functionality more akin to a conventional social media app whereby users can privately message each other, receive notifications, add tags to content and so on.
  - File Uploads: implementing the ability to upload various file types such as documents, video, audio, to share not only images but articles, exhibition news and reviews, book recommendations, podcasts and the like would significantly enhance the scope of forum20.
  - User Profiles: there is the potential to develop members' profile pages, extending beyond a simple bio with perhaps a section detailing favourite artists, for example, and stats as to how active they are, e.g. number of posts.
 
@@ -269,11 +272,15 @@ These pages both present forms for their respective purposes. Simplicity is key 
 <img src="README%20images/page-log_in2.jpg" width="270px">
 <img src="README%20images/page-sign_up.jpg" width="270px">
 
-### Feed and Liked pages
+### Feed page
 
-Tailored content is displayed to the registered user through these pages. The Feed presents a curated view of posts from other members whom the user follows, giving easy access to new, relevant content at a click. The Liked page aggregates all the posts that the user has expressed interest in by adding a like, and this provides a convenient way for the user to revisit and review their interactions:<br><br>
-<img src="README%20images/page-feed.jpg"><br><br>
-<img src="README%20images/page-liked.jpg">
+Tailored content is displayed to the registered user through this page. The Feed presents a curated view of posts from other members whom the user follows, giving easy access to new, relevant content at a click:<br><br>
+<img src="README%20images/page-feed.jpg">
+
+### Activity page
+
+The Activity page aggregates all the comments that the authenticated user has submitted. This provides a convenient way for the user to revisit and review these interactions, with the options to revisit the relevant post page as well as edit and delete the comments:<br><br>
+<img src="README%20images/page-activity.jpg">
 
 ### Add Post page
 
@@ -377,12 +384,9 @@ The app is not yet presented in a completed or optimal state and would benefit f
    - Addressing the tests that failed to pass, particularly around functionality of post editing. See <u>[documentation](README%20images/forum20%20testing.pdf)</u>.
    - A feature for retrieving a forgotten password
    - An option for the user to delete their account
-   - Consistent and effective application of error and success messaging
-   - Provide clarity to the user that, when uploading a post, it must include a title
    - Ensuring application of the active class (NavLink style) upon all page reloads
    - Improving the visibilty of Follow/Unfollow buttons in the 'Most followed profiles' box so users can see at a glance which profiles they currently follow
-   - Reworking the Liked page into an Activity page to display the logged-in user's contributions - likes, comments, posts, etc. - in a single, organised view. [This was attempted but not able to be made fully functional within the timeframe.]
-   - Removing the 'Most followed profiles' component that renders at the bottom of the screen on mobiles
+   - Expanding the Activity page to include the display of, for example, the logged-in user's likes and follows
    - The logo could be remade to render more sharply.
 
 ## Credits
