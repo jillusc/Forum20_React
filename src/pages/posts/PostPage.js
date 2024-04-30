@@ -19,7 +19,7 @@ import Asset from "../../components/Asset";
 import PopularProfiles from "../profiles/PopularProfiles";
 
 function PostPage() {
-  const [setErrors] = useState({});
+  const [errors, setErrors] = useState({});
   const { id } = useParams();
   const [post, setPost] = useState({ results: [] });
   const currentUser = useCurrentUser();

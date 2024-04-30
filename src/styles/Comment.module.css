@@ -38,3 +38,53 @@
     position: absolute;
     margin-left: 15px;
 }
+
+/* UserCommentsActivity page - comments list view styles */
+.usercommentsactivity hr {
+    display: none;
+}
+
+.usercommentsactivity p {
+    font-size: 120%;
+    text-align: center;
+}
+
+.usercommentsactivity h6 {
+    margin-left: 112px;
+    text-align: left;
+    margin-top: 20px;
+    margin-bottom: 10px;
+}
+
+.usercommentsactivity .notHidden {
+    display: block;
+}
+
+.usercommentsactivity .MediaBody {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.usercommentsactivity .Owner {
+    display: none;
+}
+
+.usercommentsactivity h6 span {
+    font-weight: bold;
+    color: #3c3c3c;
+    text-decoration: none;
+}
+
+.usercommentsactivity h6 span:hover {
+    font-weight: bolder;
+    color: #8B0000;
+}
+
+.usercommentsactivity h6 a {
+    text-decoration: none;
+}
+
+h5 {
+    font-weight: bold;
+}

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
 import Container from "react-bootstrap/Container";
 
 import appStyles from "../../App.module.css";
+import styles from "../../styles/Comment.module.css";
 
 import Asset from "../../components/Asset";
 import Comment from "./Comment";
@@ -46,20 +48,27 @@ const UserCommentsActivity = ({ mobile }) => {
                     hasMore={false}
                     loader={<Asset spinner />}
                 >
+                    <h5>My recent comments</h5>
                     {userComments.results.map(comment => (
-                    <div key={comment.id}>
-                        <p className="ml-3 mb-0">on post titled: {comment.post_title}</p>
-                        <Comment
-                            comment={comment}
-                            content={comment.content}
-                            id={comment.id}
-                            owner={comment.owner}
-                            profile_id={currentUser.profile_id}
-                            profile_image={currentUser.profile_image}
-                            updated_at={comment.updated_at}
-                            post_title={comment.post_title}
-                        />
-                    </div>
+                        <div key={comment.id} className={`${styles.usercommentsactivity}`}>
+                            <hr className={`${styles.notHidden}`} />
+                            <h6>
+                                On post:{" "}
+                                <Link to={`/posts/${comment.post}`}>
+                                    <span>{comment.post_title}</span>
+                                </Link>
+                            </h6>                           
+                             <Comment
+                                comment={comment}
+                                content={comment.content}
+                                id={comment.id}
+                                owner={comment.owner}
+                                profile_id={currentUser.profile_id}
+                                profile_image={currentUser.profile_image}
+                                updated_at={comment.updated_at}
+                                post_title={comment.post_title}
+                            />
+                        </div>
                     ))}
                 </InfiniteScroll>
             )}
