@@ -1,25 +1,28 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
+import Media from "react-bootstrap/Media";
 import Container from "react-bootstrap/Container";
 
 import appStyles from "../../App.module.css";
-import styles from "../../styles/Comment.module.css";
+import styles from "../../styles/UserActivity.module.css";
 
 import Asset from "../../components/Asset";
-import Comment from "./Comment";
+import Avatar from "../../components/Avatar";
+import Comment from "../comments/Comment";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { axiosReq } from "../../API/axiosDefaults";
 import { fetchMoreData } from "../../utils/utils";
 
-const UserCommentsActivity = ({ mobile }) => {
+const UserActivity = ({ mobile }) => {
     const currentUser = useCurrentUser();
     const [userComments, setUserComments] = useState({ results: [], loading: true, error: null });
+    const [userBookmarks, setUserBookmarks] = useState({ results: [], loading: true, error: null });
     const [, setErrors] = useState({});
 
     useEffect(() => {
-        const fetchUserComments = async () => {
+        const fetchUserActivity = async () => {
             if (currentUser?.profile_id) {
                 try {
                     const { data } = await axiosReq.get(`/comments/?user_id=${currentUser.profile_id}&user_comments=true`);
@@ -29,12 +32,19 @@ const UserCommentsActivity = ({ mobile }) => {
                         loading: false,
                         error: null
                     });
+                    const { data: bookmarksData } = await axiosReq.get(`/bookmarks/?user_id=${currentUser.profile_id}`);
+
+                    setUserBookmarks({
+                        results: bookmarksData.results,
+                        loading: false,
+                        error: null
+                    });
                 } catch (err) {
                     setErrors(err.response?.data);
                 }
             }
         };
-        fetchUserComments();
+        fetchUserActivity();
     }, [currentUser?.profile_id, setErrors]);
 
     return (
@@ -48,17 +58,17 @@ const UserCommentsActivity = ({ mobile }) => {
                     hasMore={false}
                     loader={<Asset spinner />}
                 >
-                    <h5>My recent comments</h5>
+                    <h5>My recent activity</h5>
                     {userComments.results.map(comment => (
-                        <div key={comment.id} className={`${styles.usercommentsactivity}`}>
+                        <div key={comment.id} className={`${styles.useractivity}`}>
                             <hr className={`${styles.notHidden}`} />
                             <h6>
-                                On post:{" "}
+                                Comment on post:{" "}
                                 <Link to={`/posts/${comment.post}`}>
                                     <span>{comment.post_title}</span>
                                 </Link>
-                            </h6>                           
-                             <Comment
+                            </h6>
+                            <Comment
                                 comment={comment}
                                 content={comment.content}
                                 id={comment.id}
@@ -70,10 +80,34 @@ const UserCommentsActivity = ({ mobile }) => {
                             />
                         </div>
                     ))}
+                    {userBookmarks.results.map(bookmark => (
+                        <div key={bookmark.id} className={`${styles.useractivity}`}>
+                            <hr className={`${styles.notHidden}`} />
+                            <h6>
+                                Bookmarked post:{" "}
+                                <Link to={`/posts/${bookmark.post}`}>
+                                    <span>{bookmark.post_title}</span>
+                                </Link>
+                            </h6>
+                            <Media className="w-100">
+                                <Link to={`/profiles/${currentUser.profile_id}`}>
+                                    <Avatar src={currentUser.profile_image} />
+                                </Link>
+                                <Media.Body className={`align-self-center ml-2 ${styles.MediaBody}`}>
+                                    <div className={styles.OwnerAndDate}>
+                                        <span className={styles.Date}>{bookmark.created_at}</span>                                    </div>
+                                    <p className={styles.Comment}>
+                                        {bookmark.post_content}
+                                    </p>
+                                </Media.Body>
+                            </Media>
+                        </div>
+                    ))}
+
                 </InfiniteScroll>
             )}
         </Container>
     );
 };
 
-export default UserCommentsActivity;
+export default UserActivity;

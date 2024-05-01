@@ -23,7 +23,7 @@ import ProfilePage from "./pages/profiles/ProfilePage";
 import UsernameForm from "./pages/profiles/UsernameForm";
 import UserPasswordForm from "./pages/profiles/UserPasswordForm";
 import ProfileEditForm from "./pages/profiles/ProfileEditForm";
-import UserCommentsActivity from "./pages/comments/UserCommentsActivity";
+import UserActivity from "./pages/user_activity/UserActivity";
 
 function App() {
   const currentUser = useCurrentUser();
@@ -34,7 +34,7 @@ function App() {
       <Container className={styles.Main}>
         <Switch>
           <Route exact path="/feed" render={() => (<PostsPage message="No results found. Try a different keyword or follow a user." filter={`owner__followed__owner__profile=${profile_id}&`} />)} />
-          <Route exact path="/activity" render={() => <UserCommentsActivity />} />
+          <Route exact path="/activity" render={() => <UserActivity />} />
           <Route exact path="/" render={() => (<PostsPage isHomePage={true} message="No results found. Please try a different keyword." />)} />
           <Route exact path="/login" render={() => <LogInForm />} />
           <Route exact path="/signup" render={() => <SignUpForm />} />

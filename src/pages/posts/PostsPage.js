@@ -19,7 +19,7 @@ import Asset from "../../components/Asset";
 import NoResults from "../../assets/no-results-icon.png";
 import { fetchMoreData } from "../../utils/utils";
 import PopularProfiles from "../profiles/PopularProfiles";
-import UserCommentsActivity from "../comments/UserCommentsActivity";
+import UserActivity from "../user_activity/UserActivity";
 import { ErrorMessage } from "../../components/CustomFeedback";
 
 function PostsPage({ message, filter = "" }) {
@@ -104,7 +104,7 @@ function PostsPage({ message, filter = "" }) {
             </Col>
             {pathname === "/activity" && (
                 <Col md={4} className="d-lg-block p-0 p-lg-2">
-                    <UserCommentsActivity />
+                    <UserActivity />
                 </Col>
             )}
         </Row>
