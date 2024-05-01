@@ -43,17 +43,20 @@ h5 {
 }
 
 .Heart,
-.Comment {
+.Comment,
+.Bookmark {
   cursor: pointer;
   color: #3c3c3c;
 }
 
 .Heart:hover,
-.Comment:hover {
+.Comment:hover,
+.Bookmark:hover {
   color: #8B0000;
 }
 
-.Comment {
+.Comment,
+.Bookmark {
   margin-left: 20px;
 }
 

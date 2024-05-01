@@ -18,9 +18,9 @@ import { SuccessMessage, ErrorMessage } from "../../components/CustomFeedback";
 const Post = (props) => {
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-    const [setErrors] = useState({});
+    const [errors, setErrors] = useState({});
     const { id, owner, profile_id, profile_image, comments_count, likes_count,
-        like_id, title, content, image, updated_at, postPage, setPosts,
+        like_id, bookmark_id, title, content, image, updated_at, postPage, setPosts,
     } = props;
     const currentUser = useCurrentUser();
     const is_owner = currentUser?.username === owner;
@@ -88,6 +88,34 @@ const Post = (props) => {
         }
     };
 
+    const handleBookmark = async () => {
+        try {
+            const { data } = await axiosRes.post("/bookmarks/", { post: id });
+            setPosts((prevPosts) => ({
+                ...prevPosts,
+                results: prevPosts.results.map((post) =>
+                    post.id === id ? { ...post, bookmark_id: data.id } : post
+                ),
+            }));
+        } catch (err) {
+            setErrors(err.response.data);
+        }
+    };
+    
+    const handleUnbookmark = async () => {
+        try {
+            await axiosRes.delete(`/bookmarks/${bookmark_id}`);
+            setPosts((prevPosts) => ({
+                ...prevPosts,
+                results: prevPosts.results.map((post) =>
+                    post.id === id ? { ...post, bookmark_id: null } : post
+                ),
+            }));
+        } catch (err) {
+            setErrors(err.response.data);
+        }
+    };
+
     return (
         <Card className={styles.Post}>
             <Card.Body>
@@ -138,8 +166,23 @@ const Post = (props) => {
                         <i className={`fa-solid fa-comment-dots ${styles.Comment}`} />
                     </Link>
                     {comments_count}
+                    {!is_owner && currentUser && (
+                        <OverlayTrigger placement="top" overlay={<Tooltip>
+                            {bookmark_id ? "Remove bookmark" : "Bookmark this post"}</Tooltip>}>
+                            <span onClick={bookmark_id ? handleUnbookmark : handleBookmark}>
+                                <i className={`fa-solid fa-bookmark ${styles.Bookmark}`} />
+                            </span>
+                        </OverlayTrigger>
+                    )}
                 </div>
             </Card.Body>
+            {Object.keys(errors).map((key) =>
+                Array.isArray(errors[key]) && errors[key].map((message, idx) => (
+                    <div key={`${key}-${idx}`} className={feedbackStyles.fixedMessage}>
+                        <ErrorMessage message={message} />
+                    </div>
+                ))
+            )}
             {successMessage && (
                 <div className={feedbackStyles.fixedMessage}>
                     <SuccessMessage message={successMessage} />
