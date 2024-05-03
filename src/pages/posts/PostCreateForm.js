@@ -25,26 +25,35 @@ function PostCreateForm() {
     useRedirect("loggedOut");
     const [successMessage, setSuccessMessage] = useState("");
     const [errorMessage, setErrorMessage] = useState("");
-    const [errors, setErrors] = useState({
-        title: [],
-        content: [],
-        image: []
-    });
-    const [isPrivate, setIsPrivate] = useState(false);
+    const [errors, setErrors] = useState({});
     const [postData, setPostData] = useState({
         title: "",
         content: "",
         image: "",
+        artist_name: "",
+        year_of_artwork: "",
+        is_private: false,
     });
-    const { title, content, image } = postData;
+    const { title, content, image, artist_name, year_of_artwork, is_private } = postData;
     const imageInput = useRef(null);
     const history = useHistory();
 
     const handleChange = (event) => {
-        setPostData({
-            ...postData,
-            [event.target.name]: event.target.value
-        });
+        const { name, value } = event.target;
+        if (name === "year_of_artwork") {
+            const regex = /^[0-9]{0,2}$/;
+            if (regex.test(value)) {
+                setPostData(prevData => ({
+                    ...prevData,
+                    [name]: value
+                }));
+            }
+        } else {
+            setPostData(prevData => ({
+                ...prevData,
+                [name]: value
+            }));
+        }
     };
 
     const handleChangeImage = (event) => {
@@ -54,18 +63,15 @@ function PostCreateForm() {
                 ...postData,
                 image: URL.createObjectURL(event.target.files[0])
             });
+            setErrors(prevErrors => ({
+                ...prevErrors,
+                image: []
+            }));
         }
     };
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        if (!title.trim()) {
-            setErrors(prevErrors => ({
-                ...prevErrors,
-                title: ["Please give your post a title."]
-            }));
-            return;
-        }
         if (!imageInput.current.files[0]) {
             setErrors(prevErrors => ({
                 ...prevErrors,
@@ -73,11 +79,30 @@ function PostCreateForm() {
             }));
             return;
         }
+        if (!title.trim()) {
+            setErrors(prevErrors => ({
+                ...prevErrors,
+                title: ["Please give your post a title."]
+            }));
+            return;
+        }
+        if (year_of_artwork && year_of_artwork.length === 1) {
+            setErrors(prevErrors => ({
+                ...prevErrors,
+                year_of_artwork: ["Year should consist of two digits."]
+            }));
+            return;
+        }
+
         const formData = new FormData();
         formData.append("title", title);
         formData.append("content", content);
         formData.append("image", imageInput.current.files[0]);
-        formData.append("is_private", isPrivate);
+        formData.append("artist_name", postData.artist_name || '');
+        if (postData.year_of_artwork && postData.year_of_artwork.length === 2) {
+            formData.append("year_of_artwork", `19${postData.year_of_artwork}`);
+        }
+        formData.append("is_private", is_private);
 
         try {
             const { data } = await axiosReq.post("/posts/", formData);
@@ -97,7 +122,7 @@ function PostCreateForm() {
     const textFields = (
         <div className="text-center">
             <Form.Group>
-                <Form.Label>Title</Form.Label>
+                <Form.Label>Post title</Form.Label>
                 <Form.Control type="text" name="title" value={title} onChange={handleChange} />
             </Form.Group>
             {errors?.title?.map((message, idx) => (
@@ -107,9 +132,29 @@ function PostCreateForm() {
             ))}
             <Form.Group>
                 <Form.Label>Content</Form.Label>
-                <Form.Control as="textarea" rows={6} name="content" value={content} onChange={handleChange} />
+                <Form.Control as="textarea" rows={4} name="content" value={content} onChange={handleChange} />
             </Form.Group>
             {errors?.content?.map((message, idx) => (
+                <Alert variant="warning" key={idx}>
+                    {message}
+                </Alert>
+            ))}
+            <Form.Group>
+                <Form.Label>Artist</Form.Label>
+                <Form.Control type="text" name="artist_name" value={artist_name} onChange={handleChange} />
+            </Form.Group>
+            <Form.Group style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <Form.Label style={{ marginRight: '5px', marginBottom: '0' }}>Year 19</Form.Label>
+                <Form.Control
+                    type="number"
+                    name="year_of_artwork"
+                    value={year_of_artwork}
+                    onChange={handleChange}
+                    maxLength="2"
+                    style={{ width: '60px' }}
+                />
+            </Form.Group>
+            {errors?.year_of_artwork?.map((message, idx) => (
                 <Alert variant="warning" key={idx}>
                     {message}
                 </Alert>
@@ -125,9 +170,9 @@ function PostCreateForm() {
                     type="checkbox"
                     className={`${formStyles.customCheckbox}`}
                     label="Make this post visible only to followers"
-                    checked={isPrivate}
-                    onChange={(e) => setIsPrivate(e.target.checked)}
-                />
+                    checked={is_private}
+                    onChange={(e) => setPostData({ ...postData, is_private: e.target.checked })}
+                    />
             </Form.Group>
         </div>
     );
@@ -143,7 +188,7 @@ function PostCreateForm() {
                                     <figure>
                                         <Image className={`${appStyles.Image} img-fluid`} src={image} rounded />
                                     </figure>
-                                    <label htmlFor="image-upload" className={styles.TextLink} style={{ cursor: 'pointer', display: 'inline-block' }}>Change the image</label>
+                                    <label htmlFor="image-upload" className={styles.TextLink} style={{ cursor: 'pointer', display: 'inline-block' }}>Change image</label>
                                 </>
                             ) : (
                                 <label
@@ -166,6 +211,7 @@ function PostCreateForm() {
                                 </Alert>
                             ))}
                         </Form.Group>
+
                         {successMessage && (
                             <div className={feedbackStyles.fixedMessage}>
                                 <SuccessMessage message={successMessage} />
