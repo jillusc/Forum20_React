@@ -91,17 +91,19 @@ const Post = (props) => {
     const handleBookmark = async () => {
         try {
             const { data } = await axiosRes.post("/bookmarks/", { post: id });
-            setPosts((prevPosts) => ({
-                ...prevPosts,
-                results: prevPosts.results.map((post) =>
-                    post.id === id ? { ...post, bookmark_id: data.id } : post
-                ),
-            }));
+            if (data.profile_id === currentUser.profile_id) {
+                setPosts((prevPosts) => ({
+                    ...prevPosts,
+                    results: prevPosts.results.map((post) =>
+                        post.id === id ? { ...post, bookmark_id: data.id } : post
+                    ),
+                }));
+            }
         } catch (err) {
             setErrors(err.response.data);
         }
     };
-    
+
     const handleUnbookmark = async () => {
         try {
             await axiosRes.delete(`/bookmarks/${bookmark_id}`);

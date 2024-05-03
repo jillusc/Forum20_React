@@ -1,19 +1,98 @@
-.MediaBody {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
+h5 {
+    font-weight: bold;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
-.OwnerAndDate {
+h6 {
+    margin-bottom: 30px;
+}
+
+.UserActivity p {
+    font-size: 110%;
+    margin-left: 50px;
+    margin-bottom: 0;
+}
+
+.UserActivity p.NoBookmarkedPosts {
+    font-size: 100%;
+}
+
+.UserActivity hr {
+    display: none;
+}
+
+hr.notHidden {
+    display: block;
+    margin-bottom: 0px;
+}
+
+.tabPosition {
     display: flex;
     justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.Bookmark_MediaBody {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 4px;
     width: 95%;
 }
 
-.Owner {
+.CommentsHeader {
+    text-align: left;
+    margin-top: 30px;
+    margin-left: 88px;
+    margin-bottom: 0;
+}
+
+.BookmarksHeader {
+    text-align: left;
+    margin-bottom: 0;
+}
+
+h6 span,
+h6 a {
     font-weight: bold;
     color: #3c3c3c;
-    text-align: left;
+    text-decoration: none;
+}
+
+h6 span:hover {
+    font-weight: bolder;
+    color: #8B0000;
+}
+
+h6 a:hover,
+h6 a:active {
+    font-weight: bold;
+    color: #8B0000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.TabLink {
+    text-transform: uppercase;
+    font-weight: bold;
+    color: #3c3c3c;
+    text-decoration: none;
+}
+
+.TabLink i {
+    font-size: 0.8rem;
+    padding: 5px;
+}
+
+.TabLink_active,
+.TabLink_active i,
+.TabLink:hover {
+    color: #8B0000;
+    font-size: 1.25rem;
+    text-transform: capitalize;
+    cursor: pointer;
+    font-weight: bold;
 }
 
 .Date {
@@ -22,68 +101,4 @@
     color: #8e9aaf;
     text-align: right;
     margin-right: 10px;
-}
-
-.Comment {
-    font-weight: normal;
-    color: #3c3c3c;
-    text-align: left;
-}
-
-.caretIconContainer {
-    position: relative;
-}
-
-.caretIcon {
-    position: absolute;
-    margin-left: 15px;
-}
-
-.useractivity hr {
-    display: none;
-}
-
-.useractivity p {
-    font-size: 120%;
-    text-align: center;
-}
-
-.useractivity h6 {
-    margin-left: 112px;
-    text-align: left;
-    margin-top: 20px;
-    margin-bottom: 10px;
-}
-
-.useractivity .notHidden {
-    display: block;
-}
-
-.useractivity .MediaBody {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.useractivity .Owner {
-    display: none;
-}
-
-.useractivity h6 span {
-    font-weight: bold;
-    color: #3c3c3c;
-    text-decoration: none;
-}
-
-.useractivity h6 span:hover {
-    font-weight: bolder;
-    color: #8B0000;
-}
-
-.useractivity h6 a {
-    text-decoration: none;
-}
-
-h5 {
-    font-weight: bold;
 }

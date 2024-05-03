@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
-import Media from "react-bootstrap/Media";
-import Container from "react-bootstrap/Container";
+import { Container, Row, Col, Tab, Tabs } from "react-bootstrap";
 
 import appStyles from "../../App.module.css";
 import styles from "../../styles/UserActivity.module.css";
@@ -20,6 +19,7 @@ const UserActivity = ({ mobile }) => {
     const [userComments, setUserComments] = useState({ results: [], loading: true, error: null });
     const [userBookmarks, setUserBookmarks] = useState({ results: [], loading: true, error: null });
     const [, setErrors] = useState({});
+    const [activeTab, setActiveTab] = useState("comments");
 
     useEffect(() => {
         const fetchUserActivity = async () => {
@@ -47,66 +47,112 @@ const UserActivity = ({ mobile }) => {
         fetchUserActivity();
     }, [currentUser?.profile_id, setErrors]);
 
-    return (
-        <Container className={appStyles.Content}>
-            {userComments.loading ? (
-                <Asset spinner />
-            ) : (
-                <InfiniteScroll
-                    dataLength={userComments.results.length}
-                    next={fetchMoreData}
-                    hasMore={false}
-                    loader={<Asset spinner />}
-                >
-                    <h5>My recent activity</h5>
-                    {userComments.results.map(comment => (
-                        <div key={comment.id} className={`${styles.useractivity}`}>
-                            <hr className={`${styles.notHidden}`} />
-                            <h6>
-                                Comment on post:{" "}
-                                <Link to={`/posts/${comment.post}`}>
-                                    <span>{comment.post_title}</span>
-                                </Link>
-                            </h6>
-                            <Comment
-                                comment={comment}
-                                content={comment.content}
-                                id={comment.id}
-                                owner={comment.owner}
-                                profile_id={currentUser.profile_id}
-                                profile_image={currentUser.profile_image}
-                                updated_at={comment.updated_at}
-                                post_title={comment.post_title}
-                            />
-                        </div>
-                    ))}
-                    {userBookmarks.results.map(bookmark => (
-                        <div key={bookmark.id} className={`${styles.useractivity}`}>
-                            <hr className={`${styles.notHidden}`} />
-                            <h6>
-                                Bookmarked post:{" "}
-                                <Link to={`/posts/${bookmark.post}`}>
-                                    <span>{bookmark.post_title}</span>
-                                </Link>
-                            </h6>
-                            <Media className="w-100">
-                                <Link to={`/profiles/${currentUser.profile_id}`}>
-                                    <Avatar src={currentUser.profile_image} />
-                                </Link>
-                                <Media.Body className={`align-self-center ml-2 ${styles.MediaBody}`}>
-                                    <div className={styles.OwnerAndDate}>
-                                        <span className={styles.Date}>{bookmark.created_at}</span>                                    </div>
-                                    <p className={styles.Comment}>
-                                        {bookmark.post_content}
-                                    </p>
-                                </Media.Body>
-                            </Media>
-                        </div>
-                    ))}
+    const handleTabChange = (tab) => {
+        setActiveTab(tab);
+    };
 
-                </InfiniteScroll>
-            )}
-        </Container>
+    return (
+        <Container className={styles.UserActivity}>
+            <Row>
+                <Col className="col-12 col-md-10 col-lg-8 mx-auto">
+                    <div className={`${appStyles.Content} mb-4`}>
+                        <h5>My recent activity</h5>
+                        {userComments.loading || userBookmarks.loading ? (
+                            <Asset spinner />
+                        ) : (
+                            <Tabs activeKey={activeTab} onSelect={handleTabChange} className={styles.tabPosition}>
+                                <Tab eventKey="comments" title={
+                                    <>
+                                        <div className={`${styles.TabLink} ${activeTab === "comments" ? styles.TabLink_active : ""}`}>
+                                            <i className="fa-solid fa-comment-dots" />Comments
+                                        </div>
+                                    </>
+                                }>
+                                    <InfiniteScroll
+                                        dataLength={userComments.results.length}
+                                        next={fetchMoreData}
+                                        hasMore={false}
+                                        loader={<Asset spinner />}
+                                    >
+                                        {userComments.results.map(comment => (
+                                            <div key={comment.id}>
+                                                <h6 className={styles.CommentsHeader}>
+                                                    On post:{" "}
+                                                    <Link to={`/posts/${comment.post}`}>
+                                                        <span>{comment.post_title}</span>
+                                                    </Link>
+                                                </h6>
+                                                <Comment
+                                                    comment={comment}
+                                                    content={comment.content}
+                                                    id={comment.id}
+                                                    owner={comment.owner}
+                                                    hideOwner={true}
+                                                    profile_id={currentUser.profile_id}
+                                                    profile_image={currentUser.profile_image}
+                                                    updated_at={comment.updated_at}
+                                                    post_title={comment.post_title}
+                                                />
+                                                <hr className={styles.notHidden} />
+                                            </div>
+                                        ))}
+                                    </InfiniteScroll>
+                                </Tab>
+                                <Tab eventKey="bookmarks" title={
+                                    <>
+                                        <div className={`${styles.TabLink} ${activeTab === "bookmarks" ? styles.TabLink_active : ""}`}>
+                                            <i className="fa-solid fa-bookmark" />Bookmarks
+                                        </div>
+                                    </>
+                                }>
+                                    {userBookmarks.results.length === 0 ? (
+                                        <div>
+                                            <p className={styles.NoBookmarkedPosts}>No bookmarked posts to show.</p>
+                                        </div>
+                                    ) : (
+                                        <InfiniteScroll
+                                            dataLength={userBookmarks.results.length}
+                                            next={fetchMoreData}
+                                            hasMore={false}
+                                            loader={<Asset spinner />}
+                                        >
+                                            {userBookmarks.results.map(bookmark => (
+                                                <div key={bookmark.id}>
+                                                    <div className={styles.Bookmark_MediaBody}>
+                                                        <div>
+                                                            <Link to={`/profiles/${currentUser.profile_id}`}>
+                                                                <Avatar src={currentUser.profile_image} />
+                                                            </Link>
+                                                        </div>
+                                                        <div>
+                                                            <h6 className={styles.BookmarksHeader}>
+                                                                Bookmarked post:
+                                                            </h6>
+                                                        </div>
+                                                        <div>
+                                                            <span className={styles.Date}>{bookmark.created_at}</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="ml-2">
+                                                        <h6>
+                                                            <Link to={`/posts/${bookmark.post}`}>
+                                                                <span>{bookmark.post_title}</span>
+                                                            </Link>
+                                                        </h6>
+                                                    </div>
+                                                    <hr className={styles.notHidden} />
+                                                </div>
+                                            ))}
+                                        </InfiniteScroll>
+                                    )}
+                                </Tab>
+                            </Tabs>
+                        )
+                        }
+                    </div >
+                </Col>
+            </Row>
+        </Container >
     );
 };
 

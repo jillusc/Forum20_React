@@ -16,7 +16,7 @@ import { SuccessMessage, ErrorMessage } from "../../components/CustomFeedback";
 
 const Comment = (props) => {
     const { profile_id, profile_image, owner, updated_at, content, id,
-        setComments,
+        setComments, hideOwner
     } = props;
     const [showEditForm, setShowEditForm] = useState(false);
     const [successMessage, setSuccessMessage] = useState("");
@@ -40,9 +40,9 @@ const Comment = (props) => {
                 }, 2000);
             } catch (err) {
                 if (err.response?.data) {
-                setErrors(err.response.data);
+                    setErrors(err.response.data);
                 } else {
-                setErrorMessage("Comment deletion failed. Please try again.");
+                    setErrorMessage("Comment deletion failed. Please try again.");
                 }
             }
         }
@@ -56,10 +56,12 @@ const Comment = (props) => {
                     <Avatar src={profile_image} />
                 </Link>
                 <Media.Body className={`align-self-center ml-2 ${styles.MediaBody}`}>
-                    <div className={styles.OwnerAndDate}>
-                        <span className={styles.Owner}>{owner}</span>
-                        <span className={styles.Date}>{updated_at}</span>
-                    </div>
+                    {!hideOwner && (
+                        <div className={styles.OwnerAndDate}>
+                            <span className={styles.Owner}>{owner}</span>
+                            <span className={styles.Date}>{updated_at}</span>
+                        </div>
+                    )}
                     {showEditForm ? (
                         <CommentEditForm
                             id={id}
