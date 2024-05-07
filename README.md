@@ -217,13 +217,15 @@ From the logo, a favicon was created using basic image editing software. The num
 
 ## Data Models
 
-This project follows Object-Oriented Programming principles and employs Django's Class-Based Generic Views. It includes five custom models:
+This project follows Object-Oriented Programming principles and employs Django's Class-Based Generic Views. It includes six custom models:
 
-- Post: detailing user posts with attributes such as owner (linked to the User model), post privacy status, timestamps of creation and updates, a post title and content text and an image.
-- Profile: for user profiles and directly associated with a unique User instance.
-- Comment: enabling registered users to submit comments, this establishes one-to-many relationships with both the User model (via comment owner) and the Post model (linking a comment with a post).
-- Like: featuring a many-to-one relationship with both the User model (via like owner) and the Post model (identifying which post was liked).
-- Follower: representing the relationships between users, with a many-to-one relationship to the User model twice: once for the user who's following and once for the followed user.
+- Post: details user posts with attributes such as owner (linked to the User model), post privacy status, timestamps of creation and updates, a post title and content text, an image, plus further optional fields for the artist's name and the year of the artwork.
+- Profile: represents user profiles and is directly associated with a unique User instance. It includes attributes for the username, bio and a profile image that serves as an avatar.
+- Like: features many-to-one relationships with both the User model (via like owner) and the Post model (identifying which post was liked).
+- Comment: enables registered users to submit comments, establishing one-to-many relationships with both the User model (via comment owner) and the Post model (linking a comment with a post).
+- Bookmark: allows users to save posts for later viewing, featuring many-to-one relationships with both the User model (via bookmark owner) and Post model (associating a bookmark with a post).
+- Follower: trackes relationships between users with a many-to-one relationship to the User model twice: once for the user who is following and once for the followed user.
+
 
 The database schema are illustrated by the ERD diagram below:<br><br>
 <img src="README%20images/ERD.jpg">
@@ -232,18 +234,18 @@ The database schema are illustrated by the ERD diagram below:<br><br>
 
 This is an application where visitors can explore 20th century artworks and enrich their knowledge of this vast, diverse and culturally significant era. Members can view contributions from others and create their own posts, sharing their favourite images and showcasing their favourite artists. An option to control post visibility is offered. A search bar enables the fetching of customised content. Additionally, users can engage with the forum20 community by submitting comments on posts and starting or joining a conversation. Further features that enhance social interaction are the ability to easily 'like' a post, and to connect with other members by clicking a 'follow' button. Members' profile pages contain pertinent information including an optional bio.
 
- - User Registration and Authentication: users can sign up, log in and out, and manage their profiles securely.
+ - User Registration and Authentication: users can sign up, log in and out and manage their profiles securely.
  - CRUD Functionality: registered users have the freedom to create, read, update and delete all of their individual contributions to the platform.
  - User Profiles: each registered user has a Profile page displaying their name, avatar, bio section and their submitted posts.
  - Admin Panel: through the Django admin panel, admin personnel have control to manage user accounts and site content.
  - JSON Web Tokens: JWT's are utilised to maintain user sessions securely, allowing users to remain logged in until they choose to log out.
  
  - React architecture: UX is enhanced by use of the following features of React:
-    - Components: React's modular approach enables faster development and consistency
+    - Components: React's modular approach enables faster development and ensures consistency across the interface
     - Rendering: the Virtual DOM ensures quick updates, leading to smoother interactions
     - State Management: React's built-in state management tools keep UIs up-to-date with minimal code
     - Routing: React Router enables seamless navigation without page reloads, offering users a structured and intuitive browsing experience
-    - Infinite Scroll: implemented for effortless browsing, loading content dynamically without navigating to a different page.
+    - Infinite Scroll: implemented for effortless browsing, loading content dynamically without the need to navigate to a different page.
 
 ### Features to implement
 
@@ -279,21 +281,27 @@ Tailored content is displayed to the registered user through this page. The Feed
 
 ### Activity page
 
-The Activity page aggregates all the comments that the authenticated user has submitted. This provides a convenient way for the user to revisit and review these interactions, with the options to revisit the relevant post page as well as edit and delete the comments:<br><br>
-<img src="README%20images/page-activity.jpg">
+The Activity page aggregates all the comments that the authenticated user has submitted and the posts they have bookmarked. A simple organisation of the content utilising tabs offers a convenient way for the user to review these interactions, with the options to revisit the relevant post page as well as edit and delete the comments. For cohesion and consistency of design, the tab headers match the appearance of the navbar links:<br><br>
+<img src="README%20images/page-activity1.jpg"><br><br>
+<img src="README%20images/page-activity2.jpg">
 
 ### Add Post page
 
-Clicking on the Add Post navlink opens a page with a form. This features a larger box via which to upload an image and a narrower one where the user can enter a title for the post and further text content. A checkbox affords the user some control by enabling setting the post as visible only to their followers. Upon successful creation, a custom feedback message displays before the Post page is rendered to display the submitted post:<br><br>
+Clicking on the Add Post navlink opens a page with a form. This features a larger box via which to upload an image and a narrower one where the user enters the post's details. A title is mandatory; there are further input fields for additional text content, the name of the artist and year of the artwork. A checkbox affords the user the control to set the post as visible only to their followers. Upon successful creation, a custom feedback message displays before the Post page is rendered to display the submitted post:<br><br>
 <img src="README%20images/page-addpost1.jpg"><br><br>
 <img src="README%20images/page-addpost2.jpg">
 
-### My Profile page
+### Profile page
 
 This page offers users a personalised space to manage their account and their sitewide identity: they can easily update their profile image, username and bio; change their password, and view, edit and delete their submitted posts:<br><br>
 <img src="README%20images/page-profile1.jpg"><br><br>
 <img src="README%20images/page-profile2.jpg"><br><br>
-<img src="README%20images/page-profile3.jpg">
+<img src="README%20images/page-profile3.jpg"><br><br>
+<img src="README%20images/page-profile4.jpg"><br><br>
+<img src="README%20images/page-editprofile.jpg"><br><br>
+<img src="README%20images/page-changeusername.jpg"><br><br>
+<img src="README%20images/page-changepassword.jpg">
+
 
 ### Miscellaneous
 
@@ -345,7 +353,7 @@ iii) In the Resources tab, select an Eco dyno for lightweight container deployme
 iv) Click the Open app button to verify it runs correctly.<br>
 
 #### Backend:
-Assuming a created database (e.g. ElephantSQL), a ready repository and an Heroku account, the following steps outline the backend deployment process:
+Assuming a created database (e.g. ElephantSQL), a ready repository and an Heroku account, the following steps outline the preparation of the backend for deployment and the deployment process:
 
 i) Visit the Heroku dashboard and create a new app with a unique name.<br>
 ii) From the Settings tab, add a Config Var for DATABASE_URL, and copy/paste your database's URL for the value (without any quotation marks).<br>
@@ -402,14 +410,12 @@ xvi) Click the Open app button to verify it runs correctly. <br>
 
 ## Improvements/Bug fixes
 
-The app is not yet presented in a completed or optimal state and would benefit from the following modifications and enhancements:
+The app would benefit from the following modifications and enhancements:
 
-   - Addressing the tests that failed to pass, particularly around functionality of post editing. See <u>[documentation](README%20images/forum20%20testing.pdf)</u>.
-   - A feature for retrieving a forgotten password
-   - An option for the user to delete their account
    - Ensuring application of the active class (NavLink style) upon all page reloads
    - Improving the visibilty of Follow/Unfollow buttons in the 'Most followed profiles' box so users can see at a glance which profiles they currently follow
-   - Expanding the Activity page to include the display of, for example, the logged-in user's likes and follows
+   - An option for the user to delete their account
+   - A feature for retrieving a forgotten password
    - The logo could be remade to render more sharply.
 
 ## Credits
