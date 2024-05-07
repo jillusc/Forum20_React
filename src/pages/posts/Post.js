@@ -21,6 +21,7 @@ const Post = (props) => {
     const [errors, setErrors] = useState({});
     const { id, owner, profile_id, profile_image, comments_count, likes_count,
         like_id, bookmark_id, title, content, image, updated_at, postPage, setPosts,
+        artist_name, year_of_artwork,
     } = props;
     const currentUser = useCurrentUser();
     const is_owner = currentUser?.username === owner;
@@ -136,12 +137,15 @@ const Post = (props) => {
                         )}
                     </div>
                 </Media>
+                {title && <Card.Title className="text-center">{title}</Card.Title>}
             </Card.Body>
             <Link to={`/posts/${id}`}>
                 <Card.Img src={image} alt={title} className={styles.PostImage} />
             </Link>
             <Card.Body>
-                {title && <Card.Title className="text-center">{title}</Card.Title>}
+                {artist_name && (
+                    <Card.Text>{artist_name}{year_of_artwork && `, ${year_of_artwork}`}</Card.Text>
+                )}                
                 {content && <Card.Text>{content}</Card.Text>}
                 <div className={styles.IconsBar}>
                     {is_owner ? (
