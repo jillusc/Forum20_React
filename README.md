@@ -201,8 +201,8 @@ Accent colours are a deep wine red and a soft peach, chosen to offset each other
 
 #### Typography
 
-The site uses just one font, Quicksand, imported from Google Fonts. It is a modern typeface with rounded edges and a minimalist look. Because it is the single font used across the app, a cohesive visual identity is created which complements the artworks without overshadowing them or cluttering the site. The monochrome logo was created using two different fonts: Broadway (for the f and 0 characters) and Engravers MT (for the 2), reflecting the essence of modern art being defined by a number of styles and movements. The decision not to represent each letter of the word "forum" was made in an effort to minimise the effect of this so as not to appear overdone and to retain a level of sophistication:<br><br>
-<img src="README%20images/logo.png">
+The site uses just one font, Quicksand, imported from Google Fonts. It is a modern typeface with rounded edges and a minimalist look. Because it is the single font used across the app, a cohesive visual identity is created which complements the artworks without overshadowing them or cluttering the site. The monochrome logo was created using three different fonts: Cascadia Code (for the f) Broadway (for the 0) and Engravers MT (for the 2), reflecting the essence of modern art being defined by a number of styles and movements. The decision not to represent each letter of the word "forum" was made in an effort to minimise the effect of this so as not to appear overdone and to retain a level of sophistication:<br><br>
+<img src="README%20images/logo.png" height="110px">
 
 #### Imagery
 
@@ -416,7 +416,6 @@ The app would benefit from the following modifications and enhancements:
    - Improving the visibilty of Follow/Unfollow buttons in the 'Most followed profiles' box so users can see at a glance which profiles they currently follow
    - An option for the user to delete their account
    - A feature for retrieving a forgotten password
-   - The logo could be remade to render more sharply.
 
 ## Credits
 
