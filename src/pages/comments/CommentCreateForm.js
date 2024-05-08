@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { useHistory, Link } from "react-router-dom";
-
 import Form from "react-bootstrap/Form";
 import InputGroup from "react-bootstrap/InputGroup";
 import Alert from "react-bootstrap/Alert";
@@ -65,7 +64,7 @@ function CommentCreateForm(props) {
     <Form className="mt-2" onSubmit={handleSubmit}>
       <Form.Group>
         <InputGroup>
-          <Link to={`/profiles/${profile_id}`}>
+          <Link to={`/profiles/${profile_id}`} aria-label="View profile">
             <Avatar src={profileImage} />
           </Link>
           <Form.Control
@@ -74,7 +73,8 @@ function CommentCreateForm(props) {
             as="textarea"
             value={content}
             onChange={handleChange}
-            rows={2}
+            rows={3}
+            aria-label="Write your comment here"
           />
           {errors?.content?.map((message, idx) => (
             <Alert key={idx} variant="warning">{message}</Alert>

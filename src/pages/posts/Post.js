@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import { Link, useHistory } from "react-router-dom";
-
 import Card from "react-bootstrap/Card";
 import Media from "react-bootstrap/Media";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
@@ -123,7 +122,7 @@ const Post = (props) => {
         <Card className={styles.Post}>
             <Card.Body>
                 <Media className="align-items-center justify-content-between">
-                    <Link to={`/profiles/${profile_id}`}>
+                    <Link to={`/profiles/${profile_id}`} aria-label={`View profile of ${owner}`}>
                         <Avatar src={profile_image} height={55} />
                         <p className={styles.Username}>{owner}</p>
                     </Link>
@@ -139,44 +138,44 @@ const Post = (props) => {
                 </Media>
                 {title && <Card.Title className="text-center">{title}</Card.Title>}
             </Card.Body>
-            <Link to={`/posts/${id}`}>
+            <Link to={`/posts/${id}`} aria-label={`View post details of ${title}`}>
                 <Card.Img src={image} alt={title} className={styles.PostImage} />
             </Link>
             <Card.Body>
                 {artist_name && (
                     <Card.Text>{artist_name}{year_of_artwork && `, ${year_of_artwork}`}</Card.Text>
-                )}                
+                )}
                 {content && <Card.Text>{content}</Card.Text>}
                 <div className={styles.IconsBar}>
                     {is_owner ? (
                         <OverlayTrigger placement="top" overlay={<Tooltip>
                             Users can't like their own posts</Tooltip>}>
-                            <i className={`fa-solid fa-heart ${styles.Heart}`} />
+                            <i className={`fa-solid fa-heart ${styles.Heart}`} aria-hidden="true" />
                         </OverlayTrigger>
                     ) : like_id ? (
-                        <span onClick={handleUnlike}>
+                        <span onClick={handleUnlike} aria-label="Unlike this post">
                             <i className={`fa-solid fa-heart ${styles.Heart}`} />
                         </span>
                     ) : currentUser ? (
-                        <span onClick={handleLike}>
+                        <span onClick={handleLike} aria-label="Like this post">
                             <i className={`fa-solid fa-heart ${styles.Heart}`} />
                         </span>
                     ) : (
                         <OverlayTrigger placement="top" overlay={<Tooltip>
                             You must be logged-in to like posts</Tooltip>}>
-                            <i className={`fa-solid fa-heart ${styles.Heart}`} />
+                            <i className={`fa-solid fa-heart ${styles.Heart}`} aria-hidden="true" />
                         </OverlayTrigger>
                     )}
                     {likes_count}
-                    <Link to={`/posts/${id}`}>
-                        <i className={`fa-solid fa-comment-dots ${styles.Comment}`} />
+                    <Link to={`/posts/${id}`} aria-label={`View comments on this post`}>
+                        <i className={`fa-solid fa-comment-dots ${styles.Comment}`} aria-hidden="true" />
                     </Link>
                     {comments_count}
                     {!is_owner && currentUser && (
                         <OverlayTrigger placement="top" overlay={<Tooltip>
                             {bookmark_id ? "Remove bookmark" : "Bookmark this post"}</Tooltip>}>
-                            <span onClick={bookmark_id ? handleUnbookmark : handleBookmark}>
-                                <i className={`fa-solid fa-bookmark ${styles.Bookmark}`} />
+                            <span onClick={bookmark_id ? handleUnbookmark : handleBookmark} aria-label={bookmark_id ? "Remove bookmark" : "Bookmark this post"}>
+                                <i className={`fa-solid fa-bookmark ${styles.Bookmark}`} aria-hidden="true" />
                             </span>
                         </OverlayTrigger>
                     )}

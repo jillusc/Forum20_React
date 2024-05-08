@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useHistory, useParams } from "react-router-dom";
-
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -95,8 +94,8 @@ function PostEditForm() {
         formData.append("artist_name", artist_name);
         if (postData.year_of_artwork && postData.year_of_artwork.length === 2) {
             formData.append("year_of_artwork", `19${postData.year_of_artwork}`);
-        }        formData.append("is_private", is_private ? "true" : "false");
-        
+        } formData.append("is_private", is_private ? "true" : "false");
+
         try {
             await axiosReq.put(`/posts/${id}/`, formData);
             setSuccessMessage("Post saved.");
@@ -123,32 +122,54 @@ function PostEditForm() {
                             </div>
                         )}
                         <Form.Group className="text-center">
-                            <Form.Label>Title</Form.Label>
-                            <Form.Control type="text" name="title" value={title} onChange={handleChange} />
+                            <Form.Label htmlFor="post-title">Post title</Form.Label>
+                            <Form.Control
+                                id="post-title"
+                                type="text"
+                                name="title"
+                                value={title}
+                                onChange={handleChange}
+                                aria-label="Give your post a title"
+                            />
                             {errors?.title?.map((message, idx) => (
                                 <Alert variant="warning" key={idx}>{message}</Alert>
                             ))}
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Content</Form.Label>
-                            <Form.Control as="textarea" rows={4} name="content" value={content} onChange={handleChange} />
+                            <Form.Label htmlFor="post-content">Content</Form.Label>
+                            <Form.Control
+                                id="post-content"
+                                type="text"
+                                name="content"
+                                value={content}
+                                as="textarea"
+                                rows={6}
+                                onChange={handleChange}
+                            />
                             {errors?.content?.map((message, idx) => (
                                 <Alert variant="warning" key={idx}>{message}</Alert>
                             ))}
                         </Form.Group>
                         <Form.Group>
-                            <Form.Label>Artist</Form.Label>
-                            <Form.Control type="text" name="artist_name" value={artist_name} onChange={handleChange} />
+                            <Form.Label htmlFor="artist-name">Artist</Form.Label>
+                            <Form.Control
+                                id="artist-name"
+                                type="text"
+                                name="artist_name"
+                                value={artist_name}
+                                onChange={handleChange} />
                         </Form.Group>
                         <Form.Group style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <Form.Label style={{ marginRight: '5px', marginBottom: '0' }}>Year 19</Form.Label>
+                            <Form.Label htmlFor="year-of-artwork" style={{ marginRight: '5px', marginBottom: '0' }}>Year 19</Form.Label>
                             <Form.Control
+                                id="year-of-artwork"
                                 type="number"
                                 name="year_of_artwork"
                                 value={year_of_artwork}
                                 onChange={handleChange}
                                 maxLength="2"
                                 style={{ width: '60px' }}
+                                aria-label="Enter the last two digits"
                             />
                         </Form.Group>
                         {errors?.year_of_artwork?.map((message, idx) => (
@@ -157,12 +178,12 @@ function PostEditForm() {
                             </Alert>
                         ))}
                         <div className="d-flex justify-content-center">
-                        <Button className={`${btnStyles.Button} mr-1`} type="submit">
-                            Save
-                        </Button>
-                        <Button className={`${btnStyles.Button} ml-1`} onClick={() => history.goBack()}>
-                            Cancel
-                        </Button>
+                            <Button className={`${btnStyles.Button} mr-1`} type="submit">
+                                Save
+                            </Button>
+                            <Button className={`${btnStyles.Button} ml-1`} onClick={() => history.goBack()}>
+                                Cancel
+                            </Button>
                         </div>
                         <Form.Group>
                             <Form.Check
@@ -171,7 +192,7 @@ function PostEditForm() {
                                 label="Make this post visible only to followers"
                                 checked={is_private}
                                 onChange={(e) => setPostData({ ...postData, is_private: e.target.checked })}
-                                />
+                            />
                         </Form.Group>
                         {successMessage && (
                             <div className={feedbackStyles.fixedMessage}>

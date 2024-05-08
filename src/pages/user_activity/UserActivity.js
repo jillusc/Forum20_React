@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import InfiniteScroll from "react-infinite-scroll-component";
-import { Container, Row, Col, Tab, Tabs } from "react-bootstrap";
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
+import Tab from "react-bootstrap/Tab";
+import Tabs from "react-bootstrap/Tabs";
 
 import appStyles from "../../App.module.css";
 import styles from "../../styles/UserActivity.module.css";
@@ -58,13 +62,13 @@ const UserActivity = ({ mobile }) => {
                     <div className={`${appStyles.Content} mb-4`}>
                         <h5>My recent activity</h5>
                         {userComments.loading || userBookmarks.loading ? (
-                            <Asset spinner />
+                            <Asset spinner aria-label="Loading content…" />
                         ) : (
                             <Tabs activeKey={activeTab} onSelect={handleTabChange} className={styles.tabPosition}>
-                                <Tab eventKey="comments" title={
+                                <Tab eventKey="comments" aria-labelledby="comments-tab" title={
                                     <>
                                         <div className={`${styles.TabLink} ${activeTab === "comments" ? styles.TabLink_active : ""}`}>
-                                            <i className="fa-solid fa-comment-dots" />Comments
+                                            <i className="fa-solid fa-comment-dots" aria-hidden="true" />Comments
                                         </div>
                                     </>
                                 }>
@@ -72,7 +76,7 @@ const UserActivity = ({ mobile }) => {
                                         dataLength={userComments.results.length}
                                         next={fetchMoreData}
                                         hasMore={false}
-                                        loader={<Asset spinner />}
+                                        loader={<Asset spinner aria-label="Loading content..." />}
                                     >
                                         {userComments.results.map(comment => (
                                             <div key={comment.id}>
@@ -98,10 +102,10 @@ const UserActivity = ({ mobile }) => {
                                         ))}
                                     </InfiniteScroll>
                                 </Tab>
-                                <Tab eventKey="bookmarks" title={
+                                <Tab eventKey="bookmarks" aria-labelledby="bookmarks-tab" title={
                                     <>
                                         <div className={`${styles.TabLink} ${activeTab === "bookmarks" ? styles.TabLink_active : ""}`}>
-                                            <i className="fa-solid fa-bookmark" />Bookmarks
+                                            <i className="fa-solid fa-bookmark" aria-hidden="true" />Bookmarks
                                         </div>
                                     </>
                                 }>
@@ -114,7 +118,7 @@ const UserActivity = ({ mobile }) => {
                                             dataLength={userBookmarks.results.length}
                                             next={fetchMoreData}
                                             hasMore={false}
-                                            loader={<Asset spinner />}
+                                            loader={<Asset spinner aria-label="Loading content..." />}
                                         >
                                             {userBookmarks.results.map(bookmark => (
                                                 <div key={bookmark.id}>

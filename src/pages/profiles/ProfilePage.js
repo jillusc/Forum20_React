@@ -1,18 +1,16 @@
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router";
-
 import InfiniteScroll from "react-infinite-scroll-component";
-
 import Button from "react-bootstrap/Button";
-import Image from "react-bootstrap/Image";
 import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
+import Image from "react-bootstrap/Image";
+import Row from "react-bootstrap/Row";
 
 import styles from "../../styles/ProfilePage.module.css";
 import appStyles from "../../App.module.css";
 import btnStyles from "../../styles/Button.module.css";
-import feedbackStyles from "../../styles/CustomFeedback.module.css"; // Import feedbackStyles
+import feedbackStyles from "../../styles/CustomFeedback.module.css";
 
 import { useCurrentUser } from "../../contexts/CurrentUserContext";
 import { useProfileData, useSetProfileData } from "../../contexts/ProfileDataContext";
@@ -69,7 +67,7 @@ function ProfilePage() {
                         className={styles.ProfileImage}
                         roundedCircle
                         src={profile?.image}
-                        alt="Profile avatar"
+                        alt={`${profile?.owner}'s avatar`}
                     />
                     <h2 className="m-2">{profile?.owner}</h2>
                     {profile?.content && <h6>{profile.content}</h6>}
@@ -77,6 +75,7 @@ function ProfilePage() {
                         <Button
                             className={`${btnStyles.Button} mt-2 mb-2`}
                             onClick={profile?.following_id ? () => handleUnfollow(profile) : () => handleFollow(profile)}
+                            aria-label={profile?.following_id ? "Unfollow this profile" : "Follow this profile"}
                         >
                             {profile?.following_id ? "Unfollow" : "Follow"}
                         </Button>
@@ -96,7 +95,7 @@ function ProfilePage() {
                         <Post key={post.id} {...post} setPosts={setProfilePosts} />
                     ))}
                     dataLength={profilePosts.results.length}
-                    loader={<Asset spinner />}
+                    loader={<Asset spinner aria-label="Loading content..." />}
                     hasMore={!!profilePosts.next}
                     next={() => fetchMoreData(profilePosts, setProfilePosts)}
                 />
@@ -104,6 +103,7 @@ function ProfilePage() {
                 <Asset
                     src={NoResults}
                     message={`No results found, ${profile?.owner} hasn't posted yet.`}
+                    aria-label={`No posts found for ${profile?.owner}`}
                 />
             )}
         </>
@@ -127,7 +127,7 @@ function ProfilePage() {
                             {mainProfilePosts}
                         </>
                     ) : (
-                        <Asset spinner />
+                        <Asset spinner aria-label="Loading content..." />
                     )}
                 </Container>
             </Col>

@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useParams } from "react-router";
 import InfiniteScroll from "react-infinite-scroll-component";
-
 import Col from "react-bootstrap/Col";
-import Row from "react-bootstrap/Row";
 import Container from "react-bootstrap/Container";
+import Row from "react-bootstrap/Row";
 
 import appStyles from "../../App.module.css";
 
@@ -19,7 +18,7 @@ import Asset from "../../components/Asset";
 import PopularProfiles from "../profiles/PopularProfiles";
 
 function PostPage() {
-  const [errors, setErrors] = useState({});
+  const [, setErrors] = useState({});
   const { id } = useParams();
   const [post, setPost] = useState({ results: [] });
   const currentUser = useCurrentUser();
@@ -70,7 +69,7 @@ function PostPage() {
                 />
               ))}
               dataLength={comments.results.length}
-              loader={<Asset spinner />}
+              loader={<Asset spinner aria-label="Loading content..." />}
               hasMore={!!comments.next}
               next={() => fetchMoreData(comments, setComments)}
             />

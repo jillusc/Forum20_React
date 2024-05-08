@@ -1,6 +1,5 @@
 import React from "react";
 import { Link } from "react-router-dom";
-
 import Button from "react-bootstrap/Button";
 import OverlayTrigger from "react-bootstrap/OverlayTrigger";
 import Tooltip from "react-bootstrap/Tooltip";
@@ -25,12 +24,12 @@ const Profile = (props) => {
         <div
             className={`my-3 d-flex align-items-center ${mobile && "flex-column"}`}>
             <div>
-                <Link className="align-self-center" to={`/profiles/${id}`}>
+                <Link to={`/profiles/${id}`} className="align-self-center" aria-label="View profile">
                     <Avatar src={image} height={imageSize} />
                 </Link>
             </div>
             <div className={`mx-2 ${styles.WordBreak}`}>
-                <Link to={`/profiles/${id}`} className={appStyles.Link}>
+                <Link to={`/profiles/${id}`} className={appStyles.Link} aria-label="View profile">
                     {owner}
                 </Link>
             </div>
@@ -40,12 +39,12 @@ const Profile = (props) => {
                         ? <OverlayTrigger
                             placement="top"
                             overlay={<Tooltip id="tooltip-unfollow">Unfollow</Tooltip>}>
-                            <Button className={`${btnStyles.Button} ${styles.tooltipButton}`} onClick={() => handleUnfollow(profile)}>-</Button>
+                            <Button className={`${btnStyles.Button} ${styles.tooltipButton}`} onClick={() => handleUnfollow(profile)} aria-label="Unfollow this profile">-</Button>
                         </OverlayTrigger>
                         : <OverlayTrigger
                             placement="top"
                             overlay={<Tooltip id="tooltip-follow">Follow</Tooltip>}>
-                            <Button className={`${btnStyles.Button} ${styles.tooltipButton}`} onClick={() => handleFollow(profile)}>+</Button>
+                            <Button className={`${btnStyles.Button} ${styles.tooltipButton}`} onClick={() => handleFollow(profile)} aria-label="Follow this profile">+</Button>
                         </OverlayTrigger>
                     )
                 }

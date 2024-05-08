@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import { Link } from "react-router-dom";
 import Media from "react-bootstrap/Media";
 
@@ -26,7 +25,7 @@ const Comment = (props) => {
     const is_owner = currentUser?.username === owner;
 
     const handleDelete = async () => {
-        const confirmDelete = window.confirm("Are you sure you want to delete this comment?");
+        const confirmDelete = window.confirm("Are you sure you want to delete this comment?\n\nThis action cannot be undone.");
         if (confirmDelete) {
             try {
                 await axiosRes.delete(`/comments/${id}/`);
@@ -52,7 +51,7 @@ const Comment = (props) => {
         <>
             <hr />
             <Media className="w-100">
-                <Link to={`/profiles/${profile_id}`}>
+                <Link to={`/profiles/${profile_id}`} aria-label={`View profile of ${owner}`}>
                     <Avatar src={profile_image} />
                 </Link>
                 <Media.Body className={`align-self-center ml-2 ${styles.MediaBody}`}>

@@ -1,6 +1,5 @@
 import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
-
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -122,8 +121,14 @@ function PostCreateForm() {
     const textFields = (
         <div className="text-center">
             <Form.Group>
-                <Form.Label>Post title</Form.Label>
-                <Form.Control type="text" name="title" value={title} onChange={handleChange} />
+                <Form.Label htmlFor="post-title">Post title</Form.Label>
+                <Form.Control
+                    id="post-title"
+                    type="text"
+                    name="title"
+                    value={title}
+                    onChange={handleChange}
+                />
             </Form.Group>
             {errors?.title?.map((message, idx) => (
                 <Alert variant="warning" key={idx}>
@@ -131,8 +136,16 @@ function PostCreateForm() {
                 </Alert>
             ))}
             <Form.Group>
-                <Form.Label>Content</Form.Label>
-                <Form.Control as="textarea" rows={4} name="content" value={content} onChange={handleChange} />
+                <Form.Label htmlFor="post-content">Content</Form.Label>
+                <Form.Control
+                    id="post-content"
+                    type="text"
+                    name="content"
+                    value={content}
+                    as="textarea"
+                    rows={6}
+                    onChange={handleChange}
+                />
             </Form.Group>
             {errors?.content?.map((message, idx) => (
                 <Alert variant="warning" key={idx}>
@@ -140,18 +153,25 @@ function PostCreateForm() {
                 </Alert>
             ))}
             <Form.Group>
-                <Form.Label>Artist</Form.Label>
-                <Form.Control type="text" name="artist_name" value={artist_name} onChange={handleChange} />
+                <Form.Label htmlFor="artist-name">Artist</Form.Label>
+                <Form.Control
+                    id="artist-name"
+                    type="text"
+                    name="artist_name"
+                    value={artist_name}
+                    onChange={handleChange} />
             </Form.Group>
             <Form.Group style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Form.Label style={{ marginRight: '5px', marginBottom: '0' }}>Year 19</Form.Label>
+                <Form.Label htmlFor="year-of-artwork" style={{ marginRight: '5px', marginBottom: '0' }} >Year 19</Form.Label>
                 <Form.Control
+                    id="year-of-artwork "
                     type="number"
                     name="year_of_artwork"
                     value={year_of_artwork}
                     onChange={handleChange}
                     maxLength="2"
                     style={{ width: '60px' }}
+                    aria-label="Enter the last two digits"
                 />
             </Form.Group>
             {errors?.year_of_artwork?.map((message, idx) => (
@@ -172,7 +192,7 @@ function PostCreateForm() {
                     label="Make this post visible only to followers"
                     checked={is_private}
                     onChange={(e) => setPostData({ ...postData, is_private: e.target.checked })}
-                    />
+                />
             </Form.Group>
         </div>
     );
@@ -188,13 +208,21 @@ function PostCreateForm() {
                                     <figure>
                                         <Image className={`${appStyles.Image} img-fluid`} src={image} rounded />
                                     </figure>
-                                    <label htmlFor="image-upload" className={styles.TextLink} style={{ cursor: 'pointer', display: 'inline-block' }}>Change image</label>
+                                    <label
+                                        htmlFor="image-upload"
+                                        className={styles.TextLink}
+                                        style={{ cursor: 'pointer', display: 'inline-block' }}
+                                        aria-label="Change the post image"
+                                    >
+                                        Change image
+                                    </label>
                                 </>
                             ) : (
                                 <label
                                     htmlFor="image-upload"
                                     className={`d-flex flex-column align-items-center ${styles.uploadContainer}`}
                                     style={{ cursor: 'pointer' }}
+                                    aria-label="Upload an image for the post"
                                 >
                                     <div className={`d-flex justify-content-center ${formStyles.uploadIcon}`}>
                                         <Asset src={Upload} />

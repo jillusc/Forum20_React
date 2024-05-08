@@ -54,32 +54,32 @@ function LogInForm() {
                     <div className={`${appStyles.Content} p-4`}>
                         <h1 className={styles.Header}><strong>Log in</strong></h1>
                         <Form onSubmit={handleSubmit}>
-                            <Form.Group controlId="username">
+                            <Form.Group controlId="username" aria-labelledby="username-label">
                                 <Form.Label className="d-none">Username</Form.Label>
                                 <Form.Control
-                                    className={styles.Input}
                                     type="text"
-                                    placeholder="Username"
                                     name="username"
                                     value={username}
+                                    placeholder="Username"
                                     onChange={handleChange}
                                     aria-label="Username"
+                                    className={styles.Input}
                                 />
                             </Form.Group>
                             {errors.username?.map((message, idx) => (
                                 <Alert key={idx} variant="warning">{message}</Alert>
                             ))}
 
-                            <Form.Group controlId="password">
+                            <Form.Group controlId="password" aria-labelledby="password-label">
                                 <Form.Label className="d-none">Password</Form.Label>
                                 <Form.Control
-                                    className={styles.Input}
                                     type="password"
-                                    placeholder="Password"
                                     name="password"
                                     value={password}
+                                    placeholder="Password"
                                     onChange={handleChange}
                                     aria-label="Password"
+                                    className={styles.Input}
                                 />
                             </Form.Group>
                             {errors.password?.map((message, idx) => (

@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-
 import Form from "react-bootstrap/Form";
 import Alert from "react-bootstrap/Alert";
 
@@ -57,7 +56,8 @@ function CommentEditForm(props) {
           as="textarea"
           value={formContent}
           onChange={handleChange}
-          rows={2}
+          rows={3}
+          aria-label="Edit your comment"
         />
         {errors?.content?.map((message, idx) => (
           <Alert key={idx} variant="warning">{message}</Alert>

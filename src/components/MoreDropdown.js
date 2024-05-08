@@ -22,14 +22,12 @@ export const MoreDropdown = ({ handleEdit, handleDelete }) => {
                 <Dropdown.Item
                     className={styles.DropdownItem}
                     onClick={handleEdit}
-                    aria-label="edit"
                 >
                     <i className="fa-solid fa-pencil" /> Edit
                 </Dropdown.Item>
                 <Dropdown.Item
                     className={styles.DropdownItem}
                     onClick={handleDelete}
-                    aria-label="delete"
                 >
                     <i className="fas fa-trash-alt" /> Delete
                 </Dropdown.Item>
@@ -48,21 +46,18 @@ export const ProfileEditDropdown = ({ id }) => {
                 <Dropdown.Item
                     className={styles.DropdownItem}
                     onClick={() => history.push(`/profiles/${id}/edit`)}
-                    aria-label="edit-profile"
                 >
                     <i className="fa-solid fa-pencil" /> Edit Profile
                 </Dropdown.Item>
                 <Dropdown.Item
                     className={styles.DropdownItem}
                     onClick={() => history.push(`/profiles/${id}/edit/username`)}
-                    aria-label="edit-username"
                 >
                     <i className="fas fa-user-cog" /> Change Username
                 </Dropdown.Item>
                 <Dropdown.Item
                     className={styles.DropdownItem}
                     onClick={() => history.push(`/profiles/${id}/edit/password`)}
-                    aria-label="edit-password"
                 >
                     <i className="fas fa-user-lock" /> Change Password
                 </Dropdown.Item>

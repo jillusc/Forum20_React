@@ -1,5 +1,4 @@
 import React from "react";
-
 import Container from "react-bootstrap/Container";
 
 import appStyles from "../../App.module.css";
@@ -19,18 +18,18 @@ const PopularProfiles = ({ mobile }) => {
                     <p>Most followed profiles</p>
                     {mobile ? (
                         <div className="d-flex justify-content-around">
-                        {popularProfiles.results.slice(0, 4).map((profile) => (
-                            <Profile key={profile.id} profile={profile} mobile />
-                                                    ))}
-                    </div>
-) : (
+                            {popularProfiles.results.slice(0, 4).map((profile) => (
+                                <Profile key={profile.id} profile={profile} mobile aria-label="View profile" />
+                            ))}
+                        </div>
+                    ) : (
                         popularProfiles.results.map((profile) => (
-                            <Profile key={profile.id} profile={profile} />
+                            <Profile key={profile.id} profile={profile} aria-label="View profile" />
                         ))
                     )}
                 </>
             ) : (
-                <Asset spinner />
+                <Asset spinner aria-label="Loading profiles…" />
             )}
         </Container>
     );

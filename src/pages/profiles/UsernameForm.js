@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -51,7 +50,7 @@ const UsernameForm = () => {
             if (err.response?.data) {
                 setErrors(err.response.data);
             } else {
-            setErrorMessage("Username change failed. Please try again later.");
+                setErrorMessage("Username change failed. Please try again later.");
             }
         }
     };
@@ -62,10 +61,12 @@ const UsernameForm = () => {
                 <Container className={appStyles.Content}>
                     <Form onSubmit={handleSubmit} className="my-2">
                         <Form.Group>
-                            <Form.Label>Change username</Form.Label>
+                            <Form.Label htmlFor="username-input">Change username</Form.Label>
                             <Form.Control
-                                placeholder="username"
+                                id="username-input"
                                 type="text"
+                                name="username"
+                                placeholder="Enter new username"
                                 value={username}
                                 onChange={(event) => setUsername(event.target.value)}
                             />

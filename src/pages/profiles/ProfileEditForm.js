@@ -1,6 +1,5 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useHistory, useParams } from "react-router-dom";
-
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -27,7 +26,8 @@ const ProfileEditForm = () => {
     const { id } = useParams();
     const imageFile = useRef();
     const [profileData, setProfileData] = useState({
-        name: "", content: "", image: "",});
+        name: "", content: "", image: "",
+    });
     const { name, content, image } = profileData;
 
     useEffect(() => {
@@ -49,7 +49,8 @@ const ProfileEditForm = () => {
     }, [currentUser, history, id]);
 
     const handleChange = (event) => {
-        setProfileData({...profileData,
+        setProfileData({
+            ...profileData,
             [event.target.name]: event.target.value,
         });
     };
@@ -85,13 +86,15 @@ const ProfileEditForm = () => {
     const textFields = (
         <>
             <Form.Group>
-                <Form.Label>Bio</Form.Label>
+                <Form.Label htmlFor="bio-textarea">Bio</Form.Label>
                 <Form.Control
-                    as="textarea"
-                    value={content}
-                    onChange={handleChange}
+                    id="bio-textarea"
+                    type="text"
                     name="content"
-                    rows={7}
+                    value={content}
+                    as="textarea"
+                    rows={6}
+                    onChange={handleChange}
                 />
             </Form.Group>
             {errors?.content?.map((message, idx) => (
@@ -128,8 +131,9 @@ const ProfileEditForm = () => {
                                 <Form.Label
                                     className={`${btnStyles.Button} btn my-auto`}
                                     htmlFor="image-upload"
+                                    aria-label="Change profile image"
                                 >
-                                    Change the image
+                                    Change image
                                 </Form.Label>
                             </div>
                             <Form.File
@@ -144,6 +148,7 @@ const ProfileEditForm = () => {
                                         });
                                     }
                                 }}
+                                aria-label="File input for changing profile image"
                             />
                         </Form.Group>
                         {successMessage && (

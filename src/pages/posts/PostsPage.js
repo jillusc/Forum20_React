@@ -1,12 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useLocation, Link } from "react-router-dom";
-
 import InfiniteScroll from "react-infinite-scroll-component";
-
-import Form from 'react-bootstrap/Form';
-import Col from 'react-bootstrap/Col';
-import Row from 'react-bootstrap/Row';
-import Container from 'react-bootstrap/Container';
+import Col from "react-bootstrap/Col";
+import Container from "react-bootstrap/Container";
+import Form from "react-bootstrap/Form";
+import Row from "react-bootstrap/Row";
 
 import appStyles from "../../App.module.css";
 import styles from "../../styles/PostsPage.module.css";
@@ -19,7 +17,6 @@ import Asset from "../../components/Asset";
 import NoResults from "../../assets/no-results-icon.png";
 import { fetchMoreData } from "../../utils/utils";
 import PopularProfiles from "../profiles/PopularProfiles";
-import UserActivity from "../user_activity/UserActivity";
 import { ErrorMessage } from "../../components/CustomFeedback";
 
 function PostsPage({ message, filter = "" }) {
@@ -57,14 +54,14 @@ function PostsPage({ message, filter = "" }) {
                     <div className="text-center mb-3">
                         <h1>forum20</h1>
                         <h4>Image sharing platform for 20th century art lovers.</h4>
-                        <h6><Link to="/signup" className={styles.TextLink}>Join the community!</Link></h6>
+                        <h6><Link to="/signup" className={styles.TextLink} aria-label="Sign up to join forum20">Join the community!</Link></h6>
                     </div>
                 )}
                 <PopularProfiles mobile />
-                <i className={`fa-solid fa-magnifying-glass ${styles.SearchIcon}`} />
+                <i className={`fa-solid fa-magnifying-glass ${styles.SearchIcon}`} aria-label="Search" />
                 <Form className={styles.SearchBar} onSubmit={(event) => event.preventDefault()}>
                     <Form.Control value={query} onChange={(event) => setQuery(event.target.value)}
-                        type="text" className="mr-sm-2" placeholder="Search posts" />
+                        type="text" className="mr-sm-2" placeholder="Search posts" aria-label="Search posts" />
                 </Form>
                 {pathname === "/" && (
                     <p className="text-left ml-3 mt-4 mb-3">Latest posts from our members</p>
@@ -85,23 +82,23 @@ function PostsPage({ message, filter = "" }) {
                                         <Post key={post.id} {...post} setPosts={setPosts} postPage={true} />
                                     ))}
                                     dataLength={posts.results.length}
-                                    loader={<Asset spinner />}
+                                    loader={<Asset spinner aria-label="Loading content..." />}
                                     hasMore={!!posts.next}
                                     next={() => fetchMoreData(posts, setPosts)}
                                 />
                             </>
                         ) : (
                             <Container className={appStyles.Content}>
-                                <Asset src={NoResults} message={message} />
+                                <Asset src={NoResults} message={message} aria-label={`No results found: ${message}`} />
                             </Container>
                         )}
                     </>
                 ) : (
                     <Container className={appStyles.Content}>
-                        <Asset spinner />
+                        <Asset spinner aria-label="Loading content..." />
                     </Container>
                 )}
-            </Col>            
+            </Col>
             <Col md={4} className="d-none d-lg-block p-0 p-lg-2">
                 <PopularProfiles />
             </Col>

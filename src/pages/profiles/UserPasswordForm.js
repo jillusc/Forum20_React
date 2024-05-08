@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import { useHistory, useParams } from "react-router-dom";
-
 import Alert from "react-bootstrap/Alert";
 import Button from "react-bootstrap/Button";
 import Col from "react-bootstrap/Col";
@@ -55,7 +54,7 @@ const UserPasswordForm = () => {
             if (err.response?.data) {
                 setErrors(err.response?.data);
             } else {
-            setErrorMessage("Password change failed. Please try again later.");
+                setErrorMessage("Password change failed. Please try again later.");
             }
         }
     };
@@ -66,13 +65,14 @@ const UserPasswordForm = () => {
                 <Container className={appStyles.Content}>
                     <Form onSubmit={handleSubmit}>
                         <Form.Group>
-                            <Form.Label>New password</Form.Label>
+                            <Form.Label htmlFor="new-password-input">New password</Form.Label>
                             <Form.Control
-                                placeholder="new password"
+                                id="new-password-input"
                                 type="password"
-                                value={new_password1}
-                                onChange={handleChange}
                                 name="new_password1"
+                                value={new_password1}
+                                placeholder="Enter new password"
+                                onChange={handleChange}
                             />
                         </Form.Group>
                         {errors?.new_password1?.map((message, idx) => (
@@ -81,13 +81,14 @@ const UserPasswordForm = () => {
                             </Alert>
                         ))}
                         <Form.Group>
-                            <Form.Label>Confirm password</Form.Label>
+                            <Form.Label htmlFor="confirm-password-input">Confirm password</Form.Label>
                             <Form.Control
-                                placeholder="confirm new password"
+                                id="confirm-password-input"
                                 type="password"
-                                value={new_password2}
-                                onChange={handleChange}
                                 name="new_password2"
+                                value={new_password2}
+                                placeholder="Confirm new password"
+                                onChange={handleChange}
                             />
                         </Form.Group>
                         {errors?.new_password2?.map((message, idx) => (
