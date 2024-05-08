@@ -2,7 +2,7 @@
 
 <img src="README%20images/README-mainimage-responsive.jpg"><br>
 
-forum20 is an image sharing social app designed to encourage enthusiasts of 20th century art to come together and share their interest in the subject. The app is targeted towards users who wish to contribute to and engage in discourse with other like-minded individuals: users can browse and read other users' posts, and, having completed a simple registration process, can share their own images, create posts and interact with those of other members by liking and commenting. The app also allows for members to follow each other and displays content from followed users in a dedicated feed.<br>
+forum20 is an image sharing social app designed to encourage enthusiasts of 20th century art to come together and share their interest in the subject. The app is targeted towards users who wish to contribute to and engage in discourse with other like-minded individuals: users can browse and read other users' posts, and, having completed a simple registration process, can share their own images, create posts and interact with those of other members by liking and commenting. Posts can be bookmarked to store them for later reference and retrieval. The app also allows for members to follow each other and displays content from followed users in a dedicated feed.<br>
 
 The live link can be found here: [forum20]( https://forum20-frontend-88d68fe3218f.herokuapp.com/)
 
@@ -207,8 +207,8 @@ The site uses just one font, Quicksand, imported from Google Fonts. It is a mode
 #### Imagery
 
 Whilst the only imagery aside from a minimal logo comes in the form of user posts and avatars, this is positively sufficient, visually: rectangular images of artworks and contrastingly small, circular avatar 'buttons' create an appealing uniformity. Through usage of the CSS property 'object-fit: contain' and the 'img-fluid' class, post images are standardised with a consistent aspect ratio, and the black background creates the letterbox effect, resulting in a stylish display:<br><br>
-<img src="README%20images/letterbox1.jpg" width="375px">
-<img src="README%20images/letterbox4.jpg" width="375px">
+<img src="README%20images/letterbox1.jpg" width="400px">
+<img src="README%20images/letterbox4.jpg" width="400px">
 
 #### Favicon
 
@@ -312,9 +312,9 @@ This page offers users a personalised space to manage their account and their si
 <strong>Dialog</strong>: the window.confirm() method was implemented to prompt users to confirm their action before proceeding with deletion of posts and comments: <br><br>
 <img src="README%20images/window_dialog.jpg"><br><br>
 <strong>Caret</strong>: a custom component with a caret icon was created and styled within the app's theme, providing dropdown menu functionality for editing and deleting items where appropriate (post, comment, profile):<br><br>
-<img src="README%20images/caret_dropdown.jpg" width="200px"><br><br>
+<img src="README%20images/caret_dropdown.jpg" width="160px"><br><br>
 <strong>Tooltips</strong>: used when hovering over the mini follow/unfollow buttons in the popular profiles component for clarity:<br><br>
-<img src="README%20images/tooltip.jpg" width="260px"><br><br>
+<img src="README%20images/tooltip.jpg" width="220px"><br><br>
 <strong>Pointers</strong>: in the CSS stylesheets, the 'cursor: pointer' attribute was set as an indication to the user of an interactive element.
 
 ## Testing Documentation
@@ -410,12 +410,11 @@ xvi) Click the Open app button to verify it runs correctly. <br>
 
 ## Improvements/Bug fixes
 
-The app would benefit from the following modifications and enhancements:
+The app would benefit from the following modifications:
 
    - Ensuring application of the active class (NavLink style) upon all page reloads
-   - Improving the visibilty of Follow/Unfollow buttons in the 'Most followed profiles' box so users can see at a glance which profiles they currently follow
+   - In the 'Most followed profiles' box, making the follow/unfollow buttons' appearance change dynamically based on the user's action (rather than relying solely on static styles)
    - An option for the user to delete their account
-   - A feature for retrieving a forgotten password
 
 ## Credits
 
