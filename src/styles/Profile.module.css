@@ -3,6 +3,7 @@
 }
 
 .tooltipButton {
+  font-weight: bold;
   border-radius: 50%;
   width: 30px;
   height: 30px;
@@ -11,6 +12,15 @@
   align-items: center;
   min-width: auto;
   font-size: 1.25rem;
+  border: 2px solid;
+}
+
+.followButton {
   background-color: #aaa;
-  border: 2px solid #aaa;
+  border-color: #aaa;
+}
+
+.unfollowButton {
+  background-color: #8B0000;
+  border-color: #8B0000;
 }

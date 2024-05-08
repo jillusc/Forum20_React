@@ -39,12 +39,14 @@ const Profile = (props) => {
                         ? <OverlayTrigger
                             placement="top"
                             overlay={<Tooltip id="tooltip-unfollow">Unfollow</Tooltip>}>
-                            <Button className={`${btnStyles.Button} ${styles.tooltipButton}`} onClick={() => handleUnfollow(profile)} aria-label="Unfollow this profile">-</Button>
+                            <Button className={`${btnStyles.Button} ${styles.tooltipButton} ${styles.unfollowButton}`}
+                            onClick={() => handleUnfollow(profile)} aria-label="Unfollow this profile">&nbsp;</Button>
                         </OverlayTrigger>
                         : <OverlayTrigger
                             placement="top"
                             overlay={<Tooltip id="tooltip-follow">Follow</Tooltip>}>
-                            <Button className={`${btnStyles.Button} ${styles.tooltipButton}`} onClick={() => handleFollow(profile)} aria-label="Follow this profile">+</Button>
+                            <Button className={`${btnStyles.Button} ${styles.tooltipButton} ${styles.followButton}`}
+                            onClick={() => handleFollow(profile)} aria-label="Follow this profile">+</Button>
                         </OverlayTrigger>
                     )
                 }
