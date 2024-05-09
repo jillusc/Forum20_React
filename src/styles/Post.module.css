@@ -27,12 +27,14 @@ h5 {
   color: #3c3c3c;
   font-weight: bold;
   text-decoration: none;
+  background-color: transparent;
 }
 
 .Post a:hover {
   color: #8B0000;
   font-weight: bolder;
   text-decoration: none;
+  background-color: transparent;
 }
 
 .IconsBar {
@@ -52,6 +54,10 @@ h5 {
 .Heart:hover,
 .Comment:hover,
 .Bookmark:hover {
+  color: #8B0000;
+}
+
+.HeartLiked {
   color: #8B0000;
 }
 

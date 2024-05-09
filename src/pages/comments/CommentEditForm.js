@@ -49,47 +49,49 @@ function CommentEditForm(props) {
   };
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <Form.Group className="pr-1">
-        <Form.Control
-          className={formStyles.Form}
-          as="textarea"
-          value={formContent}
-          onChange={handleChange}
-          rows={3}
-          aria-label="Edit your comment"
-        />
-        {errors?.content?.map((message, idx) => (
-          <Alert key={idx} variant="warning">{message}</Alert>
-        ))}
-      </Form.Group>
-      {successMessage && (
-        <div className={feedbackStyles.fixedMessage}>
-          <SuccessMessage message={successMessage} />
+    <div className="w-100">
+      <Form onSubmit={handleSubmit}>
+        <Form.Group className="pr-1">
+          <Form.Control
+            className={formStyles.Form}
+            as="textarea"
+            value={formContent}
+            onChange={handleChange}
+            rows={3}
+            aria-label="Edit your comment"
+          />
+          {errors?.content?.map((message, idx) => (
+            <Alert key={idx} variant="warning">{message}</Alert>
+          ))}
+        </Form.Group>
+        {successMessage && (
+          <div className={feedbackStyles.fixedMessage}>
+            <SuccessMessage message={successMessage} />
+          </div>
+        )}
+        {errorMessage && (
+          <div className={feedbackStyles.fixedMessage}>
+            <ErrorMessage message={errorMessage} />
+          </div>
+        )}
+        <div className="text-right">
+          <button
+            className={btnStyles.Button}
+            disabled={!content.trim()}
+            type="submit"
+          >
+            Save
+          </button>
+          <button
+            className={btnStyles.Button}
+            onClick={() => setShowEditForm(false)}
+            type="button"
+          >
+            Cancel
+          </button>
         </div>
-      )}
-      {errorMessage && (
-        <div className={feedbackStyles.fixedMessage}>
-          <ErrorMessage message={errorMessage} />
-        </div>
-      )}
-      <div className="text-right">
-        <button
-          className={btnStyles.Button}
-          disabled={!content.trim()}
-          type="submit"
-        >
-          Save
-        </button>
-        <button
-          className={btnStyles.Button}
-          onClick={() => setShowEditForm(false)}
-          type="button"
-        >
-          Cancel
-        </button>
-      </div>
-    </Form>
+      </Form>
+    </div>
   );
 }
 

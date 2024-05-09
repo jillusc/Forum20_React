@@ -2,7 +2,7 @@
 
 <img src="README%20images/README-mainimage-responsive.jpg"><br>
 
-forum20 is an image sharing social app designed to encourage enthusiasts of 20th century art to come together and share their interest in the subject. The app is targeted towards users who wish to contribute to and engage in discourse with other like-minded individuals: users can browse and read other users' posts, and, having completed a simple registration process, can share their own images, create posts and interact with those of other members by liking and commenting. Posts can be bookmarked to store them for later reference and retrieval. The app also allows for members to follow each other and displays content from followed users in a dedicated feed.<br>
+forum20 is an image sharing social app designed to encourage enthusiasts of 20th century art to come together and share their interest in the subject. The app is targeted towards users who wish to contribute to and engage in discourse with like-minded individuals: users can browse and read other users' posts, and, having completed a simple registration process, can share their own images, create posts and interact with those of other members by liking and commenting. Posts can be bookmarked to store them for later reference and retrieval. The app also allows for members to follow each other, and displays content from followed users in a dedicated feed.<br>
 
 The live link can be found here: [forum20]( https://forum20-frontend-88d68fe3218f.herokuapp.com/)
 
@@ -34,7 +34,7 @@ As a user I can view the most recent posts so that I am up to date with the newe
 AC1: Upon loading the application, posts are displayed newest first.<br>
 
 * Accessing content: search<br>
-As a user I can search for posts with keywords, so that I can find the content and user profiles I am most interested in.<br>
+As a user I can search for posts with keywords so that I can find the content and user profiles I am most interested in.<br>
 AC1: The user can enter keywords into an operational search bar component.<br>
 AC2: Relevant posts are filtered and displayed newest first.<br>
 AC3: Relevant user profiles are filtered and displayed.<br>
@@ -201,14 +201,14 @@ Accent colours are a deep wine red and a soft peach, chosen to offset each other
 
 #### Typography
 
-The site uses just one font, Quicksand, imported from Google Fonts. It is a modern typeface with rounded edges and a minimalist look. Because it is the single font used across the app, a cohesive visual identity is created which complements the artworks without overshadowing them or cluttering the site. The monochrome logo was created using three different fonts: Cascadia Code (for the f) Broadway (for the 0) and Engravers MT (for the 2), reflecting the essence of modern art being defined by a number of styles and movements. The decision not to represent each letter of the word "forum" was made in an effort to minimise the effect of this so as not to appear overdone and to retain a level of sophistication:<br><br>
+The site uses just one font, Quicksand, imported from Google Fonts. It is a modern typeface with rounded edges and a minimalist look. Because it is the single font used across the app, a cohesive visual identity is created which complements the artworks without overshadowing them or cluttering the site. The monochrome logo was created using three different fonts: Cascadia Code (for the f), Engravers MT (for the 2) and Broadway (for the 0) , reflecting the essence of modern art being defined by a number of styles and movements. The decision not to represent each letter of the word "forum" was made in an effort to minimise the effect of this so as not to appear overdone and to retain a level of sophistication:<br><br>
 <img src="README%20images/logo.png" height="110px">
 
 #### Imagery
 
 Whilst the only imagery aside from a minimal logo comes in the form of user posts and avatars, this is positively sufficient, visually: rectangular images of artworks and contrastingly small, circular avatar 'buttons' create an appealing uniformity. Through usage of the CSS property 'object-fit: contain' and the 'img-fluid' class, post images are standardised with a consistent aspect ratio, and the black background creates the letterbox effect, resulting in a stylish display:<br><br>
-<img src="README%20images/letterbox1.jpg" width="400px">
-<img src="README%20images/letterbox4.jpg" width="400px">
+<img src="README%20images/letterbox1.jpg" width="450px">
+<img src="README%20images/letterbox4.jpg" width="450px">
 
 #### Favicon
 
@@ -220,11 +220,11 @@ From the logo, a favicon was created using basic image editing software. The num
 This project follows Object-Oriented Programming principles and employs Django's Class-Based Generic Views. It includes six custom models:
 
 - Post: details user posts with attributes such as owner (linked to the User model), post privacy status, timestamps of creation and updates, a post title and content text, an image, plus further optional fields for the artist's name and the year of the artwork.
-- Profile: represents user profiles and is directly associated with a unique User instance. It includes attributes for the username, bio and a profile image that serves as an avatar.
-- Like: features many-to-one relationships with both the User model (via like owner) and the Post model (identifying which post was liked).
+- Profile: defines user profiles and is directly associated with a unique User instance. It includes attributes for the username, bio and a profile image that serves as an avatar.
+- Like: represents a user's appreciation or approval of a post and features many-to-one relationships with both the User model (via like owner) and the Post model (identifying which post was liked).
 - Comment: enables registered users to submit comments, establishing one-to-many relationships with both the User model (via comment owner) and the Post model (linking a comment with a post).
 - Bookmark: allows users to save posts for later viewing, featuring many-to-one relationships with both the User model (via bookmark owner) and Post model (associating a bookmark with a post).
-- Follower: trackes relationships between users with a many-to-one relationship to the User model twice: once for the user who is following and once for the followed user.
+- Follower: tracks relationships between users with a many-to-one relationship to the User model twice: once for the user who is following and once for the followed user.
 
 
 The database schema are illustrated by the ERD diagram below:<br><br>
@@ -232,7 +232,7 @@ The database schema are illustrated by the ERD diagram below:<br><br>
 
 ## Features
 
-This is an application where visitors can explore 20th century artworks and enrich their knowledge of this vast, diverse and culturally significant era. Members can view contributions from others and create their own posts, sharing their favourite images and showcasing their favourite artists. An option to control post visibility is offered. A search bar enables the fetching of customised content. Additionally, users can engage with the forum20 community by submitting comments on posts and starting or joining a conversation. Further features that enhance social interaction are the ability to easily 'like' a post, and to connect with other members by clicking a 'follow' button. Members' profile pages contain pertinent information including an optional bio.
+This is an application where visitors can explore 20th century artworks and enrich their knowledge of this vast, diverse and culturally significant era. Members can view contributions from others and create their own posts, sharing their favourite images and showcasing their favourite artists. An option to control post visibility is offered. A search bar enables the fetching of customised content, and posts can be bookmarked. Additionally, users can engage with the forum20 community by submitting comments on posts and starting or joining a conversation. Further features that enhance social interaction are the ability to easily 'like' a post, and to connect with other members by clicking a 'follow' button. Members' profile pages contain pertinent information including an optional bio.
 
  - User Registration and Authentication: users can sign up, log in and out and manage their profiles securely.
  - CRUD Functionality: registered users have the freedom to create, read, update and delete all of their individual contributions to the platform.
@@ -260,7 +260,7 @@ This is an application where visitors can explore 20th century artworks and enri
  - <strong>Navigation bar</strong>: the navbar is present at the top of every page and displays two sets of links which are conditionally rendered dependent on a logged-in or non-authenticated user. These navlinks are in uppercase text and paired with an icon from Font Awesome. On hover, links & icons turn from the default charcoal colour to wine red. The link & icon of the currently active page display slightly larger and in title case, distinguishing active pages effectively. Given a logged-in user, their profile picture is rendered as an avatar at the right hand side of the navbar and intuitively links to their profile page. On smaller screens, the navigation items reduce into a hamburger menu:<br><br>
 <img src="README%20images/logo-nav-items.jpg" width="900px"><br><br>
 <img src="README%20images/navbar-logged-in.jpg" width="900px"><br><br>
-<img src="README%20images/nav-hamburger.jpg" width="120px">
+<img src="README%20images/nav-hamburger.jpg" width="300px">
 
 
 ### Home page
@@ -287,13 +287,13 @@ The Activity page aggregates all the comments that the authenticated user has su
 
 ### Add Post page
 
-Clicking on the Add Post navlink opens a page with a form. This features a larger box via which to upload an image and a narrower one where the user enters the post's details. A title is mandatory; there are further input fields for additional text content, the name of the artist and year of the artwork. A checkbox affords the user the control to set the post as visible only to their followers. Upon successful creation, a custom feedback message displays before the Post page is rendered to display the submitted post:<br><br>
+Clicking on the Add Post navlink opens a page with a form. This features a larger box via which to upload an image and a narrower one where the user enters the post's details. A title is mandatory; there are further input fields for additional text content, the name of the artist and year of the artwork. Whilst posts are set for public viewing by default, a checkbox affords the user the control to set the post as visible only to their followers. Upon successful creation, a custom feedback message displays before the Post page is rendered to display the submitted post:<br><br>
 <img src="README%20images/page-addpost1.jpg"><br><br>
 <img src="README%20images/page-addpost2.jpg">
 
 ### Profile page
 
-This page offers users a personalised space to manage their account and their sitewide identity: they can easily update their profile image, username and bio; change their password, and view, edit and delete their submitted posts:<br><br>
+This page offers registered users a personalised space to manage their account and their sitewide identity: they can easily update their profile image, username and bio; change their password, and view, edit and delete their submitted posts:<br><br>
 <img src="README%20images/page-profile1.jpg"><br><br>
 <img src="README%20images/page-profile2.jpg"><br><br>
 <img src="README%20images/page-profile3.jpg"><br><br>
@@ -306,14 +306,14 @@ This page offers users a personalised space to manage their account and their si
 ### Miscellaneous
 
 <strong>Buttons</strong>: across the app, buttons were carefully styled to conform with the design, using the same font (Quicksand), colours and hover effects, with the text transforming to bold along with the colour change:<br><br>
-<img src="README%20images/buttons.jpg" width="300px"><br><br>
+<img src="README%20images/buttons.jpg" width="400px"><br><br>
 <strong>Feedback</strong>: a CustomFeedback component was created and styled, and used to display success messages at relevant points:<br><br>
 <img src="README%20images/success_message.jpg"><br><br>
 <strong>Dialog</strong>: the window.confirm() method was implemented to prompt users to confirm their action before proceeding with deletion of posts and comments: <br><br>
 <img src="README%20images/window_dialog.jpg"><br><br>
 <strong>Caret</strong>: a custom component with a caret icon was created and styled within the app's theme, providing dropdown menu functionality for editing and deleting items where appropriate (post, comment, profile):<br><br>
 <img src="README%20images/caret_dropdown.jpg" width="160px"><br><br>
-<strong>Tooltips</strong>: used when hovering over the mini follow/unfollow buttons in the popular profiles component for clarity:<br><br>
+<strong>Tooltips</strong>: used when hovering over the mini follow/unfollow buttons in the popular profiles component for clarity of the actions:<br><br>
 <img src="README%20images/tooltip.jpg" width="220px"><br><br>
 <strong>Pointers</strong>: in the CSS stylesheets, the 'cursor: pointer' attribute was set as an indication to the user of an interactive element.
 
@@ -338,7 +338,7 @@ File uploads are handled, stored and accessed securely thanks to the use of Clou
 Models and views utilise ownership and content validation and permission classes, respectively.<br>
 The submission of forms relies on validated data and error messages are in place for missing or incorrect data.<br>
 Axios is configured, using HTTPS for encrypted data transmission and enabling secure HTTP cookies. <br>
-A simple, custom 401 Error page was created to inform of such error and includes a link to direct the user back to the site.<br><br>
+A simple, custom 401 Error page was created to inform of such error and includes a link to direct the user back to the site:<br><br>
 <img src="README%20images/page-401.jpg"><br><br>
 <img src="README%20images/page-4012.jpg"><br><br>
 
@@ -413,7 +413,7 @@ xvi) Click the Open app button to verify it runs correctly. <br>
 The app would benefit from the following modifications:
 
    - Ensuring application of the active class (NavLink style) upon all page reloads
-   - In the 'Most followed profiles' box, making the follow/unfollow buttons' appearance change dynamically based on the user's action (rather than relying solely on static styles)
+   - In the 'Most followed profiles' box, making the follow/unfollow buttons' appearance change dynamically based on the user's action (rather than relying on static styles)
    - An option for the user to delete their account
 
 ## Credits

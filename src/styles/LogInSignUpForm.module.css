@@ -15,8 +15,8 @@
 }
 
 .Input:focus {
-  box-shadow: none;
-  border: 1px solid #8B0000;
+  border: 2px solid #FFDAB9;
+  box-shadow: 0 0 0 2px #ffdab9;
 }
 
 .Header {

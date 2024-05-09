@@ -154,7 +154,7 @@ const Post = (props) => {
                         </OverlayTrigger>
                     ) : like_id ? (
                         <span onClick={handleUnlike} aria-label="Unlike this post">
-                            <i className={`fa-solid fa-heart ${styles.Heart}`} />
+                            <i className={`fa-solid fa-heart ${styles.HeartLiked}`} />
                         </span>
                     ) : currentUser ? (
                         <span onClick={handleLike} aria-label="Like this post">
