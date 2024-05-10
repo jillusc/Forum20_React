@@ -71,6 +71,7 @@ function PostCreateForm() {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setErrors({});
         if (!imageInput.current.files[0]) {
             setErrors(prevErrors => ({
                 ...prevErrors,
@@ -94,12 +95,12 @@ function PostCreateForm() {
         }
 
         const formData = new FormData();
-        formData.append("title", title);
-        formData.append("content", content);
+        formData.append("title", title.trim());
         formData.append("image", imageInput.current.files[0]);
-        formData.append("artist_name", postData.artist_name || '');
+        formData.append("content", (content || "").trim());
+        formData.append("artist_name", (postData.artist_name || "").trim());
         if (postData.year_of_artwork && postData.year_of_artwork.length === 2) {
-            formData.append("year_of_artwork", `19${postData.year_of_artwork}`);
+            formData.append("year_of_artwork", postData.year_of_artwork);
         }
         formData.append("is_private", is_private);
 

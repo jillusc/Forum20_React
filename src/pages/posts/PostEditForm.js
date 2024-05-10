@@ -71,30 +71,30 @@ function PostEditForm() {
         }
     };
 
-    const handleSubmit = async (event) => {
-        event.preventDefault();
-        if (!title.trim()) {
-            setErrors(prevErrors => ({
-                ...prevErrors,
-                title: ["Please give your post a title."]
-            }));
-            return;
-        }
-        if (year_of_artwork && year_of_artwork.length === 1) {
-            setErrors(prevErrors => ({
-                ...prevErrors,
-                year_of_artwork: ["Year should consist of two digits."]
-            }));
-            return;
-        }
+const handleSubmit = async (event) => {
+    event.preventDefault();
+    setErrors({});
+    if (!title.trim()) {
+        setErrors(prevErrors => ({
+            ...prevErrors,
+            title: ["Please give your post a title."]
+        }));
+        return;
+    }
+    if (year_of_artwork && year_of_artwork.length === 1) {
+        setErrors(prevErrors => ({
+            ...prevErrors,
+            year_of_artwork: ["Year should consist of two digits."]
+        }));
+        return;
+    }
 
-        const formData = new FormData();
-        formData.append("title", title);
-        formData.append("content", content);
-        formData.append("artist_name", artist_name);
-        if (postData.year_of_artwork && postData.year_of_artwork.length === 2) {
-            formData.append("year_of_artwork", `19${postData.year_of_artwork}`);
-        } formData.append("is_private", is_private ? "true" : "false");
+    const formData = new FormData();
+    formData.append("title", title.trim()); 
+    formData.append("content", content.trim());
+    formData.append("artist_name", artist_name.trim());
+    formData.append("year_of_artwork", year_of_artwork);
+    formData.append("is_private", is_private);
 
         try {
             await axiosReq.put(`/posts/${id}/`, formData);
@@ -111,104 +111,104 @@ function PostEditForm() {
         }
     };
 
-    return (
-        <Form onSubmit={handleSubmit}>
-            <Row className="justify-content-center">
-                <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
-                    <Container className={`${appStyles.Content} ${formStyles.Container} d-flex flex-column justify-content-center`}>
-                        {image && (
-                            <div className="text-center mb-3">
-                                <Image src={image} alt="Post" className={`${appStyles.Image} img-fluid`} rounded />
-                            </div>
-                        )}
-                        <Form.Group className="text-center">
-                            <Form.Label htmlFor="post-title">Post title</Form.Label>
-                            <Form.Control
-                                id="post-title"
-                                type="text"
-                                name="title"
-                                value={title}
-                                onChange={handleChange}
-                                aria-label="Give your post a title"
-                            />
-                            {errors?.title?.map((message, idx) => (
-                                <Alert variant="warning" key={idx}>{message}</Alert>
-                            ))}
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label htmlFor="post-content">Content</Form.Label>
-                            <Form.Control
-                                id="post-content"
-                                type="text"
-                                name="content"
-                                value={content}
-                                as="textarea"
-                                rows={6}
-                                onChange={handleChange}
-                            />
-                            {errors?.content?.map((message, idx) => (
-                                <Alert variant="warning" key={idx}>{message}</Alert>
-                            ))}
-                        </Form.Group>
-                        <Form.Group>
-                            <Form.Label htmlFor="artist-name">Artist</Form.Label>
-                            <Form.Control
-                                id="artist-name"
-                                type="text"
-                                name="artist_name"
-                                value={artist_name}
-                                onChange={handleChange} />
-                        </Form.Group>
-                        <Form.Group style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                            <Form.Label htmlFor="year-of-artwork" style={{ marginRight: '5px', marginBottom: '0' }}>Year 19</Form.Label>
-                            <Form.Control
-                                id="year-of-artwork"
-                                type="number"
-                                name="year_of_artwork"
-                                value={year_of_artwork}
-                                onChange={handleChange}
-                                maxLength="2"
-                                style={{ width: '60px' }}
-                                aria-label="Enter the last two digits"
-                            />
-                        </Form.Group>
-                        {errors?.year_of_artwork?.map((message, idx) => (
-                            <Alert variant="warning" key={idx}>
-                                {message}
-                            </Alert>
-                        ))}
-                        <div className="d-flex justify-content-center">
-                            <Button className={`${btnStyles.Button} mr-1`} type="submit">
-                                Save
-                            </Button>
-                            <Button className={`${btnStyles.Button} ml-1`} onClick={() => history.goBack()}>
-                                Cancel
-                            </Button>
+return (
+    <Form onSubmit={handleSubmit}>
+        <Row className="justify-content-center">
+            <Col className="py-2 p-0 p-md-2" md={7} lg={8}>
+                <Container className={`${appStyles.Content} ${formStyles.Container} d-flex flex-column justify-content-center`}>
+                    {image && (
+                        <div className="text-center mb-3">
+                            <Image src={image} alt="Post" className={`${appStyles.Image} img-fluid`} rounded />
                         </div>
-                        <Form.Group>
-                            <Form.Check
-                                type="checkbox"
-                                className={`${formStyles.customCheckbox}`}
-                                label="Make this post visible only to followers"
-                                checked={is_private}
-                                onChange={(e) => setPostData({ ...postData, is_private: e.target.checked })}
-                            />
-                        </Form.Group>
-                        {successMessage && (
-                            <div className={feedbackStyles.fixedMessage}>
-                                <SuccessMessage message={successMessage} />
-                            </div>
-                        )}
-                        {errorMessage && (
-                            <div className={feedbackStyles.fixedMessage}>
-                                <ErrorMessage message={errorMessage} />
-                            </div>
-                        )}
-                    </Container>
-                </Col>
-            </Row>
-        </Form >
-    );
+                    )}
+                    <Form.Group className="text-center">
+                        <Form.Label htmlFor="post-title">Post title</Form.Label>
+                        <Form.Control
+                            id="post-title"
+                            type="text"
+                            name="title"
+                            value={title}
+                            onChange={handleChange}
+                            aria-label="Give your post a title"
+                        />
+                        {errors?.title?.map((message, idx) => (
+                            <Alert variant="warning" key={idx}>{message}</Alert>
+                        ))}
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label htmlFor="post-content">Content</Form.Label>
+                        <Form.Control
+                            id="post-content"
+                            type="text"
+                            name="content"
+                            value={content}
+                            as="textarea"
+                            rows={6}
+                            onChange={handleChange}
+                        />
+                        {errors?.content?.map((message, idx) => (
+                            <Alert variant="warning" key={idx}>{message}</Alert>
+                        ))}
+                    </Form.Group>
+                    <Form.Group>
+                        <Form.Label htmlFor="artist-name">Artist</Form.Label>
+                        <Form.Control
+                            id="artist-name"
+                            type="text"
+                            name="artist_name"
+                            value={artist_name}
+                            onChange={handleChange} />
+                    </Form.Group>
+                    <Form.Group style={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                        <Form.Label htmlFor="year-of-artwork" style={{ marginRight: '5px', marginBottom: '0' }}>Year 19</Form.Label>
+                        <Form.Control
+                            id="year-of-artwork"
+                            type="number"
+                            name="year_of_artwork"
+                            value={year_of_artwork}
+                            onChange={handleChange}
+                            maxLength="2"
+                            style={{ width: '60px' }}
+                            aria-label="Enter the last two digits"
+                        />
+                    </Form.Group>
+                    {errors?.year_of_artwork?.map((message, idx) => (
+                        <Alert variant="warning" key={idx}>
+                            {message}
+                        </Alert>
+                    ))}
+                    <div className="d-flex justify-content-center">
+                        <Button className={`${btnStyles.Button} mr-1`} type="submit">
+                            Save
+                        </Button>
+                        <Button className={`${btnStyles.Button} ml-1`} onClick={() => history.goBack()}>
+                            Cancel
+                        </Button>
+                    </div>
+                    <Form.Group>
+                        <Form.Check
+                            type="checkbox"
+                            className={`${formStyles.customCheckbox}`}
+                            label="Make this post visible only to followers"
+                            checked={is_private}
+                            onChange={(e) => setPostData({ ...postData, is_private: e.target.checked })}
+                        />
+                    </Form.Group>
+                    {successMessage && (
+                        <div className={feedbackStyles.fixedMessage}>
+                            <SuccessMessage message={successMessage} />
+                        </div>
+                    )}
+                    {errorMessage && (
+                        <div className={feedbackStyles.fixedMessage}>
+                            <ErrorMessage message={errorMessage} />
+                        </div>
+                    )}
+                </Container>
+            </Col>
+        </Row>
+    </Form >
+);
 }
 
 export default PostEditForm;

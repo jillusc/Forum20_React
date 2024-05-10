@@ -43,6 +43,7 @@ const UserPasswordForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setErrors({});
         try {
             await axiosRes.post("/dj-rest-auth/password/change/", userData);
             setSuccessMessage("Password changed successfully.");

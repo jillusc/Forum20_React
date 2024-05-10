@@ -57,6 +57,7 @@ const ProfileEditForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setErrors({});
         const formData = new FormData();
         formData.append("name", name);
         formData.append("content", content);

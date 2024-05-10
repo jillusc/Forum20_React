@@ -35,6 +35,7 @@ const UsernameForm = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
+        setErrors({});
         try {
             await axiosRes.put("/dj-rest-auth/user/", { username });
             setCurrentUser((prevUser) => ({

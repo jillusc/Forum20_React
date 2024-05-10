@@ -142,10 +142,17 @@ const Post = (props) => {
                 <Card.Img src={image} alt={title} className={styles.PostImage} />
             </Link>
             <Card.Body>
-                {artist_name && (
-                    <Card.Text>{artist_name}{year_of_artwork && `, ${year_of_artwork}`}</Card.Text>
+            {(artist_name || (year_of_artwork !== undefined && year_of_artwork !== null)) && (
+                    <Card.Text>
+                        {artist_name ? artist_name : ''}
+                        {artist_name && year_of_artwork !== undefined && year_of_artwork !== null ? ', ' : ''}
+                        {year_of_artwork !== undefined && year_of_artwork !== null ? `19${year_of_artwork === 0 ? '00' : year_of_artwork}` : ''}
+                    </Card.Text>
                 )}
-                {content && <Card.Text>{content}</Card.Text>}
+                {content &&
+                    <Card.Text>
+                        {content}
+                    </Card.Text>}
                 <div className={styles.IconsBar}>
                     {is_owner ? (
                         <OverlayTrigger placement="top" overlay={<Tooltip>

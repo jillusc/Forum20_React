@@ -6,6 +6,7 @@ forum20 is an image sharing social app designed to encourage enthusiasts of 20th
 
 The live link can be found here: [forum20]( https://forum20-frontend-88d68fe3218f.herokuapp.com/)
 
+
 ## User Experience (UX)
 
 ### User Stories
@@ -215,6 +216,7 @@ Whilst the only imagery aside from a minimal logo comes in the form of user post
 From the logo, a favicon was created using basic image editing software. The number 20, compiled with the two different fonts, provides a (modernist) reminder of the platform's subject - 20th century art - and serves to keep it in visitors' vision and minds:<br><br>
 <img src="README%20images/favicon.png">
 
+
 ## Data Models
 
 This project follows Object-Oriented Programming principles and employs Django's Class-Based Generic Views. It includes six custom models:
@@ -226,9 +228,9 @@ This project follows Object-Oriented Programming principles and employs Django's
 - Bookmark: allows users to save posts for later viewing, featuring many-to-one relationships with both the User model (via bookmark owner) and Post model (associating a bookmark with a post).
 - Follower: tracks relationships between users with a many-to-one relationship to the User model twice: once for the user who is following and once for the followed user.
 
-
 The database schema are illustrated by the ERD diagram below:<br><br>
 <img src="README%20images/ERD.jpg">
+
 
 ## Features
 
@@ -261,7 +263,6 @@ This is an application where visitors can explore 20th century artworks and enri
 <img src="README%20images/logo-nav-items.jpg" width="900px"><br><br>
 <img src="README%20images/navbar-logged-in.jpg" width="900px"><br><br>
 <img src="README%20images/nav-hamburger.jpg" width="300px">
-
 
 ### Home page
 
@@ -317,6 +318,7 @@ This page offers registered users a personalised space to manage their account a
 <img src="README%20images/tooltip.jpg" width="220px"><br><br>
 <strong>Pointers</strong>: in the CSS stylesheets, the 'cursor: pointer' attribute was set as an indication to the user of an interactive element.
 
+
 ## Testing Documentation
 
 The forum20 application was subjected to manual testing in Google Chrome, Mozilla Firefox, Microsoft Edge and Safari browsers.<br>
@@ -324,6 +326,7 @@ Documentation can be found [here](README%20images/forum20%20testing.pdf).
 
 The project's User Stories were evaluated to confirm whether they were met.<br>
 Documentation for this is [here](README%20images/user%20stories%20met.pdf).
+
 
 ## Security
 
@@ -341,6 +344,7 @@ Axios is configured, using HTTPS for encrypted data transmission and enabling se
 A simple, custom 401 Error page was created to inform of such error and includes a link to direct the user back to the site:<br><br>
 <img src="README%20images/page-401.jpg"><br><br>
 <img src="README%20images/page-4012.jpg"><br><br>
+
 
 ## Deployment
 
@@ -382,6 +386,7 @@ xvi) Click the Open app button to verify it runs correctly. <br>
 - HTML
 - CSS
 
+
 ## Programs, Frameworks & Libraries used
 
 - [GitHub](https://github.com) - used for version control and the Projects tool for agile approach.
@@ -408,13 +413,16 @@ xvi) Click the Open app button to verify it runs correctly. <br>
 - [W3C](https://www.w3.org) - used for CSS code validation.<br><br>
 
 
-## Improvements/Bug fixes
+## Bugs/fixes/improvements
+
+In order to have full access to the site in the Safari browser, the user must turn off 'Prevent Cross-Site Tracking' in the settings, otherwise the site encounters a 401 error whereby users can not log in: they can access the site as expected for a non-authenticated user, and can create an account, but not subsequently log in successfully.
+
+It was found that when entering 00 for the year of the artwork (in the case of the year 1900), there was an issue with the subsequent display - the reason being that JavaScript was treating 00 as 0. This was resolved by inserting a conditional check for 0 and setting it to show 1900 in this case.
 
 The app would benefit from the following modifications:
-
-   - Ensuring application of the active class (NavLink style) upon all page reloads
    - In the 'Most followed profiles' box, making the follow/unfollow buttons' appearance change dynamically based on the user's action (rather than relying on static styles)
-   - An option for the user to delete their account
+   - Options for the user to delete their account and to retrieve a forgotten password.
+
 
 ## Credits
 

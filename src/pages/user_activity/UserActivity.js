@@ -72,36 +72,44 @@ const UserActivity = ({ mobile }) => {
                                         </div>
                                     </>
                                 }>
-                                    <InfiniteScroll
-                                        dataLength={userComments.results.length}
-                                        next={fetchMoreData}
-                                        hasMore={false}
-                                        loader={<Asset spinner aria-label="Loading content..." />}
-                                    >
-                                        {userComments.results.map(comment => (
-                                            <div key={comment.id}>
-                                                <h6 className={styles.CommentsHeader}>
-                                                    On post:{" "}
-                                                    <Link to={`/posts/${comment.post}`}>
-                                                        <span>{comment.post_title}</span>
-                                                    </Link>
-                                                </h6>
-                                                <Comment
-                                                    comment={comment}
-                                                    content={comment.content}
-                                                    id={comment.id}
-                                                    owner={comment.owner}
-                                                    hideOwner={true}
-                                                    profile_id={currentUser.profile_id}
-                                                    profile_image={currentUser.profile_image}
-                                                    updated_at={comment.updated_at}
-                                                    post_title={comment.post_title}
-                                                />
-                                                <hr className={styles.notHidden} />
-                                            </div>
-                                        ))}
-                                    </InfiniteScroll>
+                                    {userComments.results.length === 0 ? (
+                                        <div>
+                                            <p className={styles.NoContent}>No comments to show.</p>
+                                        </div>
+                                    ) : (
+                                        <InfiniteScroll
+                                            dataLength={userComments.results.length}
+                                            next={fetchMoreData}
+                                            hasMore={false}
+                                            loader={<Asset spinner aria-label="Loading content..." />}
+                                        >
+                                            {userComments.results.map(comment => (
+                                                <div key={comment.id}>
+                                                    <h6 className={styles.CommentsHeader}>
+                                                        On post:{" "}
+                                                        <Link to={`/posts/${comment.post}`}>
+                                                            <span>{comment.post_title}</span>
+                                                        </Link>
+                                                    </h6>
+                                                    <Comment
+                                                        comment={comment}
+                                                        content={comment.content}
+                                                        id={comment.id}
+                                                        owner={comment.owner}
+                                                        hideOwner={true}
+                                                        profile_id={currentUser.profile_id}
+                                                        profile_image={currentUser.profile_image}
+                                                        updated_at={comment.updated_at}
+                                                        post_title={comment.post_title}
+                                                        setComments={setUserComments}
+                                                    />
+                                                    <hr className={styles.notHidden} />
+                                                </div>
+                                            ))}
+                                        </InfiniteScroll>
+                                    )}
                                 </Tab>
+
                                 <Tab eventKey="bookmarks" aria-labelledby="bookmarks-tab" title={
                                     <>
                                         <div className={`${styles.TabLink} ${activeTab === "bookmarks" ? styles.TabLink_active : ""}`}>
@@ -111,7 +119,7 @@ const UserActivity = ({ mobile }) => {
                                 }>
                                     {userBookmarks.results.length === 0 ? (
                                         <div>
-                                            <p className={styles.NoBookmarkedPosts}>No bookmarked posts to show.</p>
+                                            <p className={styles.NoContent}>No bookmarked posts to show.</p>
                                         </div>
                                     ) : (
                                         <InfiniteScroll
