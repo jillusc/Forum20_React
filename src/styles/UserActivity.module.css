@@ -33,7 +33,7 @@ hr.notHidden {
     margin-bottom: 20px;
 }
 
-.Bookmark_MediaBody {
+.LikesBookmarks_MediaBody {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -41,15 +41,15 @@ hr.notHidden {
     width: 95%;
 }
 
-.CommentsHeader {
+.Header {
     text-align: left;
     margin-top: 30px;
     margin-left: 88px;
     margin-bottom: 0;
 }
 
-.BookmarksHeader {
-    text-align: left;
+.PostTitle {
+    margin-left: 50px;
     margin-bottom: 0;
 }
 
@@ -60,14 +60,8 @@ h6 a {
     text-decoration: none;
 }
 
-h6 span:hover {
-    font-weight: bolder;
-    color: #8B0000;
-}
-
-h6 a:hover,
-h6 a:active {
-    font-weight: bold;
+h6 span:hover,
+h6 a:hover {
     color: #8B0000;
     text-decoration: none;
     cursor: pointer;
@@ -92,11 +86,10 @@ h6 a:active {
     font-size: 1.25rem;
     text-transform: capitalize;
     cursor: pointer;
-    font-weight: bold;
 }
 
 .Date {
-    font-weight: light;
+    font-weight: 300;
     font-size: .8rem;
     color: #8e9aaf;
     text-align: right;
