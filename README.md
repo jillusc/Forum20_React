@@ -282,9 +282,10 @@ Tailored content is displayed to the registered user through this page. The Feed
 
 ### Activity page
 
-The Activity page aggregates all the comments that the authenticated user has submitted and the posts they have bookmarked. A simple organisation of the content utilising tabs offers a convenient way for the user to review these interactions, with the options to revisit the relevant post page as well as edit and delete the comments. For cohesion and consistency of design, the tab headers match the appearance of the navbar links:<br><br>
+The Activity page aggregates all the likes and comments that the user has submitted and the posts they have bookmarked. A simple organisation of the content utilising tabs offers a convenient way for the user to review these interactions, with the options to revisit the relevant post page as well as edit and delete the comments. For cohesion and consistency of design, the tab headers match the appearance of the navbar links:<br><br>
 <img src="README%20images/page-activity1.jpg"><br><br>
-<img src="README%20images/page-activity2.jpg">
+<img src="README%20images/page-activity2.jpg"><br><br>
+<img src="README%20images/page-activity3.jpg">
 
 ### Add Post page
 
@@ -421,7 +422,8 @@ It was found that when entering 00 for the year of the artwork (in the case of t
 
 The app would benefit from the following modifications:
    - In the 'Most followed profiles' box, making the follow/unfollow buttons' appearance change dynamically based on the user's action (rather than relying on static styles)
-   - Options for the user to delete their account and to retrieve a forgotten password.
+   - Including more details in the tabs in the Activity page, e.g. post owner's username/avatar and remove like/bookmark options
+   - Enabling the user to delete their account and to retrieve a forgotten password.
 
 
 ## Credits
