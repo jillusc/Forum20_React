@@ -69,7 +69,8 @@ const UserActivity = ({ mobile }) => {
                         {userLikes.loading || userComments.loading || userBookmarks.loading ? (
                             <Asset spinner aria-label="Loading content…" />
                         ) : (
-                            <Tabs activeKey={activeTab} onSelect={handleTabChange} className={styles.tabPosition}>
+                            <Tabs activeKey={activeTab} onSelect={handleTabChange}
+                                className={`${styles.tabPosition} ${styles.verticalTabs}`}>
                                 <Tab
                                     eventKey="likes"
                                     aria-labelledby="likes-tab"

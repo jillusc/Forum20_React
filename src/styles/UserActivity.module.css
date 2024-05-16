@@ -16,6 +16,7 @@ h6 {
 
 .UserActivity p.NoContent {
     font-size: 100%;
+    margin-left: 0;
 }
 
 .UserActivity hr {
@@ -72,21 +73,28 @@ h6 a:hover {
     font-weight: bold;
     color: #3c3c3c;
     text-decoration: none;
-}
-
-.TabLink i {
+    padding: 5px;
+  }
+  
+  .TabLink i {
     font-size: 0.8rem;
     padding: 5px;
-}
+  }
 
-.TabLink_active,
-.TabLink_active i,
-.TabLink:hover {
+  .TabLink:hover,
+  .TabLink:hover i {
+    color: #8B0000;
+    font-weight: bolder;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
+  .TabLink_active,
+  .TabLink_active i {
     color: #8B0000;
     font-size: 1.25rem;
     text-transform: capitalize;
-    cursor: pointer;
-}
+  }
 
 .Date {
     font-weight: 300;
@@ -94,4 +102,26 @@ h6 a:hover {
     color: #8e9aaf;
     text-align: right;
     margin-right: 10px;
+}
+
+@media (max-width: 768px) {
+    .verticalTabs {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .tabPosition .nav-item {
+        margin-bottom: 10px;
+    }
+    
+    .PostTitle {
+        margin-left: 10px;
+        margin-bottom: 0;
+    }
+
+    .UserActivity p {
+        font-size: 110%;
+        margin-left: 20px;
+        margin-bottom: 0;
+    }
 }
