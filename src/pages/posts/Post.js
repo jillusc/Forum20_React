@@ -31,7 +31,7 @@ const Post = (props) => {
     };
 
     const handleDelete = async () => {
-        const confirmDelete = window.confirm("Are you sure you want to delete this post?");
+        const confirmDelete = window.confirm("Are you sure you want to delete this post?\n\nThis action cannot be undone.");
         if (confirmDelete) {
             try {
                 await axiosRes.delete(`/posts/${id}/`);
@@ -151,7 +151,7 @@ const Post = (props) => {
                 )}
                 {content &&
                     <Card.Text>
-                        {content}
+                        <p className={styles.ContentText}>{content}</p>
                     </Card.Text>}
                 <div className={styles.IconsBar}>
                     {is_owner ? (

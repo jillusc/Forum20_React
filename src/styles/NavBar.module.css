@@ -14,19 +14,16 @@
   padding: 5px;
 }
 
-.NavLink:hover i,
-.NavLink:hover {
-  color: #8B0000;
-  font-weight: bolder;
-  text-decoration: none;
-}
-
 .NavLink i {
   font-size: 0.8rem;
   padding: 5px;
 }
 
-.NavLink i:hover {
+.NavLink:hover,
+.NavLink:hover i {
+  color: #8B0000;
+  font-weight: bolder;
+  text-decoration: none;
   cursor: pointer;
 }
 
