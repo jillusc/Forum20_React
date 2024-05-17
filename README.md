@@ -262,14 +262,14 @@ This is an application where visitors can explore 20th century artworks and enri
  - <strong>Navigation bar</strong>: the navbar is present at the top of every page and displays two sets of links which are conditionally rendered dependent on a logged-in or non-authenticated user. These navlinks are in uppercase text and paired with an icon from Font Awesome. On hover, links & icons turn from the default charcoal colour to wine red. The link & icon of the currently active page display slightly larger and in title case, distinguishing active pages effectively. Given a logged-in user, their profile picture is rendered as an avatar at the right hand side of the navbar and intuitively links to their profile page. On smaller screens, the navigation items reduce into a hamburger menu:<br><br>
 <img src="README%20images/logo-nav-items.jpg" width="900px"><br><br>
 <img src="README%20images/navbar-logged-in.jpg" width="900px"><br><br>
-<img src="README%20images/nav-hamburger.jpg" width="300px">
+<img src="README%20images/nav-hamburger.jpg" width="270px">
 
 ### Home page
 
 The homepage displays member posts in Bootstrap cards, ordered by most recent. For non-authenticated users, a welcome heading informs the visitor what the site is named and what it does in just a few words. It has a clear textual link inviting the user to "Join the community!" and this opens the signup page onclick. Viewers of the homepage take an immediate dive into the heart of the app as they are greeted with a good amout of colour and options, organised into neatly defined sections: they get an instant taste of what is on offer through a (seemingly endless) supply of posts as they scroll; a component renders to the side of the main content on larger screens (on smaller ones, above) containing a snapshot of information on exisiting members under the heading "Most followed profiles", temptingly demonstrating the social media character of the site:<br><br>
 <img src="README%20images/page-home.jpg">
 
-### Sign Up and Log In pages
+### Log In and Sign Up pages
 
 These pages both present forms for their respective purposes. Simplicity is key here: with a contrast to the hive of activity found on the site's main pages, users can efficiently input minimal information and then promptly return to accessing the content that interests them. Upon successful signup, the login page is loaded; upon successful login, the homepage. In both cases, the page redirections steer the user towards establishing their next options:<br><br>
 <img src="README%20images/page-log_in2.jpg" width="270px">
@@ -285,11 +285,12 @@ Tailored content is displayed to the registered user through this page. The Feed
 The Activity page aggregates all the likes and comments that the user has submitted and the posts they have bookmarked. A simple organisation of the content utilising tabs offers a convenient way for the user to review these interactions, with the options to revisit the relevant post page as well as edit and delete the comments. For cohesion and consistency of design, the tab headers match the appearance of the navbar links:<br><br>
 <img src="README%20images/page-activity1.jpg"><br><br>
 <img src="README%20images/page-activity2.jpg"><br><br>
-<img src="README%20images/page-activity3.jpg">
+<img src="README%20images/page-activity3.jpg"><br><br>
+<img src="README%20images/page-activity4.jpg" width="270px">
 
 ### Add Post page
 
-Clicking on the Add Post navlink opens a page with a form. This features a larger box via which to upload an image and a narrower one where the user enters the post's details. A title is mandatory; there are further input fields for additional text content, the name of the artist and year of the artwork. Whilst posts are set for public viewing by default, a checkbox affords the user the control to set the post as visible only to their followers. Upon successful creation, a custom feedback message displays before the Post page is rendered to display the submitted post:<br><br>
+Clicking on the Add Post navlink opens a page with a form. This features a larger box via which to upload an image and a narrower one where the user enters the post's details. A title is mandatory; there are further input fields for additional text content, the name of the artist and year of the artwork. Whilst posts are set for public viewing by default, a checkbox affords the user the control to set the post as visible only to their followers. Upon successful creation, a custom feedback message displays before the submitted post is rendered:<br><br>
 <img src="README%20images/page-addpost1.jpg"><br><br>
 <img src="README%20images/page-addpost2.jpg">
 
